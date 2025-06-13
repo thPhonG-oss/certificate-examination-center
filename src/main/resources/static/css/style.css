@@ -1,0 +1,52 @@
+/* Sidebar Styles */
+.sidebar {
+    min-height: 100vh;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+.nav-link {
+    color: #333;
+    padding: 0.5rem 1rem;
+    transition: all 0.3s ease;
+}
+
+.nav-link:hover {
+    background-color: #f8f9fa;
+    transform: translateX(5px);
+}
+
+.nav-link.active {
+    background-color: #0d6efd;
+    color: white;
+}
+
+/* Card Styles */
+.card-dashboard {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card-dashboard:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+/* Table Styles */
+.table th {
+    cursor: pointer;
+    user-select: none;
+}
+
+.table th:hover {
+    background-color: #f8f9fa;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .sidebar {
+        min-height: auto;
+    }
+
+    .card-dashboard {
+        margin-bottom: 1rem;
+    }
+}
