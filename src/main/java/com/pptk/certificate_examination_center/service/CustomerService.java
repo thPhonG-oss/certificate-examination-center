@@ -5,5 +5,5 @@ import com.pptk.certificate_examination_center.dto.CustomerDto;
 import java.util.List;
 
 public interface CustomerService {
-    public List<CustomerDto> getAllCustomers();
+    List<CustomerDto> getAllCustomers();
 }

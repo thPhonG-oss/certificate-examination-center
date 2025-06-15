@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 
 @RestController
-@RequestMapping("/customers")
+@RequestMapping("/customers") // localhost:8080/customers
 public class CustomerController {
     @Autowired
     private CustomerService customerService;
