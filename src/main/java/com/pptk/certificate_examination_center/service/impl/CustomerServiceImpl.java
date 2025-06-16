@@ -2,6 +2,8 @@ package com.pptk.certificate_examination_center.service.impl;
 
 import com.pptk.certificate_examination_center.dao.CustomerDao;
 import com.pptk.certificate_examination_center.dto.CustomerDto;
+import com.pptk.certificate_examination_center.entity.Customer;
+import com.pptk.certificate_examination_center.exception.CustomerNotFoundException;
 import com.pptk.certificate_examination_center.mapper.CustomerMapper;
 import com.pptk.certificate_examination_center.repository.CustomerRepository;
 import com.pptk.certificate_examination_center.service.CustomerService;
@@ -24,5 +26,28 @@ public class CustomerServiceImpl implements CustomerService {
             customerDtos.add(customerDto);
         });
         return customerDtos;
+    }
+
+    @Override
+    public CustomerDto getCustomerById(Long id) {
+        Customer customer = customerRepository.findById(id)
+                .orElseThrow(() -> new CustomerNotFoundException("Customer not found with id: " + id));
+
+        return CustomerMapper.toDto(customer);
+    }
+
+    @Override
+    public CustomerDto createCustomer(CustomerDto customerDto) {
+        return null;
+    }
+
+    @Override
+    public CustomerDto updateCustomer(Long id, CustomerDto customerDto) {
+        return null;
+    }
+
+    @Override
+    public void deleteCustomer(Long id) {
+
     }
 }
