@@ -11,6 +11,7 @@ import java.util.Objects;
  */
 public class CustomerDto implements Serializable {
     private final String name;
+    private final String organization; // Assuming this is the organization name
     private final String email;
     private final String phoneNumber;
     private final String address;
@@ -18,9 +19,9 @@ public class CustomerDto implements Serializable {
     private final String customer_type;
     private final LocalDate dob;
 
-
-    public CustomerDto(String name, String email, String phoneNumber, String address, String citizen_id, String customer_type, LocalDate dob) {
+    public CustomerDto(String name, String organization, String email, String phoneNumber, String address, String citizen_id, String customer_type, LocalDate dob) {
         this.name = name;
+        this.organization = organization;
         this.email = email;
         this.phoneNumber = phoneNumber;
         this.address = address;
@@ -31,6 +32,10 @@ public class CustomerDto implements Serializable {
 
     public String getName() {
         return name;
+    }
+
+    public String getOrganization() {
+        return organization;
     }
 
     public String getEmail() {
@@ -55,38 +60,5 @@ public class CustomerDto implements Serializable {
 
     public LocalDate getDob() {
         return dob;
-    }
-
-
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        CustomerDto entity = (CustomerDto) o;
-        return Objects.equals(this.name, entity.name) &&
-                Objects.equals(this.email, entity.email) &&
-                Objects.equals(this.phoneNumber, entity.phoneNumber) &&
-                Objects.equals(this.address, entity.address) &&
-                Objects.equals(this.citizen_id, entity.citizen_id) &&
-                Objects.equals(this.customer_type, entity.customer_type) &&
-                Objects.equals(this.dob, entity.dob);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(name, email, phoneNumber, address, citizen_id, customer_type, dob);
-    }
-
-    @Override
-    public String toString() {
-        return getClass().getSimpleName() + "(" +
-                "name = " + name + ", " +
-                "email = " + email + ", " +
-                "phoneNumber = " + phoneNumber + ", " +
-                "address = " + address + ", " +
-                "citizen_id = " + citizen_id + ", " +
-                "customer_type = " + customer_type + ", " +
-                "dob = " + dob + ")";
     }
 }

@@ -8,13 +8,16 @@ public class CustomerMapper {
         if (customer == null) {
             return null;
         }
-        CustomerDto dto = new CustomerDto(customer.getCustomer_name(),
-                customer.getCustomer_email(),
-                customer.getCustomer_phone(),
-                customer.getCustomer_address(),
-                customer.getCustomer_citizen_id(),
-                customer.getCustomer_type(),
-                customer.getCustomer_dob());
+        CustomerDto dto = new CustomerDto(
+                customer.getName(),
+                customer.getOrganization_name(),
+                customer.getEmail(),
+                customer.getPhone(),
+                customer.getAddress(),
+                customer.getCitizen_id(),
+                customer.getType(),
+                customer.getDob()
+        );
         return dto;
     }
 
@@ -23,13 +26,14 @@ public class CustomerMapper {
             return null;
         }
         Customer customer = new Customer();
-        customer.setCustomer_name(dto.getName());
-        customer.setCustomer_email(dto.getEmail());
-        customer.setCustomer_phone(dto.getPhoneNumber());
-        customer.setCustomer_address(dto.getAddress());
-        customer.setCustomer_citizen_id(dto.getCitizen_id());
-        customer.setCustomer_type(dto.getCustomer_type());
-        customer.setCustomer_dob(dto.getDob());
+        customer.setName(dto.getName());
+        customer.setOrganization_name(dto.getOrganization());
+        customer.setEmail(dto.getEmail());
+        customer.setPhone(dto.getPhoneNumber());
+        customer.setAddress(dto.getAddress());
+        customer.setCitizen_id(dto.getCitizen_id());
+        customer.setType(dto.getCustomer_type());
+        customer.setDob(dto.getDob());
         return customer;
     }
 }
