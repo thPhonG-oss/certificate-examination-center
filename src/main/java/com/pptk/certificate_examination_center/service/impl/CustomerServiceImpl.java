@@ -38,16 +38,25 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public CustomerDto createCustomer(CustomerDto customerDto) {
-        return null;
+        Customer customer = CustomerMapper.toEntity(customerDto);
+        Customer savedCustomer = customerRepository.save(customer);
+
+        return CustomerMapper.toDto(savedCustomer);
     }
 
     @Override
     public CustomerDto updateCustomer(Long id, CustomerDto customerDto) {
-        return null;
+        Customer existingCustomer = customerRepository.findById(id)
+                .orElseThrow(() -> new CustomerNotFoundException("Customer not found with id: " + id));
+        Customer updatedCustomer = customerRepository.save(existingCustomer);
+        return CustomerMapper.toDto(updatedCustomer);
     }
 
     @Override
     public void deleteCustomer(Long id) {
-
+        if (!customerRepository.existsById(id)) {
+            throw new CustomerNotFoundException("Customer not found with id: " + id);
+        }
+        customerRepository.deleteById(id);
     }
 }
