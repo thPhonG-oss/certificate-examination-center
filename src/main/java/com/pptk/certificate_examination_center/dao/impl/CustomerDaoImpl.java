@@ -15,8 +15,7 @@ public class CustomerDaoImpl implements CustomerDao {
 
     @Override
     public List<Customer> selectAllCustomers() {
-        String hql = "SELECT c FROM Customer c";
-        return entityManager.createQuery(hql, Customer.class)
-                .getResultList();
+        String hql = "FROM Customer";
+        return entityManager.createQuery(hql, Customer.class).getResultList();
     }
 }

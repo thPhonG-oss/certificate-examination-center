@@ -88,6 +88,7 @@ CREATE TABLE thi_sinh (
     id_phieu_dang_ky INT NOT NULL,
     ho_ten NVARCHAR(100) NOT NULL,
     gioi_tinh VARCHAR(1) CHECK (gioi_tinh IN ('M', 'F')) NOT NULL,
+    ngay_sinh DATE NOT NULL,
     sdt VARCHAR(10) NOT NULL UNIQUE,
     email VARCHAR(255) UNIQUE,
     dia_chi NVARCHAR(255),

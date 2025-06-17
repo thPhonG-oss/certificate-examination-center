@@ -5,46 +5,52 @@ import jakarta.persistence.*;
 import java.time.LocalDate;
 
 @Entity
-@Table(name = "customer")
+@Table(name = "khach_hang")
 public class Customer {
     @Id
     @GeneratedValue(strategy = jakarta.persistence.GenerationType.IDENTITY)
+    @Column(name = "id_khach_hang")
     private Long id;
 
-    @Column(name = "customer_name")
-    private String customer_name;
-    @Column(name = "customer_email")
-    private String customer_email;
-    @Column(name = "customer_phone")
-    private String customer_phone;
-    @Column(name = "customer_address")
-    private String customer_address;
-    @Column(name = "customer_citizen_id")
-    private String customer_citizen_id;
-    @Column(name = "customer_type")
-    private String customer_type;
-    @Column(name = "customer_dob")
-    private LocalDate customer_dob;
+    @Column(name = "ho_ten")
+    private String name;
+    @Column(name = "ten_co_quan")
+    private String organization_name;
+    @Column(name = "email")
+    private String email;
+    @Column(name = "sdt")
+    private String phone;
+    @Column(name = "dia_chi")
+    private String address;
+    @Column(name = "cccd")
+    private String citizen_id;
+    @Column(name = "loai_khach_hang")
+    private String type;
+    @Column(name = "ngay_sinh")
+    private LocalDate dob;
 
     public Customer(){}
-    public Customer(String customer_name, String customer_email, String customer_phone, String customer_address, String customer_citizen_id, String customer_type, LocalDate customer_dob) {
-        this.customer_name = customer_name;
-        this.customer_email = customer_email;
-        this.customer_phone = customer_phone;
-        this.customer_address = customer_address;
-        this.customer_citizen_id = customer_citizen_id;
-        this.customer_type = customer_type;
-        this.customer_dob = customer_dob;
+    public Customer(String name, String organization_name, String email, String phone, String address, String citizen_id, String type, LocalDate dob) {
+        this.name = name;
+        this.organization_name = organization_name;
+        this.email = email;
+        this.phone = phone;
+        this.address = address;
+        this.citizen_id = citizen_id;
+        this.type = type;
+        this.dob = dob;
     }
-    public Customer(Long id, String customer_name, String customer_email, String customer_phone, String customer_address, String customer_citizen_id, String customer_type, LocalDate customer_dob) {
+
+    public Customer(Long id, String name, String organization_name, String email, String phone, String address, String citizen_id, String type, LocalDate dob) {
         this.id = id;
-        this.customer_name = customer_name;
-        this.customer_email = customer_email;
-        this.customer_phone = customer_phone;
-        this.customer_address = customer_address;
-        this.customer_citizen_id = customer_citizen_id;
-        this.customer_type = customer_type;
-        this.customer_dob = customer_dob;
+        this.name = name;
+        this.organization_name = organization_name;
+        this.email = email;
+        this.phone = phone;
+        this.address = address;
+        this.citizen_id = citizen_id;
+        this.type = type;
+        this.dob = dob;
     }
 
     public Long getId() {
@@ -55,75 +61,82 @@ public class Customer {
         this.id = id;
     }
 
-    public String getCustomer_name() {
-        return customer_name;
+    public String getName() {
+        return name;
     }
 
-    public void setCustomer_name(String name) {
-        this.customer_name = name;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getCustomer_email() {
-        return customer_email;
+    public String getOrganization_name() {
+        return organization_name;
     }
 
-    public void setCustomer_email(String email) {
-        this.customer_email = email;
+    public void setOrganization_name(String organization_name) {
+        this.organization_name = organization_name;
     }
 
-    public String getCustomer_phone() {
-        return customer_phone;
+    public String getEmail() {
+        return email;
     }
 
-    public void setCustomer_phone(String phoneNumber) {
-        this.customer_phone = phoneNumber;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
-    public String getCustomer_address() {
-        return customer_address;
+    public String getPhone() {
+        return phone;
     }
 
-    public void setCustomer_address(String address) {
-        this.customer_address = address;
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
-    public String getCustomer_citizen_id() {
-        return customer_citizen_id;
+    public String getAddress() {
+        return address;
     }
 
-    public void setCustomer_citizen_id(String citizen_id) {
-        this.customer_citizen_id = citizen_id;
+    public void setAddress(String address) {
+        this.address = address;
     }
 
-    public String getCustomer_type() {
-        return customer_type;
+    public String getCitizen_id() {
+        return citizen_id;
     }
 
-    public void setCustomer_type(String customer_type) {
-        this.customer_type = customer_type;
+    public void setCitizen_id(String citizen_id) {
+        this.citizen_id = citizen_id;
     }
 
-    public LocalDate getCustomer_dob() {
-        return customer_dob;
+    public String getType() {
+        return type;
     }
 
-    public void setCustomer_dob(LocalDate dob) {
-        this.customer_dob = dob;
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public LocalDate getDob() {
+        return dob;
+    }
+
+    public void setDob(LocalDate dob) {
+        this.dob = dob;
     }
 
     @Override
     public String toString() {
         return "Customer{" +
                 "id=" + id +
-                ", name='" + customer_name + '\'' +
-                ", email='" + customer_email + '\'' +
-                ", phoneNumber='" + customer_phone + '\'' +
-                ", address='" + customer_address + '\'' +
-                ", citizen_id='" + customer_citizen_id + '\'' +
-                ", customer_type='" + customer_type + '\'' +
-                ", dob=" + customer_dob +
+                ", name='" + name + '\'' +
+                ", organization_name='" + organization_name + '\'' +
+                ", email='" + email + '\'' +
+                ", phone='" + phone + '\'' +
+                ", address='" + address + '\'' +
+                ", citizen_id='" + citizen_id + '\'' +
+                ", type='" + type + '\'' +
+                ", dob=" + dob +
                 '}';
     }
-
-
 }
