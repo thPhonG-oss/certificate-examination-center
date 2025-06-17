@@ -20,4 +20,15 @@ public class GlobalExceptionHandler{
         );
         return new ResponseEntity<>(errorResponse, NOT_FOUND);
     }
+
+    @ExceptionHandler(value = {CandidateNotFoundException.class})
+    public ResponseEntity<ErrorResponse> handleCandidateNotFoundException(CandidateNotFoundException ex, WebRequest request) {
+        ErrorResponse errorResponse = new ErrorResponse(
+                NOT_FOUND.value(),
+                "Not Found",
+                ex.getMessage(),
+                request.getDescription(false).replace("uri=", "")
+        );
+        return new ResponseEntity<>(errorResponse, NOT_FOUND);
+    }
 }
