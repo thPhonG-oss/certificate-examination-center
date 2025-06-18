@@ -1,0 +1,180 @@
+/* Reset mặc định */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f7f7f7;
+  color: #333;
+}
+
+/* Phần top bar màu xanh */
+.topbar-blue {
+  background-color: #7986cb;
+  color: white;
+  font-size: 14px;
+  padding: 6px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.topbar-blue .left span,
+.topbar-blue .right span {
+  margin-right: 20px;
+}
+
+/* Header trắng chứa logo và thông tin nhân viên */
+.topbar {
+  background-color: white;
+  padding: 10px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #ddd;
+}
+
+.logo {
+  height: 30px;
+}
+
+.staff-info {
+  font-size: 14px;
+}
+
+.staff-info .logout {
+  margin-left: 20px;
+  color: black;
+  text-decoration: none;
+}
+
+.staff-info .logout:hover {
+  text-decoration: underline;
+}
+
+.banner .banner-image {
+  width: 100%;
+  height: auto;
+}
+
+/* Navigation bar */
+.navbar {
+  background-color: white;
+  display: flex;
+  border-bottom: 1px solid #ccc;
+}
+
+.navbar a {
+  flex: 1;
+  padding: 14px;
+  text-align: center;
+  text-decoration: none;
+  color: black;
+  font-weight: 500;
+  border-right: 1px solid #eee;
+}
+
+.navbar a:last-child {
+  border-right: none;
+}
+
+.navbar a.active {
+  border-bottom: 4px solid #007bff;
+  font-weight: bold;
+}
+
+/*  */
+.main-content {
+  /* background-color: #5a5a5a; */
+  width: 700px;
+  height: auto;
+  margin: 40px auto;
+  padding: 0 20px;
+}
+
+.main-content .header {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.main-content .header h1 {
+  font-size: 44px;
+  margin: 20px 0;
+}
+
+.frame {
+  background-color: white;
+  padding: 40px 50px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-bottom: 50px;
+}
+
+.candidate-details .row,
+.customer-details .row {
+  margin-top: 30px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.candidate-details .row p,
+.customer-details .row p {
+  width: 48%;
+}
+
+.upadte {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.update > div {
+  margin-top: 30px;
+}
+
+.update-center {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding-left: 40px;
+  padding-right: 60px;
+
+  width: 100%;
+}
+
+.update-center .form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.update-buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.update-buttons button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.update-buttons button:hover {
+  opacity: 0.6;
+}
+
+.confirm-btn button {
+  background-color: #666666;
+  color: white;
+}

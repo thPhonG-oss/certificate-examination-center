@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Registration List</title>
+    <link rel="stylesheet" href="/css/detailRegistrationFormPage.css" />
+  </head>
+
+  <body>
+    <!-- Top blue contact bar -->
+    <div class="topbar-blue">
+      <div class="left">
+        <span>📞 036 272 8710</span>
+        <span>📧 22120036@student.edu.vn</span>
+      </div>
+      <div class="right">
+        <span>🕒 Thứ 2 - Thứ 7: 7h30 - 20h30</span>
+      </div>
+    </div>
+
+    <!-- White sub-header bar -->
+    <header class="topbar">
+      <div class="logo-info">
+        <img src="/images/logo.png" alt="ACCI logo" class="logo" />
+      </div>
+      <div class="staff-info">
+        <span>Nhân viên tiếp nhận: <strong>Đạo Minh Chiến</strong></span>
+        <a href="#" class="logout"><strong>Đăng xuất</strong></a>
+      </div>
+    </header>
+
+    <div class="banner">
+      <img src="/images/banner.png" alt="Banner" class="banner-image" />
+    </div>
+    <div class="main-content">
+      <div class="header">
+        <h1>Cập nhật phiếu đăng ký</h1>
+      </div>
+
+      <!-- Thông tin khách hàng -->
+      <div class="info-customer frame">
+        <h2>THÔNG TIN KHÁCH HÀNG</h2>
+        <div class="customer-details">
+          <div class="row">
+            <p>
+              <strong>Mã phiếu đăng ký:</strong>
+              <span id="registration-id"></span>
+            </p>
+          </div>
+          <div class="row">
+            <p>
+              <strong>Tên khách hàng:</strong>
+              <span id="name"></span>
+            </p>
+            <p>
+              <strong>Loại khách hàng:</strong>
+              <span id="customer-type"></span>
+            </p>
+          </div>
+          <div class="row">
+            <p>
+              <strong>CCCD :</strong>
+              <span id="citizen_id"></span>
+            </p>
+            <p>
+              <strong>Ngày sinh:</strong>
+              <span id="dob"></span>
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Thông tin thí sinh -->
+      <div class="info-candidate frame">
+        <h2>THÔNG TIN THÍ SINH</h2>
+        <div class="candidate-details">
+          <div class="row">
+            <p><strong>Mã thí sinh:</strong> <span id="candidate-id"></span></p>
+            <p>
+              <strong>Loại chứng chỉ:</strong> <span id="certificate-id"></span>
+            </p>
+          </div>
+          <div class="row">
+            <p>
+              <strong>Tên thí sinh:</strong> <span id="candidate-name"></span>
+            </p>
+            <p><strong>Ngày sinh:</strong> <span id="candidate-dob"></span></p>
+          </div>
+          <div class="row">
+            <p><strong>CCCD:</strong> <span id="candidate-cccd"></span></p>
+            <p><strong>Lịch thi:</strong> <span id="exam-schedule"></span></p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Cập nhật -->
+      <div class="update frame">
+        <h2>THAY ĐỔI THÔNG TIN LỊCH THI</h2>
+        <div class="update-center">
+          <div class="form-group">
+            <label>
+              <input type="radio" name="minhChung" value="1" /> Có minh chứng
+            </label>
+            <label>
+              <input type="radio" name="minhChung" value="0" /> Không minh chứng
+            </label>
+          </div>
+
+          <div class="list-date">
+            <label for="list-date">Lịch thi:</label>
+            <select id="list-date" name="list-date">
+              <!-- Các option sẽ được load từ API và JS -->
+            </select>
+          </div>
+        </div>
+
+        <div class="update-buttons">
+          <div class="cancel-btn">
+            <button type="button" class="cancel">Hủy</button>
+          </div>
+          <div class="confirm-btn">
+            <button type="button" class="confirm">Xác nhận</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="/js/detailRegistrationFormPage.js"></script>
+  </body>
+</html>

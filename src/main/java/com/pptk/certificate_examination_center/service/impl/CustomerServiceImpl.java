@@ -18,6 +18,9 @@ public class CustomerServiceImpl implements CustomerService {
     @Autowired
     private CustomerRepository customerRepository;
 
+    @Autowired
+    private CustomerDao customerDao;
+
     @Override
     public List<CustomerDto> getAllCustomers() {
         List<CustomerDto> customerDtos = new ArrayList<>();
@@ -58,5 +61,11 @@ public class CustomerServiceImpl implements CustomerService {
             throw new CustomerNotFoundException("Customer not found with id: " + id);
         }
         customerRepository.deleteById(id);
+    }
+
+    @Override
+    public CustomerDto getCustomerByRegistrationID(Integer registrationId) {
+        Customer customer = customerDao.selectCustomerByRegistrationId(registrationId);
+        return CustomerMapper.toDto(customer); // ✅ chuyển đổi sang DTO
     }
 }
