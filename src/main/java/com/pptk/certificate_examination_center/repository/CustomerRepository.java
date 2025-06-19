@@ -2,7 +2,10 @@ package com.pptk.certificate_examination_center.repository;
 
 import com.pptk.certificate_examination_center.entity.Customer;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 
 public interface CustomerRepository extends JpaRepository<Customer, Long> {
-    // Additional query methods can be defined here if needed
+
+    @Query(value = "SELECT kh.id_khach_hang FROM khach_hang kh WHERE kh.email = :email", nativeQuery = true)
+    public Long getCustomerIdByEmail(String email);
 }

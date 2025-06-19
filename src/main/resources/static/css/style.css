@@ -1,52 +1,40 @@
-/* Sidebar Styles */
-.sidebar {
-    min-height: 100vh;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+.required::after {
+    content: " *";
+    color: red;
 }
 
-.nav-link {
-    color: #333;
-    padding: 0.5rem 1rem;
-    transition: all 0.3s ease;
+.form-label {
+    font-weight: 500;
 }
 
-.nav-link:hover {
-    background-color: #f8f9fa;
-    transform: translateX(5px);
+.card {
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
 }
 
-.nav-link.active {
-    background-color: #0d6efd;
-    color: white;
-}
-
-/* Card Styles */
-.card-dashboard {
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.card-dashboard:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-}
-
-/* Table Styles */
-.table th {
+.table tbody tr:hover {
     cursor: pointer;
-    user-select: none;
+    background-color: rgba(0, 0, 0, 0.075);
 }
 
-.table th:hover {
-    background-color: #f8f9fa;
+.was-validated .form-control:invalid,
+.was-validated .form-select:invalid {
+    border-color: #dc3545;
 }
 
-/* Responsive Adjustments */
-@media (max-width: 768px) {
-    .sidebar {
-        min-height: auto;
-    }
+.was-validated .form-control:valid,
+.was-validated .form-select:valid {
+    border-color: #198754;
+}
 
-    .card-dashboard {
-        margin-bottom: 1rem;
-    }
+.schedule-checkbox {
+    width: 1.2rem;
+    height: 1.2rem;
+}
+
+.table tbody tr {
+    transition: background-color 0.2s;
+}
+
+.table tbody tr:has(.schedule-checkbox:checked) {
+    background-color: rgba(0, 123, 255, 0.1);
 }

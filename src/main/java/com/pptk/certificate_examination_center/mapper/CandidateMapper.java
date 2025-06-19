@@ -9,6 +9,7 @@ public class CandidateMapper {
             return null;
         }
         CandidateDto dto = new CandidateDto(
+                candidate.getId_registration_form(),
                 candidate.getName(),
                 candidate.getGender(),
                 candidate.getEmail(),
@@ -25,6 +26,7 @@ public class CandidateMapper {
             return null;
         }
         Candidate candidate = new Candidate();
+        candidate.setId_registration_form(dto.getRegistration_form_id());
         candidate.setName(dto.getName());
         candidate.setGender(dto.getGender());
         candidate.setEmail(dto.getEmail());
