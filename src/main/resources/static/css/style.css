@@ -30,59 +30,65 @@ body {
 
 .container {
   display: flex;
-  justify-content: space-between;
-  padding: 80px 100px 40px 150px; /* Thêm padding-left để đẩy toàn bộ sang phải */
+  justify-content: center;
   align-items: center;
-  min-height: 80vh;
+  height: calc(100vh - 40px); /* Trừ đi chiều cao topbar */
+  padding: 0 50px;
 }
 
 .login-box {
   flex: 1;
-  max-width: 400px;
-  padding-left: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .logo {
-  width: 140px;
-  margin-bottom: 30px;
+  border-radius: 20px;
+  max-width: 200px; /* Tăng từ 200px lên 300px */
+  margin-bottom: 40px; /* Tăng khoảng cách dưới */
 }
 
 form {
+  width: 100%;
+  max-width: 300px;
   display: flex;
   flex-direction: column;
+  gap: 20px; /* Tăng khoảng cách giữa các input/button */
 }
 
-form input {
-  padding: 12px 15px;
-  margin-bottom: 16px;
+input[type="text"],
+input[type="password"] {
+  padding: 16px; /* Tăng từ 12px lên 16px */
   border: 1px solid #ccc;
   border-radius: 6px;
-  font-size: 15px;
+  font-size: 16px; /* Tăng font */
 }
 
-form button {
-  padding: 12px 0;
-  background-color: #94b9ff;
+button[type="submit"] {
+  padding: 16px; /* Tăng padding */
+  background-color: #91b7ff;
   color: white;
-  font-weight: bold;
   border: none;
-  border-radius: 10px;
+  border-radius: 20px;
+  font-weight: bold;
+  font-size: 16px; /* Tăng font */
   cursor: pointer;
-  transition: background 0.3s;
+  transition: background-color 0.3s ease;
 }
 
-form button:hover {
-  background-color: #7aa6ff;
+button[type="submit"]:hover {
+  background-color: #6793f5;
 }
 
-.illustration {
-  flex: 1;
-  display: flex;
-  justify-content: center;
-  padding-right: 50px;
+input.error {
+  border: 2px solid red;
 }
 
-.illustration img {
-  max-width: 100%;
-  height: auto;
+.error-message {
+  color: red;
+  font-size: 14px;
+  margin-top: -10px;
+  margin-bottom: 10px;
+  min-height: 18px; /* Giữ khoảng trống ngay cả khi không có lỗi */
 }

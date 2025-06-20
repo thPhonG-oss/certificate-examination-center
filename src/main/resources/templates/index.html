@@ -25,17 +25,17 @@
     <div class="container">
       <div class="login-box">
         <img src="/images/logo.png" alt="ACCI Logo" class="logo" />
-        <form>
-          <input type="text" placeholder="Tên đăng nhập" />
-          <input type="password" placeholder="Mật khẩu" />
+        <form id="login-form">
+          <input type="text" placeholder="Tên đăng nhập" id="username" />
+          <input type="password" placeholder="Mật khẩu" id="password" />
+          <div class="error-message" id="error-message"></div>
+          <!-- Vùng hiển thị lỗi -->
           <button type="submit">Đăng nhập</button>
         </form>
-      </div>
-      <div class="illustration">
-        <img src="/images/OIP.jpg" alt="Illustration" />
       </div>
     </div>
 
     <script src="/js/headerAllPage.js"></script>
+    <script src="/js/login.js"></script>
   </body>
 </html>
