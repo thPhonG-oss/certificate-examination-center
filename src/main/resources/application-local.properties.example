@@ -1,7 +1,7 @@
 # === Database Configuration (Edit your own info) ===
 spring.datasource.url=jdbc:sqlserver://localhost:1433;databaseName=cecDB
-spring.datasource.username=your_username_here
-spring.datasource.password=your_password_here
+spring.datasource.username=sa
+spring.datasource.password=200604
 spring.datasource.driver-class-name=com.microsoft.sqlserver.jdbc.SQLServerDriver
 
 # === Hibernate ===

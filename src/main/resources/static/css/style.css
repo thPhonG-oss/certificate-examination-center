@@ -1,52 +1,88 @@
-/* Sidebar Styles */
-.sidebar {
-    min-height: 100vh;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
 }
 
-.nav-link {
-    color: #333;
-    padding: 0.5rem 1rem;
-    transition: all 0.3s ease;
+body {
+  background-color: #fff;
 }
 
-.nav-link:hover {
-    background-color: #f8f9fa;
-    transform: translateX(5px);
+.topbar {
+  background-color: #7e9ddc;
+  color: white;
+  padding: 8px 50px;
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+  align-items: center;
 }
 
-.nav-link.active {
-    background-color: #0d6efd;
-    color: white;
+.topbar .left i,
+.topbar .right i {
+  margin-right: 6px;
 }
 
-/* Card Styles */
-.card-dashboard {
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+.topbar .separator {
+  margin: 0 10px;
 }
 
-.card-dashboard:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+.container {
+  display: flex;
+  justify-content: space-between;
+  padding: 80px 100px 40px 150px; /* Thêm padding-left để đẩy toàn bộ sang phải */
+  align-items: center;
+  min-height: 80vh;
 }
 
-/* Table Styles */
-.table th {
-    cursor: pointer;
-    user-select: none;
+.login-box {
+  flex: 1;
+  max-width: 400px;
+  padding-left: 30px;
 }
 
-.table th:hover {
-    background-color: #f8f9fa;
+.logo {
+  width: 140px;
+  margin-bottom: 30px;
 }
 
-/* Responsive Adjustments */
-@media (max-width: 768px) {
-    .sidebar {
-        min-height: auto;
-    }
+form {
+  display: flex;
+  flex-direction: column;
+}
 
-    .card-dashboard {
-        margin-bottom: 1rem;
-    }
+form input {
+  padding: 12px 15px;
+  margin-bottom: 16px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 15px;
+}
+
+form button {
+  padding: 12px 0;
+  background-color: #94b9ff;
+  color: white;
+  font-weight: bold;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+form button:hover {
+  background-color: #7aa6ff;
+}
+
+.illustration {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  padding-right: 50px;
+}
+
+.illustration img {
+  max-width: 100%;
+  height: auto;
 }
