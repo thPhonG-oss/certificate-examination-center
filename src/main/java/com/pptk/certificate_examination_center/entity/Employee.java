@@ -3,6 +3,8 @@ package com.pptk.certificate_examination_center.entity;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "nhan_vien")
@@ -20,6 +22,8 @@ public class Employee {
 
     private String email;
 
+    private String password;
+
     @Column(name = "so_dien_thoai", nullable = false)
     private String phone;
 
@@ -29,19 +33,26 @@ public class Employee {
     @Column(name = "ngay_sinh")
     private LocalDate dob;
 
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "nhan_vien_vai_tro",
+            joinColumns = @JoinColumn(name = "id_nhan_vien"),
+            inverseJoinColumns = @JoinColumn(name = "id_vai_tro"))
+    private Set<Role> roles = new HashSet<>();
+
     public Employee() {
     }
 
-    public Employee(String name, String gender, String email, String phone, String address, LocalDate dob) {
+    public Employee(String name, String gender, String email, String phone, String address, LocalDate dob, Set<Role> roles) {
         this.name = name;
         this.gender = gender;
         this.email = email;
         this.phone = phone;
         this.address = address;
         this.dob = dob;
+        this.roles = roles;
     }
 
-    public Employee(Long id, String name, String gender, String email, String phone, String address, LocalDate dob) {
+    public Employee(Long id, String name, String gender, String email, String phone, String address, LocalDate dob, Set<Role> roles) {
         this.id = id;
         this.name = name;
         this.gender = gender;
@@ -49,6 +60,7 @@ public class Employee {
         this.phone = phone;
         this.address = address;
         this.dob = dob;
+        this.roles = roles;
     }
 
     public Long getId() {
@@ -105,5 +117,21 @@ public class Employee {
 
     public void setDob(LocalDate dob) {
         this.dob = dob;
+    }
+
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }

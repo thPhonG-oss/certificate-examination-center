@@ -6,31 +6,20 @@ import com.pptk.certificate_examination_center.service.impl.RegistrationServiceI
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
-@Controller
-@RequestMapping("/registrations/individual") // localhost:8080/registrations
+@CrossOrigin("*")
+@RestController
+@RequestMapping("registrations/individual") // localhost:8080/registrations
 public class IndividualRegisterController {
-
-    @Autowired
-    ScheduleService scheduleService;
     @Autowired
     RegistrationServiceImpl registrationService;
 
-
-
-    @GetMapping("/form")
-    public String showRegistrationForm(Model model) {
-        model.addAttribute("schedules", scheduleService.getAllSchedulesWithCertificate());
-        return "individual-form";
-    }
-
     @PostMapping("/submit")
+//    @PreAuthorize("hasRole('ROLE_USER')")
     public ResponseEntity<Object> submitRegistration(@RequestBody IndividualRegisterDto individualRegisterDto) {
         registrationService.saveIndividualRegistration(individualRegisterDto);
         return ResponseEntity.status(HttpStatus.CREATED)

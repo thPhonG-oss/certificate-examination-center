@@ -10,6 +10,7 @@ CREATE TABLE khach_hang (
     loai_khach_hang VARCHAR(20) CHECK (loai_khach_hang IN ('INDIVIDUAL', 'ORGANIZATION')) NOT NULL
 );
 
+
 CREATE TABLE nhan_vien (
     id_nhan_vien INT PRIMARY KEY IDENTITY(1,1),
     ho_ten NVARCHAR(100) NOT NULL,

@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/customers") // localhost:8080/customers
+@RequestMapping("api/customers") // localhost:8080/customers
 public class CustomerController {
     @Autowired
     private CustomerService customerService;

@@ -3,23 +3,24 @@ package com.pptk.certificate_examination_center.entity;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "vai_tro")
+@Table(name = "role")
 public class Role {
     @Id
     @GeneratedValue(strategy = jakarta.persistence.GenerationType.IDENTITY)
-    @Column(name = "id_vai_tro")
     private Long id;
-    @Column(name = "ten_vai_tro")
-    private String name;
+
+    @Enumerated(EnumType.STRING)
+    @Column(length = 20, unique = true, nullable = false)
+    private ERole name;
 
     public Role() {
     }
 
-    public Role(String name) {
+    public Role(ERole name) {
         this.name = name;
     }
 
-    public Role(Long id, String name) {
+    public Role(Long id, ERole name) {
         this.id = id;
         this.name = name;
     }
@@ -32,11 +33,11 @@ public class Role {
         this.id = id;
     }
 
-    public String getName() {
+    public ERole getName() {
         return name;
     }
 
-    public void setName(String name) {
+    public void setName(ERole name) {
         this.name = name;
     }
 }

@@ -13,6 +13,8 @@ import com.pptk.certificate_examination_center.service.CustomerService;
 import com.pptk.certificate_examination_center.service.RegistrationFormService;
 import com.pptk.certificate_examination_center.service.ScheduleService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -31,7 +33,7 @@ public class RegistrationServiceImpl {
     private ScheduleService scheduleService;
 
     public RegistrationForm saveIndividualRegistration(IndividualRegisterDto individualRegisterDto) {
-        Long employee_id = 1L; // Assuming a static employee ID for now, this should be replaced with actual logic to get the logged-in employee's ID
+        Long employee_id = getCurrentUserId(); // Assuming a static employee ID for now, this should be replaced with actual logic to get the logged-in employee's ID
         CustomerDto customer = individualRegisterDto.getCustomer();
         CandidateDto candidate = individualRegisterDto.getCandidate();
         List<Schedule> schedules = individualRegisterDto.getSchedules();
@@ -58,5 +60,14 @@ public class RegistrationServiceImpl {
 
     public RegistrationForm saveOrganizationRegistration() {
         return null;
+    }
+
+    private Long getCurrentUserId() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication != null && authentication.getPrincipal() instanceof UserDetailsImpl) {
+            UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
+            return userDetails.getId();
+        }
+        throw new RuntimeException("User not authenticated");
     }
 }

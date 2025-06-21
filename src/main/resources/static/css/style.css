@@ -38,3 +38,30 @@
 .table tbody tr:has(.schedule-checkbox:checked) {
     background-color: rgba(0, 123, 255, 0.1);
 }
+
+/* Login page specific styles */
+.card {
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+}
+
+.card-title {
+    color: #333;
+    font-weight: 600;
+}
+
+.btn-primary {
+    padding: 10px;
+    font-weight: 500;
+}
+
+.form-control:focus {
+    border-color: #0d6efd;
+    box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+}
+
+#errorMessage {
+    font-size: 0.875rem;
+    margin-bottom: 1rem;
+}

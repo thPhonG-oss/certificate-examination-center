@@ -1,4 +1,5 @@
 $(document).ready(function() {
+
     // Make entire row clickable for schedule selection
     $('.table tbody tr').click(function(e) {
         if (!$(e.target).is('input[type="checkbox"]')) {
@@ -60,19 +61,28 @@ $(document).ready(function() {
             registrationForm: null
         };
 
+        const token = localStorage.getItem('token');
+
         // Submit the form data
         $.ajax({
             url: '/registrations/individual/submit',
             type: 'POST',
             contentType: 'application/json',
+            headers: {
+                'Authorization': 'Bearer ' + token
+            },
             data: JSON.stringify(formData),
             success: function(response) {
                 alert('Registration submitted successfully!');
                 window.location.href = '/registrations/success';
             },
             error: function(xhr, status, error) {
-                alert('Error submitting registration. Please try again.');
-                console.error(error);
+                if (xhr.status === 401) {
+                    window.location.href = '/api/auth/sign-in';
+                } else {
+                    alert('Error submitting registration. Please try again.');
+                    console.error(error);
+                }
             }
         });
     });
