@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service
 public class ScheduleServiceImpl implements ScheduleService {
@@ -50,11 +51,14 @@ public class ScheduleServiceImpl implements ScheduleService {
 
     @Override
     public void updateNumberOfCandidatesForIndividual(Long schedule_id) {
-
+        scheduleRepository.updateNumberOfCandidatesForIndividual(schedule_id);
     }
 
     @Override
     public List<ScheduleWithCertificateDto> getAllSchedulesWithCertificate() {
-        return List.of();
+        List<Object[]> results = scheduleRepository.findAllSchedulesWithCertificates();
+        return results.stream()
+                .map(ScheduleWithCertificateDto::new)
+                .collect(Collectors.toList());
     }
 }
