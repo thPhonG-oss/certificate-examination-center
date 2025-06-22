@@ -92,3 +92,21 @@ input.error {
   margin-bottom: 10px;
   min-height: 18px; /* Giữ khoảng trống ngay cả khi không có lỗi */
 }
+
+.wrapper {
+  background-color: #f9f9f9;
+  padding: 40px;
+  border-radius: 20px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 420px; /* Tăng từ 300px lên */
+}
+
+.error-message {
+  color: red;
+  font-size: 14px;
+  margin-top: -10px;
+  margin-bottom: 10px;
+  min-height: 20px; /* Giữ chỗ trống khi không có lỗi */
+  line-height: 1.3;
+}
