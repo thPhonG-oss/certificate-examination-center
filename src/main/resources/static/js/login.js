@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", function () {
     form.insertBefore(errorDiv, form.querySelector("button"));
   }
 
-  form.addEventListener("submit", function (e) {
+  form.addEventListener("submit", async function (e) {
     e.preventDefault();
 
     const username = usernameInput.value.trim();
@@ -38,8 +38,32 @@ document.addEventListener("DOMContentLoaded", function () {
       return;
     }
 
-    // Nếu hợp lệ (giả lập)
-    errorDiv.textContent = "";
-    console.log("Đăng nhập thành công!");
+    // Gọi API đăng nhập
+    try {
+      const response = await fetch("http://localhost:8081/api/verifi-login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ username, password }),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        errorDiv.textContent = errorData.message || "Đăng nhập thất bại.";
+        return;
+      }
+
+      const data = await response.json();
+
+      // Lưu thông tin vào localStorage
+      localStorage.setItem("user", JSON.stringify(data));
+
+      // Chuyển hướng
+      window.location.href = "/home.html";
+    } catch (error) {
+      console.error("Lỗi khi gọi API:", error);
+      errorDiv.textContent = "Không thể kết nối đến máy chủ.";
+    }
   });
 });
