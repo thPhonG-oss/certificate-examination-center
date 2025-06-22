@@ -1,34 +1,39 @@
+
 package com.pptk.certificate_examination_center.controller;
 
-import com.pptk.certificate_examination_center.dto.ApiResponseDto;
-import com.pptk.certificate_examination_center.entity.ResponseStatus;
+import com.pptk.certificate_examination_center.dto.ScheduleDto;
+import com.pptk.certificate_examination_center.entity.Schedule;
 import com.pptk.certificate_examination_center.service.ScheduleService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+import java.util.Map;
 
-@CrossOrigin("*")
 @RestController
-@RequestMapping("/schedule")
+@RequestMapping("/")
 public class ScheduleController {
     @Autowired
     private ScheduleService scheduleService;
-
-    @GetMapping
-    @PreAuthorize("hasAuthority('ROLE_USER')")
-    public ResponseEntity<ApiResponseDto<Object>> getAllSchedule(){
-        return ResponseEntity.status(HttpStatus.OK).body(
-                new ApiResponseDto<>(
-                    String.valueOf(ResponseStatus.SUCCESS),
-                        "Request All schedules successfully",
-                        scheduleService.getAllSchedulesWithCertificate()
-                )
-        );
+    @PostMapping ("lich_thi")
+    public Schedule setSchedule(@RequestBody Schedule schedule){
+        return scheduleService.setSchedule(schedule);
+    }
+    @DeleteMapping("/lich_thi/{id}")
+    public ResponseEntity<Map<String, String>> deleteSchedule(@PathVariable Integer id){
+        return scheduleService.deleteSchedule(id);
+    }
+    @PutMapping("/lich_thi/{id}")
+    public Schedule updateSchedule(@PathVariable Integer id, @RequestBody ScheduleDto scheduleDto){
+        return scheduleService.updateSchedule(id,scheduleDto);
+    }
+    @GetMapping("/lich_thi")
+    public List< Schedule > getAllSchedule(){
+        return  scheduleService.getAllSchedule();
+    }
+    @GetMapping("/lich_thi/{id}")
+    public Schedule getFindOneSchedule(@PathVariable("id") Integer id){
+        return scheduleService.getFindOneSchedule(id);
     }
 }
