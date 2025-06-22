@@ -3,7 +3,6 @@ document.addEventListener("DOMContentLoaded", function () {
   const usernameInput = form.querySelector('input[type="text"]');
   const passwordInput = form.querySelector('input[type="password"]');
 
-  // Tạo div hiển thị lỗi nếu chưa có
   let errorDiv = form.querySelector(".error-message");
   if (!errorDiv) {
     errorDiv = document.createElement("div");
@@ -14,54 +13,53 @@ document.addEventListener("DOMContentLoaded", function () {
   form.addEventListener("submit", async function (e) {
     e.preventDefault();
 
-    const username = usernameInput.value.trim();
+    const email = usernameInput.value.trim(); // Vì BE dùng `email`
     const password = passwordInput.value.trim();
 
-    // Reset lỗi
     errorDiv.textContent = "";
     usernameInput.classList.remove("error");
     passwordInput.classList.remove("error");
 
-    // Kiểm tra không để trống
-    if (!username || !password) {
+    if (!email || !password) {
       errorDiv.textContent = "Vui lòng nhập đầy đủ thông tin.";
-      if (!username) usernameInput.classList.add("error");
+      if (!email) usernameInput.classList.add("error");
       if (!password) passwordInput.classList.add("error");
       return;
     }
 
-    // Kiểm tra định dạng Gmail
     const gmailRegex = /^[a-zA-Z0-9._%+-]+@gmail\.com$/;
-    if (!gmailRegex.test(username)) {
+    if (!gmailRegex.test(email)) {
       errorDiv.textContent = "Tên đăng nhập phải là Gmail hợp lệ.";
       usernameInput.classList.add("error");
       return;
     }
 
-    // Kiểm tra mật khẩu: 8–20 ký tự, không có ký tự đặc biệt
-    const passwordRegex = /^[A-Za-z0-9]{8,20}$/;
+    const passwordRegex = /^.{8,20}$/;
     if (!passwordRegex.test(password)) {
-      errorDiv.textContent = "Mật khẩu 8–20 ký tự, không có ký tự đặc biệt.";
+      errorDiv.textContent = "Mật khẩu phải từ 8–20 ký tự.";
       passwordInput.classList.add("error");
       return;
     }
 
-    // Gọi API đăng nhập
     try {
-      const response = await fetch("http://localhost:8081/api/verifi-login", {
+      const response = await fetch("http://localhost:8081/api/auth/sign-in", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ username, password }),
+        body: JSON.stringify({ email, password }),
       });
 
-      if (!response.ok) {
-        const errorData = await response.json();
-        errorDiv.textContent = errorData.message || "Đăng nhập thất bại.";
+      const data = await response.json();
+
+      if (!response.ok || data.status !== "SUCCESS") {
+        errorDiv.textContent = data.message || "Đăng nhập thất bại.";
         return;
       }
 
-      const data = await response.json();
-      localStorage.setItem("user", JSON.stringify(data));
+      // ✅ Lưu token và thông tin user vào localStorage
+      localStorage.setItem("token", data.response.token);
+      localStorage.setItem("user", JSON.stringify(data.response));
+
+      // ✅ Điều hướng sau đăng nhập
       window.location.href = "/home.html";
     } catch (error) {
       console.error("Lỗi khi gọi API:", error);
@@ -69,7 +67,6 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 
-  // Xoá lỗi khi người dùng nhập lại
   [usernameInput, passwordInput].forEach((input) =>
     input.addEventListener("input", () => {
       input.classList.remove("error");
