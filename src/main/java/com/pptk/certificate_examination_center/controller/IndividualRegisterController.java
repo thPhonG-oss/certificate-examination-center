@@ -20,6 +20,10 @@ public class IndividualRegisterController {
     @Autowired
     RegistrationServiceImpl registrationService;
 
+    @Autowired
+    private ScheduleService scheduleService;
+
+
     @PostMapping("/submit")
     @PreAuthorize("hasAuthority('ROLE_USER')")
     public ResponseEntity<ApiResponseDto<Object>> submitRegistration(@RequestBody IndividualRegisterDto individualRegisterDto) {
