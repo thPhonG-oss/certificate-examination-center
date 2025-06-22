@@ -1,6 +1,6 @@
 package com.pptk.certificate_examination_center.dto;
 
-public class ScheduleDto {
+public class ExamScheduleDto {
     private Long id;
     private String date;              // format: dd/MM/yyyy
     private String time;              // format: HH:mm
@@ -8,9 +8,9 @@ public class ScheduleDto {
     private Integer currentParticipants;
     private Integer maxParticipants;
 
-    public ScheduleDto() {}
+    public ExamScheduleDto() {}
 
-    public ScheduleDto(Long id, String date, String time, Long certification_id, Integer currentParticipants, Integer maxParticipants) {
+    public ExamScheduleDto(Long id, String date, String time, Long certification_id, Integer currentParticipants, Integer maxParticipants) {
         this.id = id;
         this.date = date;
         this.time = time;

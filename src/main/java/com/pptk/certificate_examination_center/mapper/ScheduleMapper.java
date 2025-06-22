@@ -1,6 +1,6 @@
 package com.pptk.certificate_examination_center.mapper;
 
-import com.pptk.certificate_examination_center.dto.ScheduleDto;
+import com.pptk.certificate_examination_center.dto.ExamScheduleDto;
 import com.pptk.certificate_examination_center.entity.Schedule;
 
 import java.time.LocalDate;
@@ -11,8 +11,8 @@ public class ScheduleMapper {
 
     private static final DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
-    public static ScheduleDto toDto(Schedule entity) {
-        ScheduleDto dto = new ScheduleDto();
+    public static ExamScheduleDto toDto(Schedule entity) {
+        ExamScheduleDto dto = new ExamScheduleDto();
         dto.setId(entity.getId());
         dto.setDate(entity.getDate().format(dateFormatter));
         dto.setTime(entity.getTime().toString());
@@ -22,7 +22,7 @@ public class ScheduleMapper {
         return dto;
     }
 
-    public static Schedule toEntity(ScheduleDto dto) {
+    public static Schedule toEntity(ExamScheduleDto dto) {
         Schedule entity = new Schedule();
         entity.setId(dto.getId());
         entity.setDate(LocalDate.parse(dto.getDate(), dateFormatter));

@@ -6,21 +6,21 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.pptk.certificate_examination_center.dao.ScheduleDao;
-import com.pptk.certificate_examination_center.dto.ScheduleDto;
-import com.pptk.certificate_examination_center.service.ScheduleService;
+import com.pptk.certificate_examination_center.dto.ExamScheduleDto;
+import com.pptk.certificate_examination_center.service.ExamScheduleService;
 
 @Service
-public class ScheduleServiceImpl implements ScheduleService {
+public class ExamScheduleServiceImpl implements ExamScheduleService {
 
     private final ScheduleDao scheduleDao;
 
     @Autowired
-    public ScheduleServiceImpl(ScheduleDao scheduleDao) {
+    public ExamScheduleServiceImpl(ScheduleDao scheduleDao) {
         this.scheduleDao = scheduleDao;
     }
 
     @Override
-    public List<ScheduleDto> getScheduleByRegistrationId(Integer registrationId) {
+    public List<ExamScheduleDto> getScheduleByRegistrationId(Integer registrationId) {
         return scheduleDao.selectScheduleByRegistrationId(registrationId);
     }
 }

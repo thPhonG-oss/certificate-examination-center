@@ -9,15 +9,15 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.pptk.certificate_examination_center.service.ScheduleService;
+import com.pptk.certificate_examination_center.service.ExamScheduleService;
 
 
 @RestController
 @RequestMapping("/by-registration-certificate")
-public class ScheduleController {
+public class ExamScheduleController {
 
     @Autowired
-    private ScheduleService scheduleService;
+    private ExamScheduleService scheduleService;
 
     @GetMapping("/{registrationId}")
     public ResponseEntity<Object> getScheduleByRegistrationId(@PathVariable Integer registrationId){

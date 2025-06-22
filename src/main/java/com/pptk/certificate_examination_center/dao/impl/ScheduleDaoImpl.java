@@ -8,7 +8,7 @@ import jakarta.persistence.PersistenceContext;
 import org.springframework.stereotype.Repository;
 
 import com.pptk.certificate_examination_center.dao.ScheduleDao;
-import com.pptk.certificate_examination_center.dto.ScheduleDto;
+import com.pptk.certificate_examination_center.dto.ExamScheduleDto;
 
 @Repository
 public class ScheduleDaoImpl implements ScheduleDao {
@@ -17,7 +17,7 @@ public class ScheduleDaoImpl implements ScheduleDao {
     private EntityManager entityManager;
 
    @Override
-    public List<ScheduleDto> selectScheduleByRegistrationId(Integer registrationId) {
+    public List<ExamScheduleDto> selectScheduleByRegistrationId(Integer registrationId) {
         String sql = """
                 SELECT lt.id_lich_thi, lt.ngay_thi, lt.gio_thi, lt.id_chung_chi, lt.so_luong_dk, lt.sl_toi_da
                 FROM lich_thi lt
@@ -50,7 +50,7 @@ public class ScheduleDaoImpl implements ScheduleDao {
             Integer currentParticipants = ((Number) row[4]).intValue();
             Integer maxParticipants = ((Number) row[5]).intValue();
 
-            return new ScheduleDto(id, date, time, certificationId, currentParticipants, maxParticipants);
+            return new ExamScheduleDto(id, date, time, certificationId, currentParticipants, maxParticipants);
         }).collect(Collectors.toList());
     }
 
