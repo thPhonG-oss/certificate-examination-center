@@ -1,0 +1,158 @@
+/* Reset mặc định */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f7f7f7;
+  color: #333;
+}
+
+/* Phần top bar màu xanh */
+.topbar-blue {
+  background-color: #7986cb;
+  color: white;
+  font-size: 14px;
+  padding: 6px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.topbar-blue .left span,
+.topbar-blue .right span {
+  margin-right: 20px;
+}
+
+/* Header trắng chứa logo và thông tin nhân viên */
+.topbar {
+  background-color: white;
+  padding: 10px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #ddd;
+}
+
+.logo {
+  height: 30px;
+}
+
+.staff-info {
+  font-size: 14px;
+}
+
+.staff-info .logout {
+  margin-left: 20px;
+  color: black;
+  text-decoration: none;
+}
+
+.staff-info .logout:hover {
+  text-decoration: underline;
+}
+
+.banner .banner-image {
+  width: 100%;
+  height: auto;
+}
+
+/* Navigation bar */
+.navbar {
+  background-color: white;
+  display: flex;
+  border-bottom: 1px solid #ccc;
+}
+
+.navbar a {
+  flex: 1;
+  padding: 14px;
+  text-align: center;
+  text-decoration: none;
+  color: black;
+  font-weight: 500;
+  border-right: 1px solid #eee;
+}
+
+.navbar a:last-child {
+  border-right: none;
+}
+
+.navbar a.active {
+  border-bottom: 4px solid #007bff;
+  font-weight: bold;
+}
+
+/* Form */
+
+.col-md-6.form-group {
+    max-width: 300px;
+}
+
+.btn-add{
+    background-color: #13498b;
+    color: #ffffff;
+}
+input::placeholder, select::placeholder {
+    color: #222 !important;
+    opacity: 1 !important;
+}
+input, select {
+    border: 1px solid #0f0e0e !important;
+    color: black !important;
+}
+#searchButton {
+    background-color: #13498b;
+    color: #ffffff;
+    border: none;
+    cursor: pointer;
+}
+#searchButton:hover {
+    background-color: #496588;
+
+}
+
+
+
+
+/* Table */
+.table-responsive {
+    width: 100%;
+    max-height: 300px;
+    overflow-y: auto;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    background: #fff;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+
+}
+
+th, td {
+    padding: 12px;
+    text-align: center;
+    color: #333;
+    font-size: 12px;
+}
+
+th {
+    position: sticky;
+    top: 0;
+    background: #13498b;
+    color: #ffffff;
+    font-weight: bold;
+    z-index: 2;
+}
+
+td {
+    border-bottom: 1px solid #e0e0e0;
+}
+.menu-item a.active-item:link {
+    text-decoration: underline;
+}

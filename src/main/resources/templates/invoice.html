@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Thi Chung Chi</title>
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+  <!-- Bootstrap Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" th:href="@{/css/invoice.css}">
+</head>
+<body>
+
+<!-- Top blue contact bar -->
+<div class="topbar-blue">
+  <div class="left">
+    <span>📞 036 272 8710</span>
+    <span>📧 22120036@student.edu.vn</span>
+  </div>
+  <div class="right">
+    <span>🕒 Thứ 2 - Thứ 7: 7h30 - 20h30</span>
+  </div>
+</div>
+
+<!-- Header -->
+<header class="topbar">
+  <div class="logo-info">
+    <img th:src="@{/image/logo.png}" alt="ACCI logo" class="logo"/>
+  </div>
+  <div class="staff-info">
+    <span>Nhân viên tiếp nhận: <strong id="staffName"></strong></span>
+    <a href="#" class="logout"><strong>Đăng xuất</strong></a>
+  </div>
+</header>
+
+<!-- Banner -->
+<div class="banner">
+  <img th:src="@{/image/banner.png}" alt="Banner" class="banner-image"/>
+</div>
+
+<!-- Navigation -->
+<nav class="navbar">
+  <a class="active" href="/invoice">Lập hóa đơn</a>
+  <a href="#">Xác nhận thanh toán</a>
+  <a href="#">Lập phiếu gia hạn</a>
+  <a href="/schedule">Tạo lịch thi</a>
+</nav>
+
+<!-- Form nhập kết quả -->
+<div class="container my-4">
+  <form>
+    <h3 class="text-center mb-4 fw-bold">LẬP HÓA ĐƠN</h3>
+
+    <div class="row justify-content-center">
+      <div class="col-md-6 form-group">
+        <label for="id_phieu_dang_ky">Phiếu đăng ký:</label>
+        <div class="input-group mb-2">
+          <input type="text" class="form-control" id="id_phieu_dang_ky" placeholder="Nhập phiếu cần tìm">
+          <button class="btn btn-primary" type="button" id="btn_tim_kiem_phieu">Tìm kiếm</button>
+        </div>
+      </div>
+
+      <div class="col-md-6 form-group">
+        <label for="ngay_tao">Ngày xuất hóa đơn:</label>
+        <input type="date" class="form-control mb-2" id="ngay_tao" style="background: #80bdff;" readonly>
+      </div>
+    </div>
+
+    <div class="row justify-content-center">
+      <div class="col-md-6 form-group">
+        <label for="tong_tien">Tổng tiền:</label>
+        <input type="number" class="form-control mb-2" id="tong_tien" style="background: #80bdff;" readonly>
+      </div>
+
+      <div class="col-md-6 form-group">
+        <label for="giam_gia">Số tiền giảm:</label>
+        <input type="number" class="form-control mb-2" id="giam_gia" style="background: #80bdff;" readonly>
+      </div>
+    </div>
+
+    <div class="row justify-content-center">
+      <div class="col-md-6 form-group">
+        <label>Hình thức thanh toán:</label>
+        <div>
+          <input type="radio" id="CASH" name="phuong_thuc_tt" value="CASH">
+          <label for="CASH">Tiền mặt</label>
+          <input type="radio" id="ONLINE" name="phuong_thuc_tt" value="ONLINE">
+          <label for="ONLINE">Chuyển khoản</label>
+        </div>
+      </div>
+    </div>
+
+    <div class="row justify-content-center">
+      <div class="col-md-2">
+        <button id="btn_them" type="button" class="btn btn-primary w-100">Thêm</button>
+      </div>
+    </div>
+  </form>
+
+  <!-- Tìm kiếm -->
+  <div class="row justify-content-center mt-4">
+    <div class="col-md-8">
+      <div class="input-group">
+        <input type="text" class="form-control" id="searchInput" placeholder="ID Phiếu">
+        <button class="btn btn-outline-secondary" type="button" id="searchButton">
+          <i class="bi bi-search"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Bảng kết quả -->
+<div class="table-responsive mt-4" style="width:95%; margin:0 auto;">
+  <table class="table text-center">
+    <thead class="table-light">
+    <tr>
+      <th>STT</th>
+      <th>ID Hóa Đơn</th>
+      <th>ID Phiếu Đăng Ký</th>
+      <th>Ngày Lập</th>
+      <th>Trạng thái</th>
+      <th>Tổng Tiền</th>
+      <th>Số Tiền Giảm</th>
+      <th>Số Tiền Thanh Toán</th>
+      <th>Phương Thức Thanh Toán</th>
+      <th>Chỉnh Sửa</th>
+    </tr>
+    </thead>
+    <tbody>
+    <!-- Thymeleaf render data tại đây -->
+    </tbody>
+  </table>
+</div>
+
+<!-- Modal chi tiết hóa đơn -->
+<div class="modal fade" id="modalChiTietHoaDon" tabindex="-1" aria-labelledby="modalChiTietHoaDonLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Chi tiết hóa đơn</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Đóng"></button>
+      </div>
+      <div class="modal-body">
+        <div class="row mb-2">
+          <div class="col-md-6">
+            <strong>Tên khách hàng:</strong> <span id="cthdTenKhachHang"></span><br>
+            <strong>Mã khách hàng:</strong> <span id="cthdMaKhachHang"></span><br>
+            <strong>Loại khách hàng:</strong> <span id="cthdLoaiKhachHang"></span>
+          </div>
+          <div class="col-md-6">
+            <strong>Số lượng thí sinh:</strong> <span id="cthdSoLuongThiSinh"></span><br>
+            <strong>Mã hóa đơn:</strong> <span id="cthdMaHoaDon"></span><br>
+            <strong>Ngày lập:</strong> <span id="cthdNgayLap"></span>
+          </div>
+        </div>
+
+        <div class="table-responsive">
+          <table class="table table-bordered table-sm">
+            <thead class="table-secondary">
+            <tr>
+              <th>STT</th>
+              <th>Tên tín chỉ</th>
+              <th>Lệ phí</th>
+            </tr>
+            </thead>
+            <tbody id="cthdBangTinChi">
+            <!-- JS render -->
+            </tbody>
+          </table>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6">
+            <strong>Số tiền giảm:</strong> <span id="cthdGiam"></span>
+          </div>
+          <div class="col-md-6 text-end">
+            <strong>Tổng tiền:</strong> <span id="cthdTongTien"></span>
+          </div>
+        </div>
+        <div class="row mt-2">
+          <div class="col-md-6">
+            <strong>Số tiền thanh toán:</strong> <span id="cthdThanhToan"></span>
+          </div>
+          <div class="col-md-6 text-end">
+            <strong>Phương thức thanh toán:</strong> <span id="cthdPTTT"></span>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" id="btnCloseModal">Đóng</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal chỉnh sửa -->
+<!-- Modal Overlay chỉnh sửa hóa đơn -->
+<div id="modalOverlayHoaDon" style="display:none; position:fixed; z-index:1050; left:0; top:0; width:100vw; height:100vh; background:rgba(0,0,0,0.4); align-items:center; justify-content:center;">
+  <div class="modal-content bg-white p-4 rounded" style="min-width:350px; max-width:90vw;">
+    <h5 id="modalTitleHoaDon" class="mb-3">Chỉnh sửa hóa đơn</h5>
+    <div class="form-group">
+      <label for="modal_id_phieu_dang_ky">Phiếu đăng ký:</label>
+      <input type="text" class="form-control mb-2" id="modal_id_phieu_dang_ky" placeholder="Nhập mã phiếu đăng ký"  style="background: #c2c9cf;" readonly>
+    </div>
+    <div class="form-group">
+      <label for="modal_ngay_tao">Ngày xuất hóa đơn:</label>
+      <input type="date" class="form-control" id="modal_ngay_tao" placeholder="Ngày xuất hóa đơn" style="background: #c2c9cf;" readonly>
+    </div>
+    <div class="form-group">
+      <label for="modal_tong_tien">Tổng tiền:</label>
+      <input type="number" class="form-control" id="modal_tong_tien" placeholder="Tổng tiền" style="background: #c2c9cf;" readonly>
+    </div>
+    <div class="form-group">
+      <label for="modal_giam_gia">Số tiền giảm:</label>
+      <input type="number" class="form-control" id="modal_giam_gia" placeholder="Số tiền giảm" style="background: #c2c9cf;" readonly>
+    </div>
+    <div class="form-group">
+      <label>Hình thức thanh toán:</label>
+      <div>
+        <input type="radio" id="modal_CASH" name="modal_phuong_thuc_tt" value="CASH">
+        <label for="modal_CASH">Tiền mặt</label>
+        <input type="radio" id="modal_ONLINE" name="modal_phuong_thuc_tt" value="ONLINE">
+        <label for="modal_ONLINE">Chuyển khoản</label>
+      </div>
+    </div>
+    <div class="d-flex justify-content-end mt-3">
+      <button type="button" class="btn btn-secondary mr-2" id="modalCancelBtnHoaDon">Hủy</button>
+      <button type="button" class="btn btn-primary" id="modalSaveBtnHoaDon">Lưu</button>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- Scripts -->
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
+<script th:src="@{/js/script_invoice.js}"></script>
+
+</body>
+</html>
