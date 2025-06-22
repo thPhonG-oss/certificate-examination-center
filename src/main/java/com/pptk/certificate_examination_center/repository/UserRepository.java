@@ -3,6 +3,7 @@ package com.pptk.certificate_examination_center.repository;
 import com.pptk.certificate_examination_center.entity.Role;
 import com.pptk.certificate_examination_center.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.security.core.parameters.P;
@@ -28,5 +29,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
     @Query(value = "INSERT INTO user_role(user_id, role_id)" +
             " VALUES (:user_id, :role_id)",
     nativeQuery = true)
+    @Modifying
     public void addUserRole(@Param("user_id") Long user_id, @Param("role_id") Long role_id);
 }

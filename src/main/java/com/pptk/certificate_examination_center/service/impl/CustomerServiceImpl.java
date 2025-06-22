@@ -68,4 +68,13 @@ public class CustomerServiceImpl implements CustomerService {
         Customer customer = customerDao.selectCustomerByRegistrationId(registrationId);
         return CustomerMapper.toDto(customer); // ✅ chuyển đổi sang DTO
     }
+
+    @Override
+    public Long getCustomerIdByEmail(String email) {
+        Long customerId = customerRepository.getCustomerIdByEmail(email);
+        if (customerId == null) {
+            throw new CustomerNotFoundException("Customer not found with email: " + email);
+        }
+        return customerId;
+    }
 }

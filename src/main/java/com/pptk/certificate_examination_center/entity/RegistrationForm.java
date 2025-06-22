@@ -19,8 +19,8 @@ public class RegistrationForm {
     @Column(name = "ngay_dang_ky")
     private LocalDate registration_date;
 
-    @Column(name = "id_gia_han")
-    private Long renew_id;
+    @Column(name = "id_nhan_vien")
+    private Long user_id;
 
     @Column(name="trang_thai_gia_han")
     private String renew_status;
@@ -28,22 +28,20 @@ public class RegistrationForm {
     public RegistrationForm() {
     }
 
-    public RegistrationForm(Long customer_id, LocalDate registration_date, Long renew_id, String renew_status) {
-        this.customer_id = customer_id;
-        this.registration_date = registration_date;
-        this.renew_id = renew_id;
-        this.renew_status = renew_status;
-    }
-
-    public RegistrationForm(Long id, Long customer_id, LocalDate registration_date, Long renew_id, String renew_status) {
+    public RegistrationForm(Long id, Long customer_id, LocalDate registration_date, Long user_id, String renew_status) {
         this.id = id;
         this.customer_id = customer_id;
         this.registration_date = registration_date;
-        this.renew_id = renew_id;
+        this.user_id = user_id;
         this.renew_status = renew_status;
     }
 
-
+    public RegistrationForm(Long customer_id, LocalDate registration_date, Long user_id, String renew_status) {
+        this.customer_id = customer_id;
+        this.registration_date = registration_date;
+        this.user_id = user_id;
+        this.renew_status = renew_status;
+    }
 
     public Long getId() {
         return id;
@@ -69,12 +67,12 @@ public class RegistrationForm {
         this.registration_date = registration_date;
     }
 
-    public Long getRenew_id() {
-        return renew_id;
+    public Long getUser_id() {
+        return user_id;
     }
 
-    public void setRenew_id(Long renew_id) {
-        this.renew_id = renew_id;
+    public void setUser_id(Long user_id) {
+        this.user_id = user_id;
     }
 
     public String getRenew_status() {

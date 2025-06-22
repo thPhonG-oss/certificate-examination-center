@@ -13,6 +13,7 @@ import java.util.List;
 public class CertificateController {
     @Autowired
     private CertificateService certificateService;
+
     @RequestMapping("/chung_chi")
     public List<Certificate>getAllCertificate(){
         return certificateService.getAllCertificate();

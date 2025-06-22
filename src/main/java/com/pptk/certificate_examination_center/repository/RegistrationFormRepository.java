@@ -33,6 +33,4 @@ public interface RegistrationFormRepository extends JpaRepository<RegistrationFo
     @Query(value = "SELECT * FROM phieu_dang_ky WHERE id_phieu_dang_ky = :registration_form_id", nativeQuery = true)
     public RegistrationForm getFormById(@Param("registration_form_id") Long registration_form_id);
 
-
-
 }

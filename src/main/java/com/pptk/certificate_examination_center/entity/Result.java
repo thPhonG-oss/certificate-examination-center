@@ -18,19 +18,17 @@ public class Result {
     @Column(name = "trang_thai")
     private String status;
 
+    @Column(name = "trang_thai_nhan")
+    private Boolean receive_status;
+
     public Result(){}
 
-    public Result(Long addmission_ticket_id, Integer score, String status) {
-        this.addmission_ticket_id = addmission_ticket_id;
-        this.score = score;
-        this.status = status;
-    }
-
-    public Result(Long id, Long addmission_ticket_id, Integer score, String status) {
+    public Result(Long id, Long addmission_ticket_id, Integer score, String status, Boolean receive_status) {
         this.id = id;
         this.addmission_ticket_id = addmission_ticket_id;
         this.score = score;
         this.status = status;
+        this.receive_status = receive_status;
     }
 
     public Long getId() {
@@ -63,5 +61,13 @@ public class Result {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public Boolean getReceive_status() {
+        return receive_status;
+    }
+
+    public void setReceive_status(Boolean receive_status) {
+        this.receive_status = receive_status;
     }
 }

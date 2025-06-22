@@ -11,4 +11,5 @@ public interface CustomerService {
     CustomerDto updateCustomer(Long id, CustomerDto customerDto);
     void deleteCustomer(Long id);
     CustomerDto getCustomerByRegistrationID(Integer registrationId);
+    public Long getCustomerIdByEmail(String email);
 }

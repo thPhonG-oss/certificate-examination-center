@@ -64,7 +64,10 @@ public class AuthServiceImpl implements AuthService {
         userService.save(user);
         // (4) Tra ve ket qua cho client
         Set<Role> roles = determineRoles(signUpRequestDto.getRoles());
+        System.out.println(roles.toString());
+
         for (Role role : roles) {
+            System.out.println(user.getId() + " --- " + role.getId());
             userService.addUserRole(user.getId(), role.getId());
         }
 
