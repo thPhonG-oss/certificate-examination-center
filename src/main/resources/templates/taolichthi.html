@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+    <link rel="stylesheet" th:href="@{/css/taolichthi.css}">
+
+    <title>Thi Chung Chi</title>
+</head>
+<body>
+<!-- Top blue contact bar -->
+<div class="topbar-blue">
+    <div class="left">
+        <span>📞 036 272 8710</span>
+        <span>📧 22120036@student.edu.vn</span>
+    </div>
+    <div class="right">
+        <span>🕒 Thứ 2 - Thứ 7: 7h30 - 20h30</span>
+    </div>
+</div>
+
+<!-- White sub-header bar -->
+<header class="topbar">
+    <div class="logo-info">
+        <img th:src="@{/image/logo.png}" alt="ACCI logo" class="logo" />
+    </div>
+    <div class="staff-info">
+        <span>Nhân viên tiếp nhận: <strong id="staffName"></strong></span>>
+        <a href="#" class="logout"><strong>Đăng xuất</strong></a>
+    </div>
+</header>
+
+<div class="banner">
+    <img th:src="@{/image/banner.png}" alt="Banner" class="banner-image" />
+</div>
+
+<nav class="navbar">
+    <a  href="#">Danh sách phiếu đăng ký</a>
+    <a href="/invoice">Lập hóa đơn</a>
+    <a class="active" href="/schedule">Tạo lịch thi</a>
+    <a href="#">Tra cứu kết quả</a>
+</nav>
+
+
+
+<!-- Form nhập kết quả -->
+
+
+<div class="container my-4">
+    <form>
+        <h3 class="text-center mb-4 fw-bold">TẠO LỊCH THI</h3>
+        <div class="row justify-content-center">
+            <div class="col-md-6 form-group">
+                <label for="ten_chung_chi">Tên chứng chỉ:</label>
+                <input type="text" class="form-control mb-2" id="ten_chung_chi" placeholder="Tên chưng chỉ">
+            </div>
+            <div class="col-md-6 form-group">
+                <label for="ngay_thi">Ngày thi:</label>
+                <input type="date" class="form-control mb-2" id="ngay_thi" placeholder="Ngày thi">
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-md-6 form-group">
+                <label for="gio_thi">Giờ thi:</label>
+                <input type="time" class="form-control mb-2" id="gio_thi" placeholder="Giờ thi">
+            </div>
+            <div class="col-md-6 form-group">
+                <label for="sl_toi_da">Số lượng tối đa:</label>
+                <input type="number" class="form-control mb-2" id="sl_toi_da" placeholder="Số lượng tối đa">
+            </div>
+        </div>
+
+        <div class="row justify-content-center">
+            <div class="col-md-2">
+                <button id="btn_them" type="button" class="btn btn-primary w-100">Thêm</button>
+            </div>
+        </div>
+    </form>
+
+
+    <!-- Tìm kiếm -->
+    <div class="row justify-content-center mt-4">
+        <div class="col-md-8">
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="TÊN CHỨNG CHỈ" id="searchInput">
+                <input type="date" class="form-control" id="searchDate" placeholder="Ngày thi">
+                <button class="btn btn-outline-secondary" type="button" id="searchButton">
+                    <i class="bi bi-search"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+<!-- Các nội dung khác trong container -->
+
+<!-- Đặt bảng ra ngoài container để rộng hơn -->
+<div class="table-responsive mt-4" style="width:95%; margin:0 auto;">
+    <table class="table text-center" style="width:100%;">
+        <thead class="table-light">
+        <tr>
+            <th>STT</th>
+            <th>Tên chứng chỉ</th>
+            <th>Ngày thi</th>
+            <th>Giờ thi</th>
+            <th>Số lượng tối đa</th>
+            <th>Số lượng hiện tại</th>
+            <th>Chỉnh sửa</th>
+        </tr>
+        </thead>
+        <tbody>
+        <!-- Nội dung sẽ được render bằng JS -->
+        </tbody>
+    </table>
+</div>
+
+<!-- Modal Overlay chỉnh sửa  -->
+<div id="modalOverlay" style="display:none; position:fixed; z-index:1050; left:0; top:0; width:100vw; height:100vh; background:rgba(0,0,0,0.4); align-items:center; justify-content:center;">
+    <div class="modal-content bg-white p-4 rounded" style="min-width:350px; max-width:90vw;">
+        <h5 id="modalTitle" class="mb-3">Chỉnh sửa lịch thi</h5>
+        <div class="form-group">
+            <label for="modal_tenChungChi">Tên chứng chỉ:</label>
+            <input type="text"  class="form-control" id="modal_tenChungChi" style="background: #c2c9cf;" readonly>
+        </div>
+        <div class="form-group">
+            <label for="modal_ngayThi">Ngày thi:</label>
+            <input type="date" class="form-control" id="modal_ngayThi">
+        </div>
+        <div class="form-group">
+            <label for="modal_gioThi">Giờ thi:</label>
+            <input type="time" class="form-control" id="modal_gioThi">
+        </div>
+        <div class="form-group">
+            <label for="modal_soLuongToiDa">Số lượng tối đa:</label>
+            <input type="number" class="form-control" id="modal_soLuongToiDa">
+        </div>
+        <div class="d-flex justify-content-end mt-3">
+            <button type="button" class="btn btn-secondary mr-2" id="modalCancelBtn">Hủy</button>
+            <button type="button" class="btn btn-primary" id="modalSaveBtn">Lưu</button>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
+<script th:src="@{/js/script_taolichthi.js}"></script>
+</body>
+</html>

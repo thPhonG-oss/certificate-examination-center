@@ -2,7 +2,7 @@ package com.pptk.certificate_examination_center.mapper;
 
 import com.pptk.certificate_examination_center.dto.ExamScheduleDto;
 import com.pptk.certificate_examination_center.entity.Schedule;
-
+import com.pptk.certificate_examination_center.dto.ScheduleDto;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
@@ -22,14 +22,9 @@ public class ScheduleMapper {
         return dto;
     }
 
-    public static Schedule toEntity(ExamScheduleDto dto) {
-        Schedule entity = new Schedule();
-        entity.setId(dto.getId());
-        entity.setDate(LocalDate.parse(dto.getDate(), dateFormatter));
-        entity.setTime(LocalTime.parse(dto.getTime()));
-        entity.setCertification_id(dto.getCertification_id());
-        entity.setCurrentParticipants(dto.getCurrentParticipants());
-        entity.setMaxParticipants(dto.getMaxParticipants());
-        return entity;
+   public static Schedule toEntity(ScheduleDto scheduleDto){
+        return new Schedule(scheduleDto.getDate(),scheduleDto.getTime(),scheduleDto.getCertification_id(),scheduleDto.getCurrentParticipants(),scheduleDto.getMaxParticipants());
     }
 }
+
+
