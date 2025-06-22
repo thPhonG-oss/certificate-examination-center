@@ -4,6 +4,7 @@ import com.pptk.certificate_examination_center.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,7 +17,9 @@ public class CustomerController {
     @Autowired
     private CustomerService customerService;
 
+
     @GetMapping
+    @PreAuthorize("hasAuthority('ROLE_USER')")
     public ResponseEntity<Object> getAllCustomers() {
         return ResponseEntity.ok(customerService.getAllCustomers());
     }

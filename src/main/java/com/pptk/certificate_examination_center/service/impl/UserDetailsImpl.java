@@ -1,6 +1,7 @@
 package com.pptk.certificate_examination_center.service.impl;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.pptk.certificate_examination_center.entity.Role;
 import com.pptk.certificate_examination_center.entity.User;
 import com.pptk.certificate_examination_center.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,10 +9,12 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import javax.swing.table.TableRowSorter;
 import java.io.Serial;
 import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 public class UserDetailsImpl implements UserDetails {
@@ -53,8 +56,8 @@ public class UserDetailsImpl implements UserDetails {
 
     private boolean enabled;
 
-    public static UserDetailsImpl build(User user, UserRepository userRepository) {
-        List<GrantedAuthority> authorities = userRepository.findRolesByUserId(user.getId()).stream()
+    public static UserDetailsImpl build(User user, Set<Role> roles) {
+        List<GrantedAuthority> authorities = roles.stream()
                 .map(role -> new SimpleGrantedAuthority(role.getName().name()))
                 .collect(Collectors.toList());
 
@@ -73,7 +76,7 @@ public class UserDetailsImpl implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return UserDetails.super.isEnabled();
+        return enabled;
     }
 
     @Override
@@ -156,5 +159,18 @@ public class UserDetailsImpl implements UserDetails {
 
     public void setEnabled(boolean enabled) {
         this.enabled = enabled;
+    }
+
+    @Override
+    public String toString() {
+        return "UserDetailsImpl{" +
+                "userRepository=" + userRepository +
+                ", id=" + id +
+                ", username='" + username + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", authorities=" + authorities +
+                ", enabled=" + enabled +
+                '}';
     }
 }

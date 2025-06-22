@@ -14,18 +14,18 @@ $(document).ready(function() {
             data: JSON.stringify(loginData),
             success: function(response) {
                 if (response.status === 'SUCCESS') {
-                    // Store token
+                    // Lưu token vào localStorage
                     localStorage.setItem('token', response.response.token);
 
-                    // Set default authorization header for future requests
+                    // Thiết lập header Authorization cho tất cả các request AJAX tiếp theo
                     $.ajaxSetup({
-                        beforeSend: function(xhr) {
-                            xhr.setRequestHeader('Authorization', 'Bearer ' + response.response.token);
+                        headers: {
+                            'Authorization': 'Bearer ' + response.response.token
                         }
                     });
 
-                    // Redirect to dashboard
-                    window.location.href = '/api/dashboard';
+                    // Chuyển hướng trực tiếp đến /dashboard, để server-side xử lý render HTML
+                    window.location.href = '/dashboard';
                 } else {
                     $('#errorMessage').text(response.message).removeClass('d-none');
                 }

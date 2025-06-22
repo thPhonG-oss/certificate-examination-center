@@ -60,11 +60,13 @@ public class WebSecurityConfig {
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/auth/**",
+                                "/dashboard",
                                 "/css/**",
                                 "/js/**",
                                 "/images/**",
                                 "/webjars/**",
                                 "/favicon.ico").permitAll()
+                        .requestMatchers("/registrations/individual/form", "/api/dashboard", "/api/customers", "/dashboard").hasAuthority("ROLE_USER")
                         .anyRequest().authenticated()
                 );
 

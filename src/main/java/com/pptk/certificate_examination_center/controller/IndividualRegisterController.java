@@ -19,7 +19,7 @@ public class IndividualRegisterController {
     RegistrationServiceImpl registrationService;
 
     @PostMapping("/submit")
-//    @PreAuthorize("hasRole('ROLE_USER')")
+    @PreAuthorize("hasAuthority('ROLE_USER')")
     public ResponseEntity<Object> submitRegistration(@RequestBody IndividualRegisterDto individualRegisterDto) {
         registrationService.saveIndividualRegistration(individualRegisterDto);
         return ResponseEntity.status(HttpStatus.CREATED)

@@ -26,7 +26,7 @@ public class JwtUtils {
         // Implementation for generating JWT token
         UserDetailsImpl userPrincipal = (UserDetailsImpl) authentication.getPrincipal();
         return Jwts.builder()
-                .setSubject((userPrincipal.getUsername())) // email se la subject trong jwt
+                .setSubject((userPrincipal.getEmail())) // email se la subject trong jwt
                 .setIssuedAt(new java.util.Date())
                 .setExpiration(new java.util.Date((new java.util.Date()).getTime() + jwtExpirationMs)) // han dung
                 .signWith(key(), SignatureAlgorithm.HS256)

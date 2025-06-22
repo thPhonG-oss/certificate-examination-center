@@ -10,6 +10,6 @@ public interface UserService {
     boolean existByUsername(String username);
     boolean existByEmail(String email);
     void save(User user);
-    Set<Role> getRolesByUserId(Long userId);
+    Set<Role> getRolesByUserEmail(String email);
     void addUserRole(Long userId, Long roleId);
 }

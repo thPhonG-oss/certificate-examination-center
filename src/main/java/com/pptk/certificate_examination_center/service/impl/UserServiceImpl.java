@@ -37,8 +37,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Set<Role> getRolesByUserId(Long userId) {
-        return userRepository.findRolesByUserId(userId);
+    public Set<Role> getRolesByUserEmail(String email) {
+        return userRepository.findRolesByUserEmail(email);
     }
 
     @Override

@@ -18,11 +18,12 @@ public interface UserRepository extends JpaRepository<User, Long> {
     Boolean existsByUsername(String username);
     Boolean existsByEmail(String email);
 
-    @Query(value = "SELECT r.id, r.name" +
-            " FROM [user] u JOIN user_role ur ON u.id = ur.user_id" +
-            " JOIN role r ON ur.role_id = r.id",
+    @Query(value = "SELECT r.*" +
+            " FROM role r JOIN user_role ur ON r.id = ur.role_id" +
+            " JOIN [user] u ON u.id = ur.user_id" +
+            " WHERE u.email = :email",
     nativeQuery = true)
-    public Set<Role> findRolesByUserId(@Param("userId") Long userId);
+    public Set<Role> findRolesByUserEmail(@Param("email") String email);
 
     @Query(value = "INSERT INTO user_role(user_id, role_id)" +
             " VALUES (:user_id, :role_id)",
