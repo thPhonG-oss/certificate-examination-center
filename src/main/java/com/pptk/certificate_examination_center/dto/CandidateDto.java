@@ -4,13 +4,13 @@ import java.io.Serializable;
 import java.time.LocalDate;
 
 public class CandidateDto implements Serializable {
-    private String name;
-    private String gender;
-    private String email;
-    private String phoneNumber;
-    private LocalDate dob;
-    private String address;
-    private String citizen_id;
+    private final String name;
+    private final String gender;
+    private final String email;
+    private final String phoneNumber;
+    private final LocalDate dob;
+    private final String address;
+    private final String citizen_id;
 
     public CandidateDto(String name, String gender, String email, String phoneNumber, LocalDate dob, String address, String citizen_id) {
         this.name = name;

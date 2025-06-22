@@ -11,4 +11,20 @@ public class MainController {
     public String index() {
         return "index"; // This will resolve to src/main/resources/templates/index.html
     }
+
+    // tra cuu diem thi
+    @GetMapping("/results")
+    public String results() {
+        return "ResultsExam"; 
+    }
+
+    @GetMapping("/results/detail")
+    public String resultsDetail() {
+        return "DetailResultsExam"; // This will resolve to src/main/resources/templates/ResultsExamDetail.html
+    }
 }
+
+    
+
+
+

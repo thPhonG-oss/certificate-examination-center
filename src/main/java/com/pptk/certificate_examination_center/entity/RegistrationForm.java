@@ -1,9 +1,12 @@
 package com.pptk.certificate_examination_center.entity;
 
-import jakarta.persistence.*;
-
 import java.time.LocalDate;
-import java.time.LocalTime;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "phieu_dang_ky")

@@ -108,6 +108,7 @@ CREATE TABLE ket_qua_thi (
     id_phieu_du_thi INT NOT NULL,
     diem VARCHAR(10) NOT NULL,
     trang_thai VARCHAR(20) CHECK (trang_thai IN ('PASSED', 'FAILED')) NOT NULL,
+    trang_thai_nhan BIT NOT NULL DEFAULT 0,
     FOREIGN KEY (id_phieu_du_thi) REFERENCES phieu_du_thi(id_phieu_du_thi)
 );
 

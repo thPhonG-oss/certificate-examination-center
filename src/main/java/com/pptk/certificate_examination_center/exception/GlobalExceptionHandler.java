@@ -1,12 +1,10 @@
 package com.pptk.certificate_examination_center.exception;
 
+import static org.springframework.http.HttpStatus.NOT_FOUND;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
-
-import static org.springframework.http.HttpStatus.NOT_FOUND;
 
 @ControllerAdvice
 public class GlobalExceptionHandler{

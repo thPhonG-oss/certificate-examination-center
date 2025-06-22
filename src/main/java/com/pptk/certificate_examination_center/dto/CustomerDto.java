@@ -1,10 +1,10 @@
 package com.pptk.certificate_examination_center.dto;
 
-import com.pptk.certificate_examination_center.entity.Customer;
-
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.Objects;
+
+import com.pptk.certificate_examination_center.entity.Customer;
+//import java.util.Objects;
 
 /**
  * DTO for {@link Customer}

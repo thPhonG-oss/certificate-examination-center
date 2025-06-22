@@ -1,17 +1,18 @@
 package com.pptk.certificate_examination_center.service.impl;
 
-import com.pptk.certificate_examination_center.dao.CustomerDao;
+//import com.pptk.certificate_examination_center.dao.CustomerDao;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.pptk.certificate_examination_center.dto.CustomerDto;
 import com.pptk.certificate_examination_center.entity.Customer;
 import com.pptk.certificate_examination_center.exception.CustomerNotFoundException;
 import com.pptk.certificate_examination_center.mapper.CustomerMapper;
 import com.pptk.certificate_examination_center.repository.CustomerRepository;
 import com.pptk.certificate_examination_center.service.CustomerService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Service
 public class CustomerServiceImpl implements CustomerService {
@@ -27,7 +28,7 @@ public class CustomerServiceImpl implements CustomerService {
         });
         return customerDtos;
     }
-
+    
     @Override
     public CustomerDto getCustomerById(Long id) {
         Customer customer = customerRepository.findById(id)

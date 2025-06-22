@@ -8,6 +8,6 @@ public class CertificateExaminationCenterApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(CertificateExaminationCenterApplication.class, args);
-	}
+	}	
 
 }
