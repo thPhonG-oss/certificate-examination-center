@@ -1,6 +1,8 @@
 package com.pptk.certificate_examination_center.controller;
 
+import com.pptk.certificate_examination_center.dto.ApiResponseDto;
 import com.pptk.certificate_examination_center.dto.IndividualRegisterDto;
+import com.pptk.certificate_examination_center.entity.ResponseStatus;
 import com.pptk.certificate_examination_center.service.ScheduleService;
 import com.pptk.certificate_examination_center.service.impl.RegistrationServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,9 +22,15 @@ public class IndividualRegisterController {
 
     @PostMapping("/submit")
     @PreAuthorize("hasAuthority('ROLE_USER')")
-    public ResponseEntity<Object> submitRegistration(@RequestBody IndividualRegisterDto individualRegisterDto) {
-        registrationService.saveIndividualRegistration(individualRegisterDto);
+    public ResponseEntity<ApiResponseDto<Object>> submitRegistration(@RequestBody IndividualRegisterDto individualRegisterDto) {
+
         return ResponseEntity.status(HttpStatus.CREATED)
-                .body("Registration successful");
+                .body(
+                        new ApiResponseDto<>(
+                                String.valueOf(ResponseStatus.SUCCESS),
+                                "Save form successfully",
+                                registrationService.saveIndividualRegistration(individualRegisterDto)
+                        )
+                );
     }
 }
