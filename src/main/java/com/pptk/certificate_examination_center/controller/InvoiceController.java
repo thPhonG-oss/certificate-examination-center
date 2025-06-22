@@ -18,7 +18,7 @@ public class InvoiceController {
     private InvoiceService invoiceService;
     // lấy thông tin khi gửi id
     @GetMapping ("/api/invoice")
-    public ResponseEntity<Object> setInvoice(){
+    public ResponseEntity<Object> getAllInvoice(){
         return ResponseEntity.ok(invoiceService.getAllInvoice());
     }
     @GetMapping ("/invoice/{idInvoice}")
@@ -36,7 +36,7 @@ public class InvoiceController {
     }
     // sửa hóa đơn
     @PostMapping("/invoice/update/{idInvoice}")
-    public ResponseEntity<Object> setInvoice(@PathVariable("idInvoice") Integer idInvoice,@RequestBody UpdatePaymentInvoiceDto payment_method) {
+    public ResponseEntity<Object> setInvoupdatePaymentInvoiceice(@PathVariable("idInvoice") Integer idInvoice,@RequestBody UpdatePaymentInvoiceDto payment_method) {
         return ResponseEntity.ok(invoiceService.updatePaymentInvoice(idInvoice, payment_method));
     }
 }
