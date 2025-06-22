@@ -67,6 +67,7 @@ public class WebSecurityConfig {
                                 "/images/**",
                                 "/webjars/**",
                                 "/favicon.ico").permitAll()
+                        .requestMatchers("/api/auth/sign-out").authenticated()
                         .requestMatchers("/registrations/individual/form", "/api/dashboard", "/api/customers", "/dashboard").hasAuthority("ROLE_USER")
                         .anyRequest().authenticated()
                 );
