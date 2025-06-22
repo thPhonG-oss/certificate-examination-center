@@ -1,0 +1,79 @@
+.candidate-details {
+  background: #fff;
+  margin: 30px auto;
+  padding: 30px;
+  max-width: 900px;
+  border-radius: 10px;
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.1);
+}
+
+.candidate-details h2 {
+  text-align: center;
+  margin-bottom: 30px;
+  color: #111;
+  font-size: 26px;
+  font-weight: bold;
+}
+
+.candidate-form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px 40px;
+  align-items: center;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group label {
+  font-weight: bold;
+  margin-bottom: 5px;
+  color: #222;
+}
+
+.form-group input[type="text"],
+.form-group input[type="email"],
+.form-group input[type="date"] {
+  padding: 10px 12px;
+  font-size: 15px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  background-color: #f9f9f9;
+}
+
+/* ==== Checkbox chỉnh vị trí thẳng hàng ==== */
+.checkbox-group {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.checkbox-wrapper {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  padding-top: 5px;
+}
+
+.checkbox-wrapper input[type="checkbox"] {
+ transform: scale(1.5);
+  cursor: pointer;
+  accent-color: #003366;
+}
+
+/* Nút cập nhật */
+.btn {
+  grid-column: 1 / span 2;
+  padding: 12px 25px;
+  font-size: 16px;
+  background-color: #003366;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-top: 20px;
+  text-align: center;
+  transition: background-color 0.2s ease;
+}

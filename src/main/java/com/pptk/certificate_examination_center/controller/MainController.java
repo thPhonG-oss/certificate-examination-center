@@ -15,4 +15,21 @@ public class MainController {
     public  String invoice(){return "invoice";}
     @GetMapping("schedule")
     public  String schedule(){return "taolichthi";}
+
+
+
+
+
+
+
+    // tra cuu diem thi
+    @GetMapping("/results")
+    public String results() {
+        return "ResultsExam";
+    }
+
+    @GetMapping("/results/detail")
+    public String resultsDetail() {
+        return "DetailResultsExam"; // This will resolve to src/main/resources/templates/ResultsExamDetail.html
+    }
 }

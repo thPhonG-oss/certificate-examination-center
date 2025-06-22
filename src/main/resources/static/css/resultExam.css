@@ -1,0 +1,236 @@
+/* Reset mặc định */
+* {
+margin: 0;
+padding: 0;
+box-sizing: border-box;
+}
+
+body {
+font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+background-color: #f7f7f7;
+color: #333;
+}
+
+/* Phần top bar màu xanh */
+.topbar-blue {
+background-color: #7986cb;
+color: white;
+font-size: 14px;
+padding: 6px 20px;
+display: flex;
+justify-content: space-between;
+align-items: center;
+}
+
+.topbar-blue .left span,
+.topbar-blue .right span {
+margin-right: 20px;
+}
+
+/* Header trắng chứa logo và thông tin nhân viên */
+.topbar {
+background-color: white;
+padding: 10px 20px;
+display: flex;
+justify-content: space-between;
+align-items: center;
+border-bottom: 1px solid #ddd;
+}
+
+.logo {
+height: 30px;
+}
+
+.staff-info {
+font-size: 14px;
+}
+
+.staff-info .logout {
+margin-left: 20px;
+color: black;
+text-decoration: none;
+}
+
+.staff-info .logout:hover {
+text-decoration: underline;
+}
+
+.banner .banner-image {
+width: 100%;
+height: auto;
+}
+
+/* Navigation bar */
+.navbar {
+background-color: white;
+display: flex;
+border-bottom: 1px solid #ccc;
+}
+
+.navbar a {
+flex: 1;
+padding: 14px;
+text-align: center;
+text-decoration: none;
+color: black;
+font-weight: 500;
+border-right: 1px solid #eee;
+}
+
+.navbar a:last-child {
+border-right: none;
+}
+
+.navbar a.active {
+border-bottom: 4px solid #007bff;
+font-weight: bold;
+}
+
+/* Main content */
+.content {
+padding: 20px;
+background-color: white;
+margin: 20px;
+border-radius: 8px;
+box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+}
+
+.content h2 {
+margin-bottom: 10px;
+}
+
+/* Legend for status colors */
+.legend {
+margin-bottom: 10px;
+}
+
+.legend span {
+margin-right: 20px;
+font-size: 14px;
+}
+
+.dot {
+display: inline-block;
+width: 10px;
+height: 10px;
+border-radius: 50%;
+margin-right: 6px;
+}
+
+.dot.green {
+background-color: #28a745;
+}
+
+.dot.red {
+background-color: #dc3545;
+}
+
+.dot.yellow {
+background-color: #ffc107;
+}
+
+/* Table styling */
+.registration-table {
+width: 100%;
+border-collapse: collapse;
+margin-top: 10px;
+}
+
+.registration-table th,
+.registration-table td {
+border: 1px solid #ddd;
+padding: 10px;
+text-align: center;
+font-size: 14px;
+}
+
+.registration-table th {
+background-color: #f1f1f1;
+}
+
+.registration-table td button {
+padding: 6px 12px;
+border: none;
+background-color: #6c757d;
+color: white;
+border-radius: 4px;
+/* cursor: pointer; */
+}
+
+.registration-table td button:disabled {
+background-color: #ccc;
+cursor: not-allowed;
+}
+
+
+/* Table Styles */
+
+/* Search box */
+.search-box {
+display: flex;
+align-items: center;
+justify-content: flex-start;
+margin-bottom: 20px;
+padding: 10px;
+background-color: #003366;
+border-radius: 4px;
+}
+
+.search-box input {
+padding: 10px;
+width: 250px;
+border: none;
+border-radius: 4px;
+margin-right: 10px;
+font-size: 14px;
+}
+
+.search-box button {
+padding: 10px 20px;
+background-color: #0055cc;
+color: white;
+border: none;
+border-radius: 4px;
+
+cursor: pointer;
+}
+
+.search-box button:hover {
+background-color: #003d99;
+}
+
+/* Result table */
+.result-table {
+width: 100%;
+border-collapse: collapse;
+border: 2px solid #0047ab;
+border-radius: 10px;
+overflow: hidden;
+box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+font-size: 14px;
+}
+
+.result-table thead {
+background-color: #0047ab;
+color: white;
+}
+
+.result-table th,
+.result-table td {
+padding: 12px 16px;
+text-align: center;
+border: 1px solid #ddd;
+}
+
+.result-table tbody tr:nth-child(even) {
+background-color: #f9f9f9;
+}
+
+.result-table tbody tr:nth-child(odd) {
+background-color: #ffffff;
+}
+
+.result-table tbody tr:hover {
+background-color: #e8f0fe;
+cursor: pointer;
+}
