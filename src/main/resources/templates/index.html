@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ACCI Login</title>
+    <link rel="stylesheet" href="/css/login.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+  </head>
+  <body>
+    <div class="topbar">
+      <div class="left">
+        <i class="fas fa-phone"></i> 036 272 8710
+        <span class="separator">|</span>
+        <i class="fas fa-envelope"></i> 22120036@student.edu.vn
+      </div>
+      <div class="right">
+        <i class="fas fa-clock"></i> <span id="clock">Đang tải...</span>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="wrapper">
+        <div class="login-box">
+          <img src="/images/logo.png" alt="ACCI Logo" class="logo" />
+          <form id="login-form">
+            <input type="text" placeholder="Tên đăng nhập" id="username" />
+            <input type="password" placeholder="Mật khẩu" id="password" />
+            <div class="error-message" id="error-message"></div>
+            <!-- Vùng hiển thị lỗi -->
+            <button type="submit">Đăng nhập</button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <script src="/js/headerAllPage.js"></script>
+    <script src="/js/login.js"></script>
+  </body>
+</html>

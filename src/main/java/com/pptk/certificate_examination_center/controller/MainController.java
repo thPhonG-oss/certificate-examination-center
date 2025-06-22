@@ -11,16 +11,15 @@ public class MainController {
 //    public String index() {
 //        return "index"; // This will resolve to src/main/resources/templates/index.html
 //    }
+
     @GetMapping("/invoice")
     public  String invoice(){return "invoice";}
     @GetMapping("schedule")
     public  String schedule(){return "taolichthi";}
-
-
-
-
-
-
+    @GetMapping("/login")
+    public String index() {
+        return "index"; // This will resolve to src/main/resources/templates/index.html
+    }
 
     // tra cuu diem thi
     @GetMapping("/results")
@@ -31,5 +30,15 @@ public class MainController {
     @GetMapping("/results/detail")
     public String resultsDetail() {
         return "DetailResultsExam"; // This will resolve to src/main/resources/templates/ResultsExamDetail.html
+    }
+
+    @GetMapping("/list-registration-forms")
+    public String registrationList() {
+        return "listRegistrationPage";
+    }
+
+    @GetMapping("/detail-registration-form")
+    public String detailRegistrationForm() {
+        return "detailRegistrationFormPage";
     }
 }

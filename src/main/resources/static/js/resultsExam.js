@@ -1,4 +1,3 @@
-
 document.addEventListener("DOMContentLoaded", function () {
   const navTraCuu = document.getElementById("nav-tra_cuu");
   const resultSection = document.querySelector(".result-section");

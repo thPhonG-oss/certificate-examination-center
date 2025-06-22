@@ -24,4 +24,13 @@ public class CustomerController {
     public ResponseEntity<Object> getCustomerById(@PathVariable Long id) {
         return ResponseEntity.ok(customerService.getCustomerById(id));
     }
+
+    @GetMapping("/by-registration/{registrationId}")
+    public ResponseEntity<Object> getCustomerByRegistrationId(@PathVariable Integer registrationId) {
+        Object customer = customerService.getCustomerByRegistrationID(registrationId);
+        if (customer == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Không tìm thấy khách hàng.");
+        }
+        return ResponseEntity.ok(customer);
+    }
 }

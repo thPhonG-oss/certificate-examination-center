@@ -1,0 +1,112 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+body {
+  background-color: #fff;
+}
+
+.topbar {
+  background-color: #7e9ddc;
+  color: white;
+  padding: 8px 50px;
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+  align-items: center;
+}
+
+.topbar .left i,
+.topbar .right i {
+  margin-right: 6px;
+}
+
+.topbar .separator {
+  margin: 0 10px;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: calc(100vh - 40px); /* Trừ đi chiều cao topbar */
+  padding: 0 50px;
+}
+
+.login-box {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.logo {
+  border-radius: 20px;
+  max-width: 200px; /* Tăng từ 200px lên 300px */
+  margin-bottom: 40px; /* Tăng khoảng cách dưới */
+}
+
+form {
+  width: 100%;
+  max-width: 300px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px; /* Tăng khoảng cách giữa các input/button */
+}
+
+input[type="text"],
+input[type="password"] {
+  padding: 16px; /* Tăng từ 12px lên 16px */
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 16px; /* Tăng font */
+}
+
+button[type="submit"] {
+  padding: 16px; /* Tăng padding */
+  background-color: #91b7ff;
+  color: white;
+  border: none;
+  border-radius: 20px;
+  font-weight: bold;
+  font-size: 16px; /* Tăng font */
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button[type="submit"]:hover {
+  background-color: #6793f5;
+}
+
+input.error {
+  border: 2px solid red;
+}
+
+.error-message {
+  color: red;
+  font-size: 14px;
+  margin-top: -10px;
+  margin-bottom: 10px;
+  min-height: 18px; /* Giữ khoảng trống ngay cả khi không có lỗi */
+}
+
+.wrapper {
+  background-color: #f9f9f9;
+  padding: 40px;
+  border-radius: 20px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 420px; /* Tăng từ 300px lên */
+}
+
+.error-message {
+  color: red;
+  font-size: 14px;
+  margin-top: -10px;
+  margin-bottom: 10px;
+  min-height: 20px; /* Giữ chỗ trống khi không có lỗi */
+  line-height: 1.3;
+}
