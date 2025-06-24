@@ -1,12 +1,10 @@
 $(document).ready(function() {
-    const token = localStorage.getItem('token');
-
-    // Load schedules
+    // Load schedules when page loads
     $.ajax({
         url: '/schedulewithcertificate',
         method: 'GET',
-        headers: {
-            'Authorization': 'Bearer ' + token
+        xhrFields: {
+            withCredentials: true
         },
         success: function(response) {
             populateScheduleTable(response);
@@ -15,7 +13,7 @@ $(document).ready(function() {
             if (xhr.status === 401 || xhr.status === 403) {
                 window.location.href = '/login?redirect=/registrations/individual/form';
             } else {
-                alert('Error loading schedules: ' + xhr.responseText);
+                alert('Lỗi tải lịch thi: ' + xhr.responseText);
             }
         }
     });
@@ -43,19 +41,22 @@ $(document).ready(function() {
         });
     }
 
-    // Format date
+    // Format date to Vietnamese locale
     function formatDate(dateStr) {
         const date = new Date(dateStr);
         return date.toLocaleDateString('vi-VN');
     }
 
     // Handle form submission
-    $('#registrationForm').on('submit', function(e) {
+    $('#registrationForm').submit(function(e) {
         e.preventDefault();
+        console.log('Form submitted'); // Debug log
 
         const selectedSchedules = [];
         $('.schedule-checkbox:checked').each(function() {
-            selectedSchedules.push(JSON.parse($(this).data('schedule')));
+            const schedule = $(this).data('schedule'); // Lấy object trực tiếp
+            console.log('Schedule:', schedule);
+            selectedSchedules.push(schedule);
         });
 
         if (selectedSchedules.length === 0) {
@@ -86,23 +87,26 @@ $(document).ready(function() {
             schedules: selectedSchedules
         };
 
+        console.log('Registration data:', registrationData); // Debug log
+
         $.ajax({
             url: '/registrations/individual/submit',
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': 'Bearer ' + token
+            contentType: 'application/json',
+            xhrFields: {
+                withCredentials: true
             },
-            credentials: 'include',
             data: JSON.stringify(registrationData),
             success: function(response) {
+                console.log('Success response:', response); // Debug log
                 if (response.status === 'SUCCESS') {
                     window.location.href = '/registrations/individual/success';
                 } else {
                     alert('Đăng ký thất bại: ' + response.message);
                 }
             },
-            error: function(xhr) {
+            error: function(xhr, status, error) {
+                console.log('Error:', error); // Debug log
                 if (xhr.status === 401 || xhr.status === 403) {
                     window.location.href = '/login?redirect=/registrations/individual/form';
                 } else {

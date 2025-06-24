@@ -34,6 +34,12 @@ public class MainController {
         return "register"; // This will return the name of the HTML template
     }
 
+    @GetMapping("registrations/individual/success")
+    @PreAuthorize("hasAuthority('ROLE_USER')")
+    public String success() {
+        return "registerSuccess"; // This will resolve to src/main/resources/templates/success.html
+    }
+
 
     @GetMapping("/invoice")
     public  String invoice(){return "invoice";}
