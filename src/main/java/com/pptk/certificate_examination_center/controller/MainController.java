@@ -3,6 +3,7 @@ package com.pptk.certificate_examination_center.controller;
 import com.pptk.certificate_examination_center.service.ScheduleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,6 +21,18 @@ public class MainController {
 
     @Autowired
     private ScheduleService scheduleService;
+
+    @GetMapping("/home")
+    public String home() {
+        return "home"; // This will resolve to src/main/resources/templates/home.html
+    }
+
+    @GetMapping("registrations/individual/form")
+    @PreAuthorize("hasAuthority('ROLE_USER')")
+    public String getRegistrationForm(Model model) {
+        model.addAttribute("schedules", scheduleService.getAllSchedulesWithCertificate());
+        return "register"; // This will return the name of the HTML template
+    }
 
 
     @GetMapping("/invoice")

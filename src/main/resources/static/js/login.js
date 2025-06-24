@@ -46,6 +46,7 @@ document.addEventListener("DOMContentLoaded", function () {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password }),
+        credentials: "include", // Để gửi cookie nếu cần
       });
 
       const data = await response.json();
@@ -55,12 +56,8 @@ document.addEventListener("DOMContentLoaded", function () {
         return;
       }
 
-      // ✅ Lưu token và thông tin user vào localStorage
-      localStorage.setItem("token", data.response.token);
-      localStorage.setItem("user", JSON.stringify(data.response));
-
       // ✅ Điều hướng sau đăng nhập
-      window.location.href = "/home.html";
+      window.location.href = "/home";
     } catch (error) {
       console.error("Lỗi khi gọi API:", error);
       errorDiv.textContent = "Không thể kết nối đến máy chủ.";

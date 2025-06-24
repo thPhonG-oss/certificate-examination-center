@@ -13,6 +13,8 @@ import com.pptk.certificate_examination_center.factory.RoleFactory;
 import com.pptk.certificate_examination_center.security.jwt.JwtUtils;
 import com.pptk.certificate_examination_center.service.AuthService;
 import com.pptk.certificate_examination_center.service.UserService;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -109,7 +111,7 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
-    public ResponseEntity<ApiResponseDto<Object>> signIn(SignInRequestDto signInRequestDto){
+    public ResponseEntity<ApiResponseDto<Object>> signIn(SignInRequestDto signInRequestDto, HttpServletResponse httpServletResponse){
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(signInRequestDto.getEmail(), signInRequestDto.getPassword())
         );
@@ -124,6 +126,15 @@ public class AuthServiceImpl implements AuthService {
                 .stream()
                 .map(GrantedAuthority::getAuthority)
                 .collect(Collectors.toList());
+
+
+        Cookie cookie = new Cookie("jwt", jwt);
+        cookie.setHttpOnly(true);
+        cookie.setPath("/");
+        cookie.setMaxAge(60 * 60 * 24); // 1 day
+        cookie.setSecure(false); // Set to true if using HTTPS
+        cookie.setAttribute("SameSite", "Strict"); // Set SameSite attribute for security
+        httpServletResponse.addCookie(cookie);
 
         // (6) khoi tao doi tuong SignInResponseDto tra ve ket qua cho client
         SignInResponseDto signInResponseDto = new SignInResponseDto();

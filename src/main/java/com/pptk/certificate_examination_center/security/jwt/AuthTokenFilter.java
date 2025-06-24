@@ -32,7 +32,7 @@ public class AuthTokenFilter extends OncePerRequestFilter {
             throws ServletException, IOException {
 
         try {
-            String jwt = parseJwt(request);
+            String jwt = parseJwtFromCookie(request);
             if(jwt!=null && jwtUtils.validateJwtToken(jwt)) {
                 String username = jwtUtils.getUserNameFromJwtToken(jwt);
                 logger.info("Username from token: {}", username);
@@ -67,5 +67,18 @@ public class AuthTokenFilter extends OncePerRequestFilter {
         }
 
         return null;
+    }
+
+    private String parseJwtFromCookie(HttpServletRequest request) {
+        String cookieHeader = request.getHeader("Cookie");
+        if (StringUtils.hasText(cookieHeader)) {
+            String[] cookies = cookieHeader.split("; ");
+            for (String cookie : cookies) {
+                if (cookie.startsWith("jwt=")) {
+                    return cookie.substring(4);
+                }
+            }
+        }
+        return null; // Placeholder for cookie parsing logic
     }
 }
