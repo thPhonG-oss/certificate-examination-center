@@ -5,15 +5,497 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Đăng ký thi chứng chỉ</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-blue: #6B79CA; /* Dark blue for Navbar, main buttons, some headers */
+            --light-gray-bg: #F0F2F5; /* Overall page background */
+            --green-header: #28A745; /* Green for "Thông tin thí sinh" header */
+            --teal-header: #17A2B8; /* Teal/Cyan for "Chọn lịch thi" header */
+            --light-card-bg: #FFFFFF; /* White background for cards */
+            --text-color: #333333; /* Dark gray for general text */
+            --label-color: #333333; /* Dark gray for form labels */
+            --input-border: #CED4DA; /* Default Bootstrap input border */
+            --table-header-bg: #007BFF; /* Blue for table header */
+            --banner-yellow: #FFC107; /* Yellow for "CỔNG ĐĂNG KÝ ONLINE" box */
+            --banner-text-dark: #343A40; /* Dark text for banner */
+            --accent-blue-contact: #007BFF; /* Blue for contact text in banner */
+        }
+
+        body {
+            background-color: var(--light-gray-bg);
+            color: var(--text-color);
+            font-family: Arial, sans-serif; /* Consistent font */
+        }
+
+        /* Top Navbar - Logo and User Info */
+        .top-navbar {
+            background-color: var(--primary-blue); /* Dark blue background */
+            color: white;
+            padding: 0.5rem 1rem;
+            margin-bottom: 0; /* No margin at the bottom for this bar */
+        }
+        .top-navbar .navbar-brand {
+            color: white;
+            font-weight: bold;
+            font-size: 1.25rem;
+            display: flex;
+            align-items: center;
+        }
+        .top-navbar .navbar-brand img {
+            height: 40px; /* Adjusted height for the ACCI logo */
+            width: auto; /* Maintain aspect ratio */
+            margin-right: 0.5rem;
+        }
+        .top-navbar .nav-link {
+            color: white;
+        }
+        /* Added for responsive top navbar */
+        @media (max-width: 767.98px) {
+            .top-navbar .navbar-brand {
+                font-size: 1rem;
+            }
+            .top-navbar .navbar-brand img {
+                height: 30px;
+            }
+            .top-navbar .nav-link {
+                padding: 0.5rem 0;
+                text-align: center;
+            }
+            .top-navbar .navbar-collapse {
+                justify-content: center;
+            }
+        }
+
+
+        /* Header Banner */
+        .header-banner {
+            position: relative; /* For absolute positioning of text */
+            width: 100%;
+            height: 300px; /* Adjust height as needed to fit the image */
+            background-image: url('/images/banner.png'); /* Use the provided banner image */
+            background-size: cover; /* Cover the entire area */
+            background-position: center center; /* Center the image */
+            background-repeat: no-repeat;
+            color: white;
+            padding: 40px 0; /* Original padding, might be adjusted by content positioning */
+            border-radius: 8px;
+            margin-top: 30px; /* Space between top-navbar and banner */
+            margin-bottom: 30px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            display: flex; /* Use flexbox for content alignment */
+            align-items: center; /* Center vertically */
+            padding-left: 10%; /* Move content to the left side */
+        }
+        .header-banner-content {
+            position: relative; /* Ensure content is above the background */
+            z-index: 1; /* Place content above the background image */
+            text-align: left; /* Align text to the left within its container */
+        }
+        .header-banner h1 {
+            background-color: var(--banner-yellow); /* Yellow background for the title */
+            color: var(--banner-text-dark); /* Dark text color */
+            padding: 10px 20px;
+            display: inline-block; /* Shrink background to content */
+            border-radius: 8px;
+            font-size: 2.5rem; /* Adjust font size to match banner.jpg */
+            font-weight: bold;
+            margin-bottom: 0.75rem; /* Spacing below the title */
+            line-height: 1.2;
+        }
+        .header-banner p {
+            font-size: 1.5rem; /* Adjust font size to match banner.jpg */
+            margin-bottom: 1.5rem;
+            color: white; /* Ensure text color is white on the dark blue background */
+            font-weight: bold;
+        }
+        .contact-info {
+            background-color: white; /* White background for contact */
+            padding: 12px 25px;
+            border-radius: 50px; /* Pill shape */
+            box-shadow: 0 2px 4px rgba(0,0,0,.1);
+            display: inline-block;
+            margin-top: 20px; /* Adjusted for visual spacing */
+            color: var(--accent-blue-contact); /* Blue text for contact number - from banner.jpg */
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+        .contact-info strong {
+            color: var(--accent-blue-contact); /* Ensure consistency */
+        }
+
+        /* Added for responsive header banner */
+        @media (max-width: 991.98px) {
+            .header-banner {
+                height: 250px;
+                padding: 20px 0;
+                padding-left: 5%;
+            }
+            .header-banner h1 {
+                font-size: 2rem;
+                padding: 8px 15px;
+            }
+            .header-banner p {
+                font-size: 1.2rem;
+            }
+            .contact-info {
+                font-size: 1rem;
+                padding: 10px 20px;
+            }
+        }
+
+        @media (max-width: 767.98px) {
+            .header-banner {
+                height: 200px;
+                padding-left: 5%;
+                text-align: center;
+                justify-content: center;
+                align-items: center;
+            }
+            .header-banner-content {
+                text-align: center;
+            }
+            .header-banner h1 {
+                font-size: 1.8rem;
+                padding: 6px 12px;
+            }
+            .header-banner p {
+                font-size: 1rem;
+                margin-bottom: 1rem;
+            }
+            .contact-info {
+                font-size: 0.9rem;
+                padding: 8px 15px;
+                margin-top: 10px;
+            }
+        }
+
+        @media (max-width: 575.98px) {
+            .header-banner {
+                height: 180px;
+            }
+            .header-banner h1 {
+                font-size: 1.5rem;
+            }
+            .header-banner p {
+                font-size: 0.9rem;
+            }
+            .contact-info {
+                font-size: 0.8rem;
+                padding: 6px 12px;
+            }
+        }
+
+
+        /* Main Menu Navbar - Below Banner */
+        .main-menu-navbar {
+            background-color: var(--primary-blue); /* Dark blue background, consistent with top */
+            color: white;
+            padding: 0.75rem 1rem;
+            border-radius: 8px; /* Consistent rounded corners */
+            margin-bottom: 25px; /* Space below the menu bar */
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Subtle shadow */
+        }
+        .main-menu-navbar .nav-link {
+            color: white; /* White links */
+            padding: 0.7rem 1rem;
+            transition: background-color 0.2s;
+        }
+        .main-menu-navbar .nav-link:hover,
+        .main-menu-navbar .nav-link.active {
+            background-color: rgba(255, 255, 255, 0.1); /* Slight hover effect */
+            border-radius: 5px;
+        }
+        /* Added for responsive main menu navbar */
+        @media (max-width: 991.98px) {
+            .main-menu-navbar .navbar-collapse {
+                justify-content: center; /* Center menu items on smaller screens */
+            }
+            .main-menu-navbar .nav-item {
+                margin: 0 5px; /* Adjust spacing */
+            }
+        }
+        @media (max-width: 767.98px) {
+            .main-menu-navbar {
+                padding: 0.5rem 0.5rem;
+            }
+            .main-menu-navbar .navbar-nav {
+                flex-direction: column; /* Stack menu items vertically */
+                align-items: stretch;
+            }
+            .main-menu-navbar .nav-item {
+                width: 100%;
+                text-align: center;
+                margin: 0;
+            }
+            .main-menu-navbar .nav-link {
+                padding: 0.5rem 1rem;
+            }
+        }
+
+
+        .card {
+            border: none;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08); /* Softer shadow */
+            margin-bottom: 25px;
+            background-color: var(--light-card-bg);
+        }
+        .card-header {
+            background-color: var(--primary-blue); /* Default header color */
+            color: white;
+            font-weight: bold;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+            padding: 15px 20px;
+            font-size: 1.2rem;
+        }
+        .card-header.bg-success {
+            background-color: var(--green-header) !important; /* Specific green for candidate info */
+        }
+        .card-header.bg-info {
+            background-color: var(--teal-header) !important; /* Specific teal for schedule */
+        }
+
+        /* Added for responsive card headers */
+        @media (max-width: 767.98px) {
+            .card-header {
+                font-size: 1.1rem;
+                padding: 12px 15px;
+            }
+        }
+        @media (max-width: 575.98px) {
+            .card-header {
+                font-size: 1rem;
+                padding: 10px 12px;
+            }
+        }
+
+
+        .form-label {
+            font-weight: 600;
+            color: var(--label-color);
+            margin-bottom: 0.4rem;
+        }
+        .form-control, .form-select {
+            border-radius: 5px;
+            border: 1px solid var(--input-border);
+            padding: 0.75rem 1rem;
+            font-size: 1rem;
+            color: var(--text-color);
+        }
+        .form-control:focus, .form-select:focus {
+            border-color: var(--accent-blue-contact);
+            box-shadow: 0 0 0 0.25rem rgba(0, 123, 255, 0.25);
+        }
+        .form-check-inline .form-check-input {
+            margin-top: 0.3em;
+        }
+        .form-check-inline .form-check-label {
+            padding-left: 0.25em;
+        }
+        /* Added for responsive form controls */
+        @media (max-width: 767.98px) {
+            .form-control, .form-select {
+                padding: 0.6rem 0.8rem;
+                font-size: 0.95rem;
+            }
+            .form-label {
+                font-size: 0.95rem;
+            }
+        }
+        @media (max-width: 575.98px) {
+            .form-control, .form-select {
+                padding: 0.5rem 0.7rem;
+                font-size: 0.9rem;
+            }
+            .form-label {
+                font-size: 0.9rem;
+            }
+        }
+
+
+        .table {
+            border-collapse: separate; /* For rounded corners */
+            border-spacing: 0;
+            overflow: hidden; /* To apply border-radius to the table */
+            border-radius: 8px; /* Slightly rounded table */
+        }
+        .table thead {
+            background-color: var(--table-header-bg); /* Blue for table header */
+            color: white;
+        }
+        .table th {
+            padding: 12px 15px;
+            font-weight: bold;
+            text-align: left;
+            border-bottom: none; /* No default border */
+        }
+        .table tbody tr td {
+            padding: 12px 15px;
+            vertical-align: middle;
+            border-top: 1px solid #dee2e6; /* Light border between rows */
+        }
+        .table-striped tbody tr:nth-of-type(odd) {
+            background-color: rgba(0,0,0,.03); /* Lighter stripe effect */
+        }
+        .table-striped tbody tr:nth-of-type(even) {
+            background-color: var(--light-card-bg);
+        }
+
+        /* Added for responsive table */
+        @media (max-width: 767.98px) {
+            .table thead {
+                display: none; /* Hide table header on small screens */
+            }
+            .table, .table tbody, .table tr, .table td {
+                display: block; /* Make table elements act like block elements */
+                width: 100%;
+            }
+            .table tr {
+                margin-bottom: 10px;
+                border: 1px solid #dee2e6;
+                border-radius: 8px;
+                box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            }
+            .table td {
+                text-align: right;
+                padding-left: 50%; /* Space for the pseudo-element label */
+                position: relative;
+                border: none;
+                border-bottom: 1px dotted #dee2e6;
+            }
+            .table td:before {
+                content: attr(data-label); /* Use data-label for content */
+                position: absolute;
+                left: 15px;
+                width: calc(50% - 30px);
+                padding-right: 10px;
+                white-space: nowrap;
+                text-align: left;
+                font-weight: bold;
+                color: var(--label-color);
+            }
+            /* Specific labels for each column in the table */
+            .table td:nth-of-type(1):before { content: "Chọn"; }
+            .table td:nth-of-type(2):before { content: "Chứng chỉ"; }
+            .table td:nth-of-type(3):before { content: "Ngày thi"; }
+            .table td:nth-of-type(4):before { content: "Giờ thi"; }
+            .table td:nth-of-type(5):before { content: "Số lượng ĐK"; }
+            .table td:nth-of-type(6):before { content: "Số lượng tối đa"; }
+        }
+
+
+        .btn-primary {
+            background-color: var(--primary-blue); /* Dark blue button */
+            border-color: var(--primary-blue);
+            padding: 14px 40px; /* Larger padding */
+            font-size: 1.25rem; /* Larger font size */
+            border-radius: 8px;
+            transition: background-color 0.2s, border-color 0.2s, box-shadow 0.2s;
+            font-weight: bold;
+        }
+        .btn-primary:hover {
+            background-color: #34495e; /* Slightly darker on hover */
+            border-color: #34495e;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        /* Added for responsive button */
+        @media (max-width: 767.98px) {
+            .btn-primary {
+                padding: 12px 30px;
+                font-size: 1.1rem;
+                width: 100%; /* Full width button on small screens */
+            }
+        }
+        @media (max-width: 575.98px) {
+            .btn-primary {
+                padding: 10px 20px;
+                font-size: 1rem;
+            }
+        }
+
+
+        .footer {
+            text-align: center;
+            padding: 20px;
+            margin-top: 40px;
+            color: #777;
+            font-size: 0.9rem;
+            background-color: var(--light-gray-bg);
+        }
+        /* Added for responsive footer */
+        @media (max-width: 767.98px) {
+            .footer {
+                padding: 15px;
+                margin-top: 20px;
+                font-size: 0.8rem;
+            }
+        }
+    </style>
 </head>
 <body>
-<div class="container mt-5">
+<nav class="navbar navbar-expand-lg navbar-dark top-navbar">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">
+            <img src="/images/logo.png" alt="ACCI Logo" class="me-2 rounded">
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#topNavbarNav" aria-controls="topNavbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="topNavbarNav">
+            <ul class="navbar-nav ms-auto"> <li class="nav-item">
+                <span class="nav-link">Nhân viên tiếp nhận: Đạo Minh Chiến</span>
+            </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Đăng xuất</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="container mt-4"> <div class="header-banner">
+    <div class="header-banner-content">
+<!--        <h1>CỔNG ĐĂNG KÝ ONLINE</h1>-->
+<!--        <p>CÁC BÀI THI QUỐC TẾ</p>-->
+<!--        <div class="contact-info">-->
+<!--            Liên hệ: <strong>036 272 8710</strong>-->
+<!--        </div>-->
+    </div>
+</div>
+
+    <nav class="navbar navbar-expand-lg navbar-dark main-menu-navbar">
+        <div class="container-fluid">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainMenuNav" aria-controls="mainMenuNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="mainMenuNav">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Trang chủ</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Danh sách phiếu đăng ký</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#">Lập phiếu đăng ký</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Tạo lịch thi</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Tra cứu kết quả</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
     <h2 class="text-center mb-4">Đăng ký thi chứng chỉ</h2>
 
     <form id="registrationForm">
-        <!-- Customer Information -->
         <div class="card mb-4">
-            <div class="card-header bg-primary text-white">
+            <div class="card-header">
                 <h5 class="mb-0">Thông tin người đăng ký</h5>
             </div>
             <div class="card-body">
@@ -50,9 +532,8 @@
             </div>
         </div>
 
-        <!-- Candidate Information -->
         <div class="card mb-4">
-            <div class="card-header bg-success text-white">
+            <div class="card-header bg-success">
                 <h5 class="mb-0">Thông tin thí sinh</h5>
             </div>
             <div class="card-body">
@@ -99,15 +580,14 @@
             </div>
         </div>
 
-        <!-- Schedule Selection -->
         <div class="card mb-4">
-            <div class="card-header bg-info text-white">
+            <div class="card-header bg-info">
                 <h5 class="mb-0">Chọn lịch thi</h5>
             </div>
             <div class="card-body">
                 <div class="table-responsive">
                     <table class="table table-striped" id="scheduleTable">
-                        <thead class="table-primary">
+                        <thead>
                         <tr>
                             <th>Chọn</th>
                             <th>Chứng chỉ</th>
@@ -118,7 +598,6 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <!-- Schedule data will be populated here -->
                         </tbody>
                     </table>
                 </div>
@@ -131,10 +610,13 @@
     </form>
 </div>
 
+<footer class="footer">
+    <p>&copy; 2025 ACCI. All rights reserved.</p>
+</footer>
+
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script src="/js/register.js"></script>
-<!-- Replace the existing authentication script with this -->
 <script>
     // Check authentication on page load
     $.ajax({
