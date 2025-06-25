@@ -64,7 +64,7 @@ public class AuthController {
     }
 
     @PostMapping("/sign-out")
-    @PreAuthorize("isAuthenticated()") 
+    @PreAuthorize("isAuthenticated()")
     public ResponseEntity<ApiResponseDto<Object>> logout(HttpServletRequest request, HttpServletResponse httpServletResponse) {
         // xoá cookie chứa JWT
         Cookie jwtCookie = new Cookie("jwt", null);

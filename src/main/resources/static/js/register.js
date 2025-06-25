@@ -1,4 +1,26 @@
 $(document).ready(function() {
+
+    $('a[href="/api/auth/sign-out"]').click(function(e) {
+        e.preventDefault();
+
+        $.ajax({
+            url: '/api/auth/sign-out',
+            method: 'POST',
+            xhrFields: {
+                withCredentials: true
+            },
+            success: function(response) {
+                if (response.status === 'SUCCESS') {
+                    window.location.href = '/login';
+                } else {
+                    alert('Đăng xuất thất bại: ' + response.message);
+                }
+            },
+            error: function(xhr) {
+                alert('Lỗi đăng xuất: ' + xhr.responseText);
+            }
+        });
+    });
     // Load schedules when page loads
     $.ajax({
         url: '/schedulewithcertificate',
