@@ -27,14 +27,14 @@ public class MainController {
         return "home"; // This will resolve to src/main/resources/templates/home.html
     }
 
-    @GetMapping("registrations/individual/form")
+    @GetMapping("/registrations/individual/form")
     @PreAuthorize("hasAuthority('ROLE_USER')")
     public String getRegistrationForm(Model model) {
         model.addAttribute("schedules", scheduleService.getAllSchedulesWithCertificate());
         return "register"; // This will return the name of the HTML template
     }
 
-    @GetMapping("registrations/individual/success")
+    @GetMapping("/registrations/individual/success")
     @PreAuthorize("hasAuthority('ROLE_USER')")
     public String success() {
         return "registerSuccess"; // This will resolve to src/main/resources/templates/success.html
@@ -45,8 +45,9 @@ public class MainController {
     public  String invoice(){return "invoice";}
 
 
-    @GetMapping("schedule")
+    @GetMapping("/schedule")
     public  String schedule(){return "taolichthi";}
+    
     @GetMapping("/login")
     public String index() {
         return "index"; // This will resolve to src/main/resources/templates/index.html

@@ -1,107 +1,101 @@
 <!DOCTYPE html>
 <html lang="vi">
-
-<head>
+  <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Registration List</title>
     <link rel="stylesheet" href="/css/index.css" />
-<!--    <link rel="stylesheet" href="/css/style.css" />-->
+    <!--    <link rel="stylesheet" href="/css/style.css" />-->
     <link rel="stylesheet" href="/css/detailResults.css" />
     <link rel="stylesheet" href="/css/resultExam.css" />
-</head>
+  </head>
 
-<body>
-<!-- Top blue contact bar -->
-<div class="topbar-blue">
-    <div class="left">
-        <span>📞 036 272 8710</span>
-        <span>📧 22120036@student.edu.vn</span>
+  <body>
+    <!-- Top blue contact bar -->
+    <div class="topbar-blue">
+      <div class="left">
+        <i class="fas fa-phone"></i> 036 272 8710
+        <span class="separator">|</span>
+        <i class="fas fa-envelope"></i> 22120036@student.edu.vn
+      </div>
+      <div class="right">
+        <i class="fas fa-clock"></i> <span id="clock">Đang tải...</span>
+      </div>
     </div>
-    <div class="right">
-        <span>🕒 Thứ 2 - Thứ 7: 7h30 - 20h30</span>
-    </div>
-</div>
-
-<!-- White sub-header bar -->
-<header class="topbar">
-    <div class="logo-info">
+    <!-- White sub-header bar -->
+    <header class="topbar">
+      <div class="logo-info">
         <img src="/image/logo.png" alt="ACCI logo" class="logo" />
-    </div>
-    <div class="staff-info">
+      </div>
+      <div class="staff-info">
         <span>Nhân viên tiếp nhận: <strong>Đạo Minh Chiến</strong></span>
         <a href="#" class="logout"><strong>Đăng xuất</strong></a>
+      </div>
+    </header>
+
+    <div class="banner">
+      <img src="/image/banner.png" alt="Banner" class="banner-image" />
     </div>
-</header>
 
-<div class="banner">
-    <img src="/image/banner.png" alt="Banner" class="banner-image" />
-</div>
+    <nav class="navbar">
+      <a class="active" href="#">Danh sách phiếu đăng ký</a>
+      <a href="#">Lập phiếu đăng ký</a>
+      <a href="#">Tạo lịch thi</a>
+      <a href="/results" id="nav-tra_cuu">Tra cứu kết quả</a>
+    </nav>
 
-<nav class="navbar">
-    <a class="active" href="#">Danh sách phiếu đăng ký</a>
-    <a href="#">Lập phiếu đăng ký</a>
-    <a href="#">Tạo lịch thi</a>
-    <a href="/results" id="nav-tra_cuu">Tra cứu kết quả</a>
-</nav>
-
-<main class="content">
-
-    <section class="candidate-details" style="display: none;">
+    <main class="content">
+      <section class="candidate-details" style="display: none">
         <h2>Thông tin thí sinh</h2>
         <form id="candidate-form" class="candidate-form">
-            <div class="form-group">
-                <label for="fullName">Họ tên</label>
-                <input type="text" id="fullName" readonly />
+          <div class="form-group">
+            <label for="fullName">Họ tên</label>
+            <input type="text" id="fullName" readonly />
+          </div>
+
+          <div class="form-group">
+            <label for="candidateId">ID</label>
+            <input type="text" id="candidateId" readonly />
+          </div>
+
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="text" id="email" readonly />
+          </div>
+
+          <div class="form-group">
+            <label for="phone">SDT</label>
+            <input type="text" id="phone" readonly />
+          </div>
+
+          <div class="form-group">
+            <label for="certificateName">Tên chứng chỉ</label>
+            <input type="text" id="certificateName" readonly />
+          </div>
+
+          <div class="form-group">
+            <label for="examDate">Ngày thi</label>
+            <input type="date" id="examDate" readonly />
+          </div>
+
+          <div class="form-group">
+            <label for="score">Điểm</label>
+            <input type="text" id="score" readonly />
+          </div>
+
+          <div class="form-group checkbox-group">
+            <label for="received">Đã nhận bằng</label>
+            <div class="checkbox-wrapper">
+              <input type="checkbox" id="received" />
             </div>
+          </div>
 
-            <div class="form-group">
-                <label for="candidateId">ID</label>
-                <input type="text" id="candidateId" readonly />
-            </div>
-
-            <div class="form-group">
-                <label for="email">Email</label>
-                <input type="text" id="email" readonly />
-            </div>
-
-            <div class="form-group">
-                <label for="phone">SDT</label>
-                <input type="text" id="phone" readonly />
-            </div>
-
-            <div class="form-group">
-                <label for="certificateName">Tên chứng chỉ</label>
-                <input type="text" id="certificateName" readonly />
-            </div>
-
-            <div class="form-group">
-                <label for="examDate">Ngày thi</label>
-                <input type="date" id="examDate" readonly />
-            </div>
-
-            <div class="form-group">
-                <label for="score">Điểm</label>
-                <input type="text" id="score" readonly />
-            </div>
-
-            <div class="form-group checkbox-group">
-                <label for="received">Đã nhận bằng</label>
-                <div class="checkbox-wrapper">
-                    <input type="checkbox" id="received" />
-                </div>
-            </div>
-
-            <button type="button" id="update-btn" class="btn" >Cập nhật</button>
-
+          <button type="button" id="update-btn" class="btn">Cập nhật</button>
         </form>
-
-    </section>
-
-
-</main>
-</body>
-<script src="/js/script.js"></script>
-<script src="/js/detailResults.js"></script>
-
+      </section>
+    </main>
+  </body>
+  <script src="/js/script.js"></script>
+  <script src="/js/detailResults.js"></script>
+  <script src="/js/headerAllPage.js"></script>
 </html>

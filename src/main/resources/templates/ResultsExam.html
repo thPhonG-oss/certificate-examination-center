@@ -1,72 +1,73 @@
 <!DOCTYPE html>
 <html lang="vi">
-
-<head>
+  <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Registration List</title>
+    <title>Tra cứu kết quả</title>
     <link rel="stylesheet" href="/css/resultExam.css" />
+  </head>
 
-</head>
-
-<body>
-<!-- Top blue contact bar -->
-<div class="topbar-blue">
-    <div class="left">
-        <span>📞 036 272 8710</span>
-        <span>📧 22120036@student.edu.vn</span>
+  <body>
+    <!-- Top blue contact bar -->
+    <div class="topbar-blue">
+      <div class="left">
+        <i class="fas fa-phone"></i> 036 272 8710
+        <span class="separator">|</span>
+        <i class="fas fa-envelope"></i> 22120036@student.edu.vn
+      </div>
+      <div class="right">
+        <i class="fas fa-clock"></i> <span id="clock">Đang tải...</span>
+      </div>
     </div>
-    <div class="right">
-        <span>🕒 Thứ 2 - Thứ 7: 7h30 - 20h30</span>
-    </div>
-</div>
 
-<!-- White sub-header bar -->
-<header class="topbar">
-    <div class="logo-info">
+    <!-- White sub-header bar -->
+    <header class="topbar">
+      <div class="logo-info">
         <img src="/image/logo.png" alt="ACCI logo" class="logo" />
-    </div>
-    <div class="staff-info">
-        <span>Nhân viên tiếp nhận: <strong>Đạo Minh Chiến</strong></span>
+      </div>
+      <div class="staff-info">
         <a href="#" class="logout"><strong>Đăng xuất</strong></a>
+      </div>
+    </header>
+
+    <div class="banner">
+      <img src="/image/banner.png" alt="Banner" class="banner-image" />
     </div>
-</header>
 
-<div class="banner">
-    <img src="/image/banner.png" alt="Banner" class="banner-image" />
-</div>
+    <nav class="navbar">
+      <a href="/list-registration-forms">Danh sách phiếu đăng ký</a>
+      <a href="/schedule">Tạo lịch thi</a>
+      <a href="/invoice">Lập hóa đơn</a>
+      <a href="/results" class="active">Tra cứu kết quả thi</a>
+    </nav>
 
-<nav class="navbar">
-    <a class="active" href="#">Danh sách phiếu đăng ký</a>
-    <a href="#">Lập phiếu đăng ký</a>
-    <a href="#">Tạo lịch thi</a>
-    <a href="/results" id="nav-tra_cuu">Tra cứu kết quả</a>
-</nav>
-
-<main class="content">
-    <section class="result-section" style="display: none;">
+    <main class="content">
+      <section class="result-section">
         <div class="search-box">
-            <input type="text" id="searchInput" placeholder="Tìm theo ID thí sinh " />
-            <button id="search-btn">🔍</button>
+          <input
+            type="text"
+            id="searchInput"
+            placeholder="Tìm theo ID thí sinh "
+          />
+          <button id="search-btn">🔍</button>
         </div>
 
         <table class="result-table">
-            <thead>
+          <thead>
             <tr>
-                <th>STT</th>
-                <th>ID thí sinh</th>
-                <th>Loại chứng chỉ</th>
-                <th>Kết quả</th>
-                <th>Cập nhật</th>
+              <th>STT</th>
+              <th>ID thí sinh</th>
+              <th>Loại chứng chỉ</th>
+              <th>Kết quả</th>
+              <th>Cập nhật</th>
             </tr>
-            </thead>
-            <tbody id="resultBody"></tbody>
+          </thead>
+          <tbody id="resultBody"></tbody>
         </table>
-    </section>
+      </section>
+    </main>
 
-
-</main>
-</body>
-<script src="/js/resultsExam.js"></script>
-
+    <script src="/js/headerAllPage.js"></script>
+    <script src="/js/resultsExam.js"></script>
+  </body>
 </html>

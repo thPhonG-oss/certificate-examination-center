@@ -59,14 +59,18 @@ public class WebSecurityConfig {
                 .exceptionHandling(exception -> exception.authenticationEntryPoint(unauthorizedHandler))
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/api/auth/**",
+                           .requestMatchers(
+                                "/api/auth/sign-up",
+                                "/api/auth/sign-in",
+                                "/api/auth/check",
                                 "/login",
                                 "/dashboard",
                                 "/css/**",
                                 "/js/**",
                                 "/images/**",
                                 "/webjars/**",
-                                "/favicon.ico").permitAll()
+                                "/favicon.ico"
+                            ).permitAll()
                         .requestMatchers("/api/auth/sign-out").authenticated()
                         .requestMatchers("/registrations/individual/form", "/api/dashboard", "/api/customers", "/dashboard").hasAuthority("ROLE_USER")
                         .anyRequest().authenticated()

@@ -89,70 +89,68 @@ body {
 /* Form */
 
 .col-md-6.form-group {
-    max-width: 300px;
+  max-width: 300px;
 }
 
-.btn-add{
-    background-color: #13498b;
-    color: #ffffff;
+.btn-add {
+  background-color: #13498b;
+  color: #ffffff;
 }
-input::placeholder, select::placeholder {
-    color: #222 !important;
-    opacity: 1 !important;
+input::placeholder,
+select::placeholder {
+  color: #222 !important;
+  opacity: 1 !important;
 }
-input, select {
-    border: 1px solid #0f0e0e !important;
-    color: black !important;
+input,
+select {
+  border: 1px solid #0f0e0e !important;
+  color: black !important;
 }
 #searchButton {
-    background-color: #13498b;
-    color: #ffffff;
-    border: none;
-    cursor: pointer;
+  background-color: #13498b;
+  color: #ffffff;
+  border: none;
+  cursor: pointer;
 }
 #searchButton:hover {
-    background-color: #496588;
-
+  background-color: #496588;
 }
-
-
-
 
 /* Table */
 .table-responsive {
-    width: 100%;
-    max-height: 300px;
-    overflow-y: auto;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    background: #fff;
+  width: 100%;
+  max-height: 300px;
+  overflow-y: auto;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  background: #fff;
 }
 
 table {
-    width: 100%;
-    border-collapse: collapse;
-
+  width: 100%;
+  border-collapse: collapse;
 }
 
-th, td {
-    padding: 12px;
-    text-align: center;
-    color: #333;
-    font-size: 12px;
+th,
+td {
+  padding: 12px;
+  text-align: center;
+  color: #333;
+  font-size: 12px;
 }
 
 th {
-    position: sticky;
-    top: 0;
-    background: #13498b;
-    color: #ffffff;
-    font-weight: bold;
-    z-index: 2;
+  position: sticky;
+  top: 0;
+  background: #13498b;
+  color: #ffffff;
+  font-weight: bold;
+  z-index: 2;
 }
 
 td {
-    border-bottom: 1px solid #e0e0e0;
+  border-bottom: 1px solid #e0e0e0;
 }
 .menu-item a.active-item:link {
-    text-decoration: underline;
+  text-decoration: underline;
 }

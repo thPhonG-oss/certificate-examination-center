@@ -52,6 +52,7 @@ document.addEventListener("DOMContentLoaded", function () {
       const data = await response.json();
 
       if (!response.ok || data.status !== "SUCCESS") {
+        console.error("Đăng nhập thất bại:", data);
         errorDiv.textContent = data.message || "Đăng nhập thất bại.";
         return;
       }

@@ -9,6 +9,7 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
     />
+    <link rel="stylesheet" href="/css/active.css" />
   </head>
 
   <body>
@@ -30,7 +31,6 @@
         <img src="/images/logo.png" alt="ACCI logo" class="logo" />
       </div>
       <div class="staff-info">
-        <span>Nhân viên tiếp nhận: <strong>Đạo Minh Chiến</strong></span>
         <a href="#" class="logout"><strong>Đăng xuất</strong></a>
       </div>
     </header>
@@ -40,14 +40,28 @@
     </div>
 
     <nav class="navbar">
-      <a class="active" href="#">Danh sách phiếu đăng ký</a>
-      <a href="#">Lập phiếu đăng ký</a>
-      <a href="#">Tạo lịch thi</a>
-      <a href="#">Tra cứu kết quả</a>
+      <a href="/list-registration-forms" class="active"
+        >Danh sách phiếu đăng ký</a
+      >
+      <a href="/schedule">Tạo lịch thi</a>
+      <a href="/invoice">Lập hóa đơn</a>
+      <a href="/results">Tra cứu kết quả thi</a>
     </nav>
 
     <main class="content">
-      <h2>Danh sách phiếu đăng ký</h2>
+      <div
+        style="
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+        "
+      >
+        <h2>Danh sách phiếu đăng ký</h2>
+        <a href="/registrations/individual/form" class="btn-create"
+          >Lập phiếu đăng ký</a
+        >
+      </div>
+
       <div class="legend">
         <span><span class="dot green"></span>Đã thanh toán</span>
         <span><span class="dot red"></span>Chưa thanh toán</span>

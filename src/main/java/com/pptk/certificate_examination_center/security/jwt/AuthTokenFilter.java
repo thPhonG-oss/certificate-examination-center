@@ -17,8 +17,10 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
+import java.util.List;
 
 public class AuthTokenFilter extends OncePerRequestFilter {
+
     @Autowired
     private JwtUtils jwtUtils;
 
@@ -33,14 +35,12 @@ public class AuthTokenFilter extends OncePerRequestFilter {
 
         try {
             String jwt = parseJwtFromCookie(request);
-            if(jwt!=null && jwtUtils.validateJwtToken(jwt)) {
+            if (jwt != null && jwtUtils.validateJwtToken(jwt)) {
                 String username = jwtUtils.getUserNameFromJwtToken(jwt);
                 logger.info("Username from token: {}", username);
 
                 UserDetailsImpl userDetails = (UserDetailsImpl) userDetailsService.loadUserByUsername(username);
                 logger.info("User authorities: {}", userDetails.getAuthorities());
-
-                System.out.println(userDetails.toString());
 
                 UsernamePasswordAuthenticationToken authentication =
                         new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
@@ -48,25 +48,15 @@ public class AuthTokenFilter extends OncePerRequestFilter {
 
                 SecurityContextHolder.getContext().setAuthentication(authentication);
 
-                // Log the current authentication after setting
                 Authentication currentAuth = SecurityContextHolder.getContext().getAuthentication();
                 logger.info("Current authentication: {}", currentAuth);
                 logger.info("Current authorities: {}", currentAuth.getAuthorities());
             }
         } catch (Exception e) {
-            logger.error("Cannot set user authentication: {}", e);
+            logger.error("Cannot set user authentication: {}", e.getMessage());
         }
 
         filterChain.doFilter(request, response);
-    }
-
-    private String parseJwt(HttpServletRequest request) {
-        String headerAuth = request.getHeader("Authorization");
-        if(StringUtils.hasText(headerAuth) && headerAuth.startsWith("Bearer ")) {
-            return headerAuth.substring(7);
-        }
-
-        return null;
     }
 
     private String parseJwtFromCookie(HttpServletRequest request) {
@@ -79,6 +69,21 @@ public class AuthTokenFilter extends OncePerRequestFilter {
                 }
             }
         }
-        return null; // Placeholder for cookie parsing logic
+        return null;
+    }
+
+    /**
+     * Bỏ qua filter cho các route công khai (public endpoints)
+     */
+    private static final List<String> EXCLUDED_PATHS = List.of(
+            "/api/auth/sign-up",
+            "/api/auth/sign-in",
+            "/api/auth/check"
+    );
+
+    @Override
+    protected boolean shouldNotFilter(HttpServletRequest request) {
+        String path = request.getRequestURI();
+        return EXCLUDED_PATHS.stream().anyMatch(path::startsWith);
     }
 }

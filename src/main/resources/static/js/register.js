@@ -1,140 +1,150 @@
-$(document).ready(function() {
+document.addEventListener("DOMContentLoaded", function () {
+  // Đăng xuất
+  const signOutLink = document.querySelector('a[href="/api/auth/sign-out"]');
+  if (signOutLink) {
+    signOutLink.addEventListener("click", function (e) {
+      e.preventDefault();
 
-    $('a[href="/api/auth/sign-out"]').click(function(e) {
-        e.preventDefault();
-
-        $.ajax({
-            url: '/api/auth/sign-out',
-            method: 'POST',
-            xhrFields: {
-                withCredentials: true
-            },
-            success: function(response) {
-                if (response.status === 'SUCCESS') {
-                    window.location.href = '/login';
-                } else {
-                    alert('Đăng xuất thất bại: ' + response.message);
-                }
-            },
-            error: function(xhr) {
-                alert('Lỗi đăng xuất: ' + xhr.responseText);
-            }
+      fetch("/api/auth/sign-out", {
+        method: "POST",
+        credentials: "include",
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          if (data.status === "SUCCESS") {
+            window.location.href = "/login";
+          } else {
+            alert("Đăng xuất thất bại: " + data.message);
+          }
+        })
+        .catch((error) => {
+          alert("Lỗi đăng xuất: " + error);
         });
     });
-    // Load schedules when page loads
-    $.ajax({
-        url: '/schedulewithcertificate',
-        method: 'GET',
-        xhrFields: {
-            withCredentials: true
-        },
-        success: function(response) {
-            populateScheduleTable(response);
-        },
-        error: function(xhr) {
-            if (xhr.status === 401 || xhr.status === 403) {
-                window.location.href = '/login?redirect=/registrations/individual/form';
-            } else {
-                alert('Lỗi tải lịch thi: ' + xhr.responseText);
-            }
+  }
+
+  // Tải danh sách lịch thi khi trang load
+  fetch("/schedulewithcertificate", {
+    method: "GET",
+    credentials: "include",
+  })
+    .then((response) => {
+      if (!response.ok) {
+        if (response.status === 401 || response.status === 403) {
+          window.location.href =
+            "/login?redirect=/registrations/individual/form";
         }
+        throw new Error("Lỗi tải lịch thi");
+      }
+      return response.json();
+    })
+    .then((data) => populateScheduleTable(data))
+    .catch((error) => {
+      alert("Lỗi tải lịch thi: " + error.message);
     });
 
-    // Populate schedule table
-    function populateScheduleTable(schedules) {
-        const tbody = $('#scheduleTable tbody');
-        tbody.empty();
+  function populateScheduleTable(schedules) {
+    const tbody = document.querySelector("#scheduleTable tbody");
+    tbody.innerHTML = "";
 
-        schedules.forEach(schedule => {
-            const row = `
-                <tr>
-                    <td>
-                        <input type="checkbox" class="form-check-input schedule-checkbox"
-                               data-schedule='${JSON.stringify(schedule)}'>
-                    </td>
-                    <td>${schedule.certificateName}</td>
-                    <td>${formatDate(schedule.date)}</td>
-                    <td>${schedule.time}</td>
-                    <td>${schedule.currentParticipants}</td>
-                    <td>${schedule.maxParticipants}</td>
-                </tr>
+    schedules.forEach((schedule) => {
+      const row = document.createElement("tr");
+      row.innerHTML = `
+                <td>
+                    <input type="checkbox" class="form-check-input schedule-checkbox"
+                           data-schedule='${JSON.stringify(schedule)}'>
+                </td>
+                <td>${schedule.certificateName}</td>
+                <td>${formatDate(schedule.date)}</td>
+                <td>${schedule.time}</td>
+                <td>${schedule.currentParticipants}</td>
+                <td>${schedule.maxParticipants}</td>
             `;
-            tbody.append(row);
-        });
-    }
+      tbody.appendChild(row);
+    });
+  }
 
-    // Format date to Vietnamese locale
-    function formatDate(dateStr) {
-        const date = new Date(dateStr);
-        return date.toLocaleDateString('vi-VN');
-    }
+  function formatDate(dateStr) {
+    const date = new Date(dateStr);
+    return date.toLocaleDateString("vi-VN");
+  }
 
-    // Handle form submission
-    $('#registrationForm').submit(function(e) {
-        e.preventDefault();
-        console.log('Form submitted'); // Debug log
+  // Xử lý submit form
+  const form = document.getElementById("registrationForm");
+  if (form) {
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      console.log("Form submitted");
 
-        const selectedSchedules = [];
-        $('.schedule-checkbox:checked').each(function() {
-            const schedule = $(this).data('schedule'); // Lấy object trực tiếp
-            console.log('Schedule:', schedule);
-            selectedSchedules.push(schedule);
-        });
+      const checkboxes = document.querySelectorAll(
+        ".schedule-checkbox:checked"
+      );
+      const selectedSchedules = Array.from(checkboxes).map((cb) =>
+        JSON.parse(cb.getAttribute("data-schedule"))
+      );
 
-        if (selectedSchedules.length === 0) {
-            alert('Vui lòng chọn ít nhất một lịch thi');
-            return;
-        }
+      if (selectedSchedules.length === 0) {
+        alert("Vui lòng chọn ít nhất một lịch thi");
+        return;
+      }
 
-        const registrationData = {
-            customer: {
-                name: $('#customerName').val(),
-                organization: "",
-                email: $('#customerEmail').val(),
-                phoneNumber: $('#customerPhone').val(),
-                address: $('#customerAddress').val(),
-                citizen_id: $('#customerCitizenId').val(),
-                customer_type: "INDIVIDUAL",
-                dob: $('#customerDob').val()
-            },
-            candidate: {
-                name: $('#candidateName').val(),
-                gender: $('#candidateGender').val(),
-                email: $('#candidateEmail').val(),
-                phoneNumber: $('#candidatePhone').val(),
-                dob: $('#candidateDob').val(),
-                address: $('#candidateAddress').val(),
-                citizen_id: $('#candidateCitizenId').val()
-            },
-            schedules: selectedSchedules
-        };
+      const registrationData = {
+        customer: {
+          name: document.getElementById("customerName").value,
+          organization: "",
+          email: document.getElementById("customerEmail").value,
+          phoneNumber: document.getElementById("customerPhone").value,
+          address: document.getElementById("customerAddress").value,
+          citizen_id: document.getElementById("customerCitizenId").value,
+          customer_type: "INDIVIDUAL",
+          dob: document.getElementById("customerDob").value,
+        },
+        candidate: {
+          name: document.getElementById("candidateName").value,
+          gender: document.getElementById("candidateGender").value,
+          email: document.getElementById("candidateEmail").value,
+          phoneNumber: document.getElementById("candidatePhone").value,
+          dob: document.getElementById("candidateDob").value,
+          address: document.getElementById("candidateAddress").value,
+          citizen_id: document.getElementById("candidateCitizenId").value,
+        },
+        schedules: selectedSchedules,
+      };
 
-        console.log('Registration data:', registrationData); // Debug log
+      console.log("Registration data:", registrationData);
 
-        $.ajax({
-            url: '/registrations/individual/submit',
-            method: 'POST',
-            contentType: 'application/json',
-            xhrFields: {
-                withCredentials: true
-            },
-            data: JSON.stringify(registrationData),
-            success: function(response) {
-                console.log('Success response:', response); // Debug log
-                if (response.status === 'SUCCESS') {
-                    window.location.href = '/registrations/individual/success';
-                } else {
-                    alert('Đăng ký thất bại: ' + response.message);
-                }
-            },
-            error: function(xhr, status, error) {
-                console.log('Error:', error); // Debug log
-                if (xhr.status === 401 || xhr.status === 403) {
-                    window.location.href = '/login?redirect=/registrations/individual/form';
-                } else {
-                    alert('Lỗi đăng ký: ' + xhr.responseText);
-                }
+      fetch("/registrations/individual/submit", {
+        method: "POST",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(registrationData),
+      })
+        .then((response) => {
+          if (!response.ok) {
+            if (response.status === 401 || response.status === 403) {
+              window.location.href =
+                "/login?redirect=/registrations/individual/form";
             }
+            return response.text().then((text) => {
+              throw new Error(text);
+            });
+          }
+          return response.json();
+        })
+        .then((data) => {
+          console.log("Success response:", data);
+          if (data.status === "SUCCESS") {
+            window.location.href = "/registrations/individual/success";
+          } else {
+            alert("Đăng ký thất bại: " + data.message);
+          }
+        })
+        .catch((error) => {
+          console.error("Error:", error);
+          alert("Lỗi đăng ký: " + error.message);
         });
     });
+  }
 });
