@@ -48,7 +48,8 @@ public class RegistrationServiceImpl {
         Candidate candidateEntity = CandidateMapper.toEntity(candidate);
         candidateEntity.setId_registration_form(registration_form_id);
 
-        CandidateDto savedCandidate = candidateService.createCandidate(CandidateMapper.toDto(candidateEntity));
+//        CandidateDto savedCandidate = candidateService.createCandidate(CandidateMapper.toDto(candidateEntity));
+          candidateService.createCandidate(CandidateMapper.toDto(candidateEntity));
 
         schedules.forEach(schedule -> {
             scheduleService.updateNumberOfCandidatesForIndividual(schedule.getId());
