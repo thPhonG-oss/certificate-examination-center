@@ -55,10 +55,10 @@ public class RegistrationServiceImpl {
         System.out.println("Candidate Entity: " + candidateEntity.toString());
 
 //        CandidateDto savedCandidate = candidateService.createCandidate(CandidateMapper.toDto(candidateEntity));
-        if (candidateService.getCandidateByCitizenId(candidate.getCitizen_id()) == null){
-            candidateService.createCandidate(CandidateMapper.toDto(candidateEntity));
-        }
-          scheduleService.updateNumberOfCandidatesForIndividual(schedule.getId());
+
+        candidateService.createCandidate(CandidateMapper.toDto(candidateEntity));
+
+        scheduleService.updateNumberOfCandidatesForIndividual(schedule.getId());
 
 //        schedule.forEach(schedule -> {
 //            scheduleService.updateNumberOfCandidatesForIndividual(schedule.getId());
