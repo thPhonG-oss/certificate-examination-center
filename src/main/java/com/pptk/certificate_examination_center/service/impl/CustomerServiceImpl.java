@@ -82,7 +82,7 @@ public class CustomerServiceImpl implements CustomerService {
     public CustomerDto getCustomerByCitizenId(String citizenId) {
         Customer customer = customerRepository.findCustomerByCitizen_id(citizenId);
         if (customer == null) {
-            throw new CustomerNotFoundException("Customer not found with citizen ID: " + citizenId);
+            return null;
         }
         return CustomerMapper.toDto(customer);
     }
