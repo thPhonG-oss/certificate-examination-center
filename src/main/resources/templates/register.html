@@ -1,594 +1,691 @@
 <!DOCTYPE html>
 <html lang="vi" xmlns:th="http://www.thymeleaf.org">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Đăng ký thi chứng chỉ</title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Đăng ký thi chứng chỉ</title>
     <link rel="stylesheet" href="/css/register.css" />
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-  <style>
-    :root {
-      --primary-blue: #6b79ca; /* Dark blue for Navbar, main buttons, some headers */
-      --light-gray-bg: #f0f2f5; /* Overall page background */
-      --green-header: #28a745; /* Green for "Thông tin thí sinh" header */
-      --teal-header: #17a2b8; /* Teal/Cyan for "Chọn lịch thi" header */
-      --light-card-bg: #ffffff; /* White background for cards */
-      --text-color: #333333; /* Dark gray for general text */
-      --label-color: #333333; /* Dark gray for form labels */
-      --input-border: #ced4da; /* Default Bootstrap input border */
-      --table-header-bg: #007bff; /* Blue for table header */
-      --banner-yellow: #ffc107; /* Yellow for "CỔNG ĐĂNG KÝ ONLINE" box */
-      --banner-text-dark: #343a40; /* Dark text for banner */
-      --accent-blue-contact: #007bff; /* Blue for contact text in banner */
-    }
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <style>
+      :root {
+        --primary-blue: #6b79ca; /* Dark blue for Navbar, main buttons, some headers */
+        --light-gray-bg: #f0f2f5; /* Overall page background */
+        --green-header: #28a745; /* Green for "Thông tin thí sinh" header */
+        --teal-header: #17a2b8; /* Teal/Cyan for "Chọn lịch thi" header */
+        --light-card-bg: #ffffff; /* White background for cards */
+        --text-color: #333333; /* Dark gray for general text */
+        --label-color: #333333; /* Dark gray for form labels */
+        --input-border: #ced4da; /* Default Bootstrap input border */
+        --table-header-bg: #007bff; /* Blue for table header */
+        --banner-yellow: #ffc107; /* Yellow for "CỔNG ĐĂNG KÝ ONLINE" box */
+        --banner-text-dark: #343a40; /* Dark text for banner */
+        --accent-blue-contact: #007bff; /* Blue for contact text in banner */
+      }
 
-    body {
-      background-color: var(--light-gray-bg);
-      color: var(--text-color);
-      font-family: Arial, sans-serif;
-    }
+      body {
+        background-color: var(--light-gray-bg);
+        color: var(--text-color);
+        font-family: Arial, sans-serif;
+      }
 
-    .topbar-blue {
-      background-color: var(--primary-blue);
-      color: white;
-      padding: 0.5rem 1rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    .topbar-blue .left i, .topbar-blue .right i {
-      margin-right: 0.5rem;
-    }
-    .topbar-blue .separator {
-      margin: 0 0.5rem;
-    }
-    @media (max-width: 767.98px) {
       .topbar-blue {
-        flex-direction: column;
-        text-align: center;
-      }
-      .topbar-blue .left, .topbar-blue .right {
-        margin-bottom: 0.5rem;
-      }
-    }
-
-    .topbar {
-      background-color: #ffffff;
-      padding: 0.5rem 1rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    .topbar .logo {
-      height: 40px;
-    }
-    .topbar .logout {
-      color: var(--primary-blue);
-      font-weight: bold;
-    }
-    @media (max-width: 767.98px) {
-      .topbar {
-        flex-direction: column;
-      }
-      .topbar .logo {
-        height: 30px;
-      }
-    }
-
-    /*.banner {*/
-    /*  position: relative;*/
-    /*  width: 100%;*/
-    /*  height: 300px;*/
-    /*  background-image: url("/images/banner.png");*/
-    /*  background-size: cover;*/
-    /*  background-position: center;*/
-    /*  background-repeat: no-repeat;*/
-    /*  color: white;*/
-    /*  padding: 40px 0;*/
-    /*  border-radius: 8px;*/
-    /*  margin-top: 30px;*/
-    /*  margin-bottom: 30px;*/
-    /*  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);*/
-    /*  display: flex;*/
-    /*  align-items: center;*/
-    /*  padding-left: 10%;*/
-    /*}*/
-    /*.banner-content {*/
-    /*  text-align: left;*/
-    /*}*/
-    /*.banner h1 {*/
-    /*  background-color: var(--banner-yellow);*/
-    /*  color: var(--banner-text-dark);*/
-    /*  padding: 10px 20px;*/
-    /*  display: inline-block;*/
-    /*  border-radius: 8px;*/
-    /*  font-size: 2.5rem;*/
-    /*  font-weight: bold;*/
-    /*  margin-bottom: 0.75rem;*/
-    /*}*/
-    /*.banner p {*/
-    /*  font-size: 1.5rem;*/
-    /*  margin-bottom: 1.5rem;*/
-    /*  color: white;*/
-    /*  font-weight: bold;*/
-    /*}*/
-    /*.contact-info {*/
-    /*  background-color: white;*/
-    /*  padding: 12px 25px;*/
-    /*  border-radius: 50px;*/
-    /*  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);*/
-    /*  display: inline-block;*/
-    /*  margin-top: 20px;*/
-    /*  color: var(--accent-blue-contact);*/
-    /*  font-weight: bold;*/
-    /*  font-size: 1.1rem;*/
-    /*}*/
-    @media (max-width: 991.98px) {
-      .banner {
-        height: 250px;
-        padding: 20px 0;
-        padding-left: 5%;
-      }
-      .banner h1 {
-        font-size: 2rem;
-        padding: 8px 15px;
-      }
-      .banner p {
-        font-size: 1.2rem;
-      }
-      .contact-info {
-        font-size: 1rem;
-        padding: 10px 20px;
-      }
-    }
-    @media (max-width: 767.98px) {
-      .banner {
-        height: 200px;
-        padding-left: 5%;
-        text-align: center;
-        justify-content: center;
-      }
-      .banner-content {
-        text-align: center;
-      }
-      .banner h1 {
-        font-size: 1.8rem;
-        padding: 6px 12px;
-      }
-      .banner p {
-        font-size: 1rem;
-        margin-bottom: 1rem;
-      }
-      .contact-info {
-        font-size: 0.9rem;
-        padding: 8px 15px;
-        margin-top: 10px;
-      }
-    }
-    @media (max-width: 575.98px) {
-      .banner {
-        height: 180px;
-      }
-      .banner h1 {
-        font-size: 1.5rem;
-      }
-      .banner p {
-        font-size: 0.9rem;
-      }
-      .contact-info {
-        font-size: 0.8rem;
-        padding: 6px 12px;
-      }
-    }
-
-    /*.navbar {*/
-    /*  background-color: var(--primary-blue);*/
-    /*  padding: 0.75rem 1rem;*/
-    /*  border-radius: 8px;*/
-    /*  margin-bottom: 25px;*/
-    /*  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);*/
-    /*}*/
-    /*.navbar a {*/
-    /*  color: white;*/
-    /*  padding: 0.7rem 1rem;*/
-    /*  transition: background-color 0.2s;*/
-    /*}*/
-    /*.navbar a:hover,*/
-    /*.navbar a.active {*/
-    /*  background-color: rgba(255, 255, 255, 0.1);*/
-    /*  border-radius: 5px;*/
-    /*}*/
-    @media (max-width: 767.98px) {
-      .navbar {
-        padding: 0.5rem;
-      }
-      .navbar a {
-        display: block;
+        background-color: var(--primary-blue);
+        color: white;
         padding: 0.5rem 1rem;
-        text-align: center;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
       }
-    }
-
-    .card {
-      border: none;
-      border-radius: 10px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-      margin-bottom: 25px;
-      background-color: var(--light-card-bg);
-    }
-    .card-header {
-      background-color: var(--primary-blue);
-      color: white;
-      font-weight: bold;
-      border-top-left-radius: 10px;
-      border-top-right-radius: 10px;
-      padding: 15px 20px;
-      font-size: 1.2rem;
-    }
-    .card-header.bg-success {
-      background-color: var(--green-header) !important;
-    }
-    .card-header.bg-info {
-      background-color: var(--teal-header) !important;
-    }
-    @media (max-width: 767.98px) {
-      .card-header {
-        font-size: 1.1rem;
-        padding: 12px 15px;
+      .topbar-blue .left i,
+      .topbar-blue .right i {
+        margin-right: 0.5rem;
       }
-    }
-    @media (max-width: 575.98px) {
-      .card-header {
-        font-size: 1rem;
-        padding: 10px 12px;
+      .topbar-blue .separator {
+        margin: 0 0.5rem;
       }
-    }
-
-    .form-label {
-      font-weight: 600;
-      color: var(--label-color);
-      margin-bottom: 0.4rem;
-      font-size: 1.1rem;
-    }
-    .form-control,
-    .form-select {
-      border-radius: 5px;
-      border: 1px solid var(--input-border);
-      padding: 0.9rem 1.2rem;
-      font-size: 1.1rem;
-      color: var(--text-color);
-    }
-    .form-control:focus,
-    .form-select:focus {
-      border-color: var(--accent-blue-contact);
-      box-shadow: 0 0 0 0.25rem rgba(0, 123, 255, 0.25);
-    }
-    .preview-image {
-      max-width: 200px;
-      max-height: 200px;
-      object-fit: cover;
-      border: 1px solid var(--input-border);
-      border-radius: 4px;
-    }
-    @media (max-width: 767.98px) {
-      .form-control,
-      .form-select {
-        padding: 0.7rem 1rem;
-        font-size: 1rem;
-      }
-      .form-label {
-        font-size: 1rem;
-      }
-    }
-    @media (max-width: 575.98px) {
-      .form-control,
-      .form-select {
-        padding: 0.6rem 0.9rem;
-        font-size: 0.95rem;
-      }
-      .form-label {
-        font-size: 0.95rem;
-      }
-    }
-
-    .table {
-      border-collapse: separate;
-      border-spacing: 0;
-      border-radius: 8px;
-      overflow: hidden;
-    }
-    .table thead {
-      background-color: var(--table-header-bg);
-      color: white;
-    }
-    .table th {
-      padding: 12px 15px;
-      font-weight: bold;
-      text-align: left;
-      border-bottom: none;
-    }
-    .table tbody tr td {
-      padding: 12px 15px;
-      vertical-align: middle;
-      border-top: 1px solid #dee2e6;
-    }
-    .table-striped tbody tr:nth-of-type(odd) {
-      background-color: rgba(0, 0, 0, 0.03);
-    }
-    .table-striped tbody tr:nth-of-type(even) {
-      background-color: var(--light-card-bg);
-    }
-    @media (max-width: 767.98px) {
-      .table thead {
-        display: none;
-      }
-      .table,
-      .table tbody,
-      .table tr,
-      .table td {
-        display: block;
-        width: 100%;
-      }
-      .table tr {
-        margin-bottom: 10px;
-        border: 1px solid #dee2e6;
-        border-radius: 8px;
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
-      }
-      .table td {
-        text-align: right;
-        padding-left: 50%;
-        position: relative;
-        border: none;
-        border-bottom: 1px dotted #dee2e6;
-      }
-      .table td:before {
-        content: attr(data-label);
-        position: absolute;
-        left: 15px;
-        width: calc(50% - 30px);
-        padding-right: 10px;
-        white-space: nowrap;
-        text-align: left;
-        font-weight: bold;
-        color: var(--label-color);
-      }
-      .table td:nth-of-type(1):before { content: "Chọn"; }
-      .table td:nth-of-type(2):before { content: "Chứng chỉ"; }
-      .table td:nth-of-type(3):before { content: "Ngày thi"; }
-      .table td:nth-of-type(4):before { content: "Giờ thi"; }
-      .table td:nth-of-type(5):before { content: "Số lượng ĐK"; }
-      .table td:nth-of-type(6):before { content: "Số lượng tối đa"; }
-    }
-
-    .btn-primary {
-      background-color: var(--primary-blue);
-      border-color: var(--primary-blue);
-      padding: 14px 40px;
-      font-size: 1.25rem;
-      border-radius: 8px;
-      transition: background-color 0.2s, border-color 0.2s, box-shadow 0.2s;
-      font-weight: bold;
-    }
-    .btn-primary:hover {
-      background-color: #34495e;
-      border-color: #34495e;
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-    }
-    @media (max-width: 767.98px) {
-      .btn-primary {
-        padding: 12px 30px;
-        font-size: 1.1rem;
-        width: 100%;
-      }
-    }
-    @media (max-width: 575.98px) {
-      .btn-primary {
-        padding: 10px 20px;
-        font-size: 1rem;
-      }
-    }
-
-    .footer {
-      text-align: center;
-      padding: 20px;
-      margin-top: 40px;
-      color: #777;
-      font-size: 0.9rem;
-      background-color: var(--light-gray-bg);
-    }
-    @media (max-width: 767.98px) {
-      .footer {
-        padding: 15px;
-        margin-top: 20px;
-        font-size: 0.8rem;
-      }
-    }
-  </style>
-</head>
-<body>
-  <!-- Top blue contact bar -->
-  <div class="topbar-blue">
-    <div class="left">
-      <i class="fas fa-phone"></i> 036 272 8710
-      <span class="separator">|</span>
-      <i class="fas fa-envelope"></i> 22120036@student.edu.vn
-    </div>
-    <div class="right">
-      <i class="fas fa-clock"></i> <span id="clock">Đang tải...</span>
-    </div>
-  </div>
-
-  <!-- Header trắng chứa logo và đăng xuất -->
-  <header class="topbar">
-    <div class="logo-info">
-      <img src="/images/logo.png" alt="ACCI logo" class="logo" />
-    </div>
-    <div class="staff-info">
-      <a href="#" class="logout"><strong>Đăng xuất</strong></a>
-    </div>
-  </header>
-
-  <!-- Banner -->
-  <div class="banner">
-    <img src="/images/banner.png" alt="Banner" class="banner-image" />
-  </div>
-
-  <!-- Navbar -->
-  <nav class="navbar">
-    <a href="/list-registration-forms">Danh sách phiếu đăng ký</a>
-    <a href="/schedule">Tạo lịch thi</a>
-    <a href="/invoice">Lập hóa đơn</a>
-    <a href="/results">Tra cứu kết quả thi</a>
-  </nav>
-
-  <div class="container mt-4">
-    <h2 class="text-center mb-4">Đăng ký thi chứng chỉ</h2>
-    <form id="registrationForm" enctype="multipart/form-data">
-      <!-- Thông tin người đăng ký -->
-      <div class="card mb-4">
-        <div class="card-header">
-          <h5 class="mb-0">Thông tin người đăng ký</h5>
-        </div>
-        <div class="card-body">
-          <div class="row">
-            <div class="col-md-6 mb-3">
-              <label for="customerName" class="form-label">Họ và tên người đăng ký</label>
-              <input type="text" class="form-control" id="customerName" required />
-            </div>
-            <div class="col-md-6 mb-3">
-              <label for="customerEmail" class="form-label">Email</label>
-              <input type="email" class="form-control" id="customerEmail" required />
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-6 mb-3">
-              <label for="customerPhone" class="form-label">Số điện thoại</label>
-              <input type="tel" class="form-control" id="customerPhone" required />
-            </div>
-            <div class="col-md-6 mb-3">
-              <label for="customerCitizenId" class="form-label">CCCD/CMND</label>
-              <input type="text" class="form-control" id="customerCitizenId" required />
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-6 mb-3">
-              <label for="customerDob" class="form-label">Ngày sinh</label>
-              <input type="date" class="form-control" id="customerDob" required />
-            </div>
-            <div class="col-md-6 mb-3">
-              <label for="customerAddress" class="form-label">Địa chỉ</label>
-              <input type="text" class="form-control" id="customerAddress" required />
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Thông tin thí sinh -->
-      <div class="card mb-4">
-        <div class="card-header bg-success">
-          <h5 class="mb-0">Thông tin thí sinh</h5>
-        </div>
-        <div class="card-body">
-          <div class="row">
-            <div class="col-md-6">
-              <div class="mb-3">
-                <label for="candidateName" class="form-label">Họ và tên thí sinh</label>
-                <input type="text" class="form-control" id="candidateName" required />
-              </div>
-              <div class="mb-3">
-                <label for="candidateGender" class="form-label">Giới tính</label>
-                <select class="form-select" id="candidateGender" required>
-                  <option value="">Chọn giới tính</option>
-                  <option value="M">Nam</option>
-                  <option value="F">Nữ</option>
-                </select>
-              </div>
-              <div class="mb-3">
-                <label for="candidateEmail" class="form-label">Email</label>
-                <input type="email" class="form-control" id="candidateEmail" required />
-              </div>
-              <div class="mb-3">
-                <label for="candidatePhone" class="form-label">Số điện thoại</label>
-                <input type="tel" class="form-control" id="candidatePhone" />
-              </div>
-              <div class="mb-3">
-                <label for="candidateDob" class="form-label">Ngày sinh</label>
-                <input type="date" class="form-control" id="candidateDob" required />
-              </div>
-              <div class="mb-3">
-                <label for="candidateCitizenId" class="form-label">CCCD/CMND</label>
-                <input type="text" class="form-control" id="candidateCitizenId" />
-              </div>
-              <div class="mb-3">
-                <label for="candidateAddress" class="form-label">Địa chỉ</label>
-                <input type="text" class="form-control" id="candidateAddress" required />
-              </div>
-            </div>
-            <div class="col-md-6">
-              <div class="mb-3">
-                <label for="candidateImage" class="form-label">Ảnh chân dung</label>
-                <input type="file" class="form-control" id="candidateImage" accept="image/*" />
-                <img id="imagePreview" class="preview-image mt-2 d-none" src="#" alt="Ảnh xem trước" />
-                <p id="noImageText" class="mt-2">Chưa có ảnh</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Chọn lịch thi -->
-      <div class="card mb-4">
-        <div class="card-header bg-info">
-          <h5 class="mb-0">Chọn lịch thi</h5>
-        </div>
-        <div class="card-body">
-          <div class="table-responsive">
-            <table class="table table-striped" id="scheduleTable">
-              <thead>
-              <tr>
-                <th>Chọn</th>
-                <th>Chứng chỉ</th>
-                <th>Ngày thi</th>
-                <th>Giờ thi</th>
-                <th>Số lượng đăng ký</th>
-                <th>Số lượng tối đa</th>
-              </tr>
-              </thead>
-              <tbody></tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-
-      <!-- Nút submit -->
-      <div class="text-center mb-5">
-        <button type="submit" class="btn btn-primary btn-lg">Đăng ký</button>
-      </div>
-    </form>
-  </div>
-
-  <footer class="footer">
-    <p>© 2025 ACCI. All rights reserved.</p>
-  </footer>
-
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="/js/register.js"></script>
-  <script src="/js/headerAllPage.js"></script>
-  <script>
-    // Check authentication on page load
-    $.ajax({
-      url: "/api/auth/check",
-      method: "GET",
-      xhrFields: { withCredentials: true },
-      error: function (xhr) {
-        if (xhr.status === 401 || xhr.status === 403) {
-          window.location.href = "/login?redirect=/registrations/individual/form";
+      @media (max-width: 767.98px) {
+        .topbar-blue {
+          flex-direction: column;
+          text-align: center;
+        }
+        .topbar-blue .left,
+        .topbar-blue .right {
+          margin-bottom: 0.5rem;
         }
       }
-    });
-  </script>
-</body>
+
+      .topbar {
+        background-color: #ffffff;
+        padding: 0.5rem 1rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .topbar .logo {
+        height: 40px;
+      }
+      .topbar .logout {
+        color: var(--primary-blue);
+        font-weight: bold;
+      }
+      @media (max-width: 767.98px) {
+        .topbar {
+          flex-direction: column;
+        }
+        .topbar .logo {
+          height: 30px;
+        }
+      }
+
+      /*.banner {*/
+      /*  position: relative;*/
+      /*  width: 100%;*/
+      /*  height: 300px;*/
+      /*  background-image: url("/images/banner.png");*/
+      /*  background-size: cover;*/
+      /*  background-position: center;*/
+      /*  background-repeat: no-repeat;*/
+      /*  color: white;*/
+      /*  padding: 40px 0;*/
+      /*  border-radius: 8px;*/
+      /*  margin-top: 30px;*/
+      /*  margin-bottom: 30px;*/
+      /*  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);*/
+      /*  display: flex;*/
+      /*  align-items: center;*/
+      /*  padding-left: 10%;*/
+      /*}*/
+      /*.banner-content {*/
+      /*  text-align: left;*/
+      /*}*/
+      /*.banner h1 {*/
+      /*  background-color: var(--banner-yellow);*/
+      /*  color: var(--banner-text-dark);*/
+      /*  padding: 10px 20px;*/
+      /*  display: inline-block;*/
+      /*  border-radius: 8px;*/
+      /*  font-size: 2.5rem;*/
+      /*  font-weight: bold;*/
+      /*  margin-bottom: 0.75rem;*/
+      /*}*/
+      /*.banner p {*/
+      /*  font-size: 1.5rem;*/
+      /*  margin-bottom: 1.5rem;*/
+      /*  color: white;*/
+      /*  font-weight: bold;*/
+      /*}*/
+      /*.contact-info {*/
+      /*  background-color: white;*/
+      /*  padding: 12px 25px;*/
+      /*  border-radius: 50px;*/
+      /*  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);*/
+      /*  display: inline-block;*/
+      /*  margin-top: 20px;*/
+      /*  color: var(--accent-blue-contact);*/
+      /*  font-weight: bold;*/
+      /*  font-size: 1.1rem;*/
+      /*}*/
+      @media (max-width: 991.98px) {
+        .banner {
+          height: 250px;
+          padding: 20px 0;
+          padding-left: 5%;
+        }
+        .banner h1 {
+          font-size: 2rem;
+          padding: 8px 15px;
+        }
+        .banner p {
+          font-size: 1.2rem;
+        }
+        .contact-info {
+          font-size: 1rem;
+          padding: 10px 20px;
+        }
+      }
+      @media (max-width: 767.98px) {
+        .banner {
+          height: 200px;
+          padding-left: 5%;
+          text-align: center;
+          justify-content: center;
+        }
+        .banner-content {
+          text-align: center;
+        }
+        .banner h1 {
+          font-size: 1.8rem;
+          padding: 6px 12px;
+        }
+        .banner p {
+          font-size: 1rem;
+          margin-bottom: 1rem;
+        }
+        .contact-info {
+          font-size: 0.9rem;
+          padding: 8px 15px;
+          margin-top: 10px;
+        }
+      }
+      @media (max-width: 575.98px) {
+        .banner {
+          height: 180px;
+        }
+        .banner h1 {
+          font-size: 1.5rem;
+        }
+        .banner p {
+          font-size: 0.9rem;
+        }
+        .contact-info {
+          font-size: 0.8rem;
+          padding: 6px 12px;
+        }
+      }
+
+      /*.navbar {*/
+      /*  background-color: var(--primary-blue);*/
+      /*  padding: 0.75rem 1rem;*/
+      /*  border-radius: 8px;*/
+      /*  margin-bottom: 25px;*/
+      /*  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);*/
+      /*}*/
+      /*.navbar a {*/
+      /*  color: white;*/
+      /*  padding: 0.7rem 1rem;*/
+      /*  transition: background-color 0.2s;*/
+      /*}*/
+      /*.navbar a:hover,*/
+      /*.navbar a.active {*/
+      /*  background-color: rgba(255, 255, 255, 0.1);*/
+      /*  border-radius: 5px;*/
+      /*}*/
+      @media (max-width: 767.98px) {
+        .navbar {
+          padding: 0.5rem;
+        }
+        .navbar a {
+          display: block;
+          padding: 0.5rem 1rem;
+          text-align: center;
+        }
+      }
+
+      .card {
+        border: none;
+        border-radius: 10px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        margin-bottom: 25px;
+        background-color: var(--light-card-bg);
+      }
+      .card-header {
+        background-color: var(--primary-blue);
+        color: white;
+        font-weight: bold;
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
+        padding: 15px 20px;
+        font-size: 1.2rem;
+      }
+      .card-header.bg-success {
+        background-color: var(--green-header) !important;
+      }
+      .card-header.bg-info {
+        background-color: var(--teal-header) !important;
+      }
+      @media (max-width: 767.98px) {
+        .card-header {
+          font-size: 1.1rem;
+          padding: 12px 15px;
+        }
+      }
+      @media (max-width: 575.98px) {
+        .card-header {
+          font-size: 1rem;
+          padding: 10px 12px;
+        }
+      }
+
+      .form-label {
+        font-weight: 600;
+        color: var(--label-color);
+        margin-bottom: 0.4rem;
+        font-size: 1.1rem;
+      }
+      .form-control,
+      .form-select {
+        border-radius: 5px;
+        border: 1px solid var(--input-border);
+        padding: 0.9rem 1.2rem;
+        font-size: 1.1rem;
+        color: var(--text-color);
+      }
+      .form-control:focus,
+      .form-select:focus {
+        border-color: var(--accent-blue-contact);
+        box-shadow: 0 0 0 0.25rem rgba(0, 123, 255, 0.25);
+      }
+      .preview-image {
+        max-width: 200px;
+        max-height: 200px;
+        object-fit: cover;
+        border: 1px solid var(--input-border);
+        border-radius: 4px;
+      }
+      @media (max-width: 767.98px) {
+        .form-control,
+        .form-select {
+          padding: 0.7rem 1rem;
+          font-size: 1rem;
+        }
+        .form-label {
+          font-size: 1rem;
+        }
+      }
+      @media (max-width: 575.98px) {
+        .form-control,
+        .form-select {
+          padding: 0.6rem 0.9rem;
+          font-size: 0.95rem;
+        }
+        .form-label {
+          font-size: 0.95rem;
+        }
+      }
+
+      .table {
+        border-collapse: separate;
+        border-spacing: 0;
+        border-radius: 8px;
+        overflow: hidden;
+      }
+      .table thead {
+        background-color: var(--table-header-bg);
+        color: white;
+      }
+      .table th {
+        padding: 12px 15px;
+        font-weight: bold;
+        text-align: left;
+        border-bottom: none;
+      }
+      .table tbody tr td {
+        padding: 12px 15px;
+        vertical-align: middle;
+        border-top: 1px solid #dee2e6;
+      }
+      .table-striped tbody tr:nth-of-type(odd) {
+        background-color: rgba(0, 0, 0, 0.03);
+      }
+      .table-striped tbody tr:nth-of-type(even) {
+        background-color: var(--light-card-bg);
+      }
+      @media (max-width: 767.98px) {
+        .table thead {
+          display: none;
+        }
+        .table,
+        .table tbody,
+        .table tr,
+        .table td {
+          display: block;
+          width: 100%;
+        }
+        .table tr {
+          margin-bottom: 10px;
+          border: 1px solid #dee2e6;
+          border-radius: 8px;
+          box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        }
+        .table td {
+          text-align: right;
+          padding-left: 50%;
+          position: relative;
+          border: none;
+          border-bottom: 1px dotted #dee2e6;
+        }
+        .table td:before {
+          content: attr(data-label);
+          position: absolute;
+          left: 15px;
+          width: calc(50% - 30px);
+          padding-right: 10px;
+          white-space: nowrap;
+          text-align: left;
+          font-weight: bold;
+          color: var(--label-color);
+        }
+        .table td:nth-of-type(1):before {
+          content: "Chọn";
+        }
+        .table td:nth-of-type(2):before {
+          content: "Chứng chỉ";
+        }
+        .table td:nth-of-type(3):before {
+          content: "Ngày thi";
+        }
+        .table td:nth-of-type(4):before {
+          content: "Giờ thi";
+        }
+        .table td:nth-of-type(5):before {
+          content: "Số lượng ĐK";
+        }
+        .table td:nth-of-type(6):before {
+          content: "Số lượng tối đa";
+        }
+      }
+
+      .btn-primary {
+        background-color: var(--primary-blue);
+        border-color: var(--primary-blue);
+        padding: 14px 40px;
+        font-size: 1.25rem;
+        border-radius: 8px;
+        transition: background-color 0.2s, border-color 0.2s, box-shadow 0.2s;
+        font-weight: bold;
+      }
+      .btn-primary:hover {
+        background-color: #34495e;
+        border-color: #34495e;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+      }
+      @media (max-width: 767.98px) {
+        .btn-primary {
+          padding: 12px 30px;
+          font-size: 1.1rem;
+          width: 100%;
+        }
+      }
+      @media (max-width: 575.98px) {
+        .btn-primary {
+          padding: 10px 20px;
+          font-size: 1rem;
+        }
+      }
+
+      .footer {
+        text-align: center;
+        padding: 20px;
+        margin-top: 40px;
+        color: #777;
+        font-size: 0.9rem;
+        background-color: var(--light-gray-bg);
+      }
+      @media (max-width: 767.98px) {
+        .footer {
+          padding: 15px;
+          margin-top: 20px;
+          font-size: 0.8rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Top blue contact bar -->
+    <div class="topbar-blue">
+      <div class="left">
+        <i class="fas fa-phone"></i> 036 272 8710
+        <span class="separator">|</span>
+        <i class="fas fa-envelope"></i> 22120036@student.edu.vn
+      </div>
+      <div class="right">
+        <i class="fas fa-clock"></i> <span id="clock">Đang tải...</span>
+      </div>
+    </div>
+
+    <!-- Header trắng chứa logo và đăng xuất -->
+    <header class="topbar">
+      <div class="logo-info">
+        <a href="/home" class="logo-link">
+          <img src="/images/logo.png" alt="ACCI logo" class="logo" />
+        </a>
+      </div>
+      <div class="staff-info">
+        <a href="#" class="logout"><strong>Đăng xuất</strong></a>
+      </div>
+    </header>
+
+    <!-- Banner -->
+    <div class="banner">
+      <img src="/images/banner.png" alt="Banner" class="banner-image" />
+    </div>
+
+    <div class="container mt-4">
+      <h2 class="text-center mb-4">Đăng ký thi chứng chỉ</h2>
+      <form id="registrationForm" enctype="multipart/form-data">
+        <!-- Thông tin người đăng ký -->
+        <div class="card mb-4">
+          <div class="card-header">
+            <h5 class="mb-0">Thông tin người đăng ký</h5>
+          </div>
+          <div class="card-body">
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <label for="customerName" class="form-label"
+                  >Họ và tên người đăng ký</label
+                >
+                <input
+                  type="text"
+                  class="form-control"
+                  id="customerName"
+                  required
+                />
+              </div>
+              <div class="col-md-6 mb-3">
+                <label for="customerEmail" class="form-label">Email</label>
+                <input
+                  type="email"
+                  class="form-control"
+                  id="customerEmail"
+                  required
+                />
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <label for="customerPhone" class="form-label"
+                  >Số điện thoại</label
+                >
+                <input
+                  type="tel"
+                  class="form-control"
+                  id="customerPhone"
+                  required
+                />
+              </div>
+              <div class="col-md-6 mb-3">
+                <label for="customerCitizenId" class="form-label"
+                  >CCCD/CMND</label
+                >
+                <input
+                  type="text"
+                  class="form-control"
+                  id="customerCitizenId"
+                  required
+                />
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <label for="customerDob" class="form-label">Ngày sinh</label>
+                <input
+                  type="date"
+                  class="form-control"
+                  id="customerDob"
+                  required
+                />
+              </div>
+              <div class="col-md-6 mb-3">
+                <label for="customerAddress" class="form-label">Địa chỉ</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="customerAddress"
+                  required
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Thông tin thí sinh -->
+        <div class="card mb-4">
+          <div class="card-header bg-success">
+            <h5 class="mb-0">Thông tin thí sinh</h5>
+          </div>
+          <div class="card-body">
+            <div class="row">
+              <div class="col-md-6">
+                <div class="mb-3">
+                  <label for="candidateName" class="form-label"
+                    >Họ và tên thí sinh</label
+                  >
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="candidateName"
+                    required
+                  />
+                </div>
+                <div class="mb-3">
+                  <label for="candidateGender" class="form-label"
+                    >Giới tính</label
+                  >
+                  <select class="form-select" id="candidateGender" required>
+                    <option value="">Chọn giới tính</option>
+                    <option value="M">Nam</option>
+                    <option value="F">Nữ</option>
+                  </select>
+                </div>
+                <div class="mb-3">
+                  <label for="candidateEmail" class="form-label">Email</label>
+                  <input
+                    type="email"
+                    class="form-control"
+                    id="candidateEmail"
+                    required
+                  />
+                </div>
+                <div class="mb-3">
+                  <label for="candidatePhone" class="form-label"
+                    >Số điện thoại</label
+                  >
+                  <input type="tel" class="form-control" id="candidatePhone" />
+                </div>
+                <div class="mb-3">
+                  <label for="candidateDob" class="form-label">Ngày sinh</label>
+                  <input
+                    type="date"
+                    class="form-control"
+                    id="candidateDob"
+                    required
+                  />
+                </div>
+                <div class="mb-3">
+                  <label for="candidateCitizenId" class="form-label"
+                    >CCCD/CMND</label
+                  >
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="candidateCitizenId"
+                  />
+                </div>
+                <div class="mb-3">
+                  <label for="candidateAddress" class="form-label"
+                    >Địa chỉ</label
+                  >
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="candidateAddress"
+                    required
+                  />
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="mb-3">
+                  <label for="candidateImage" class="form-label"
+                    >Ảnh chân dung</label
+                  >
+                  <input
+                    type="file"
+                    class="form-control"
+                    id="candidateImage"
+                    accept="image/*"
+                  />
+                  <img
+                    id="imagePreview"
+                    class="preview-image mt-2 d-none"
+                    src="#"
+                    alt="Ảnh xem trước"
+                  />
+                  <p id="noImageText" class="mt-2">Chưa có ảnh</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Chọn lịch thi -->
+        <div class="card mb-4">
+          <div class="card-header bg-info">
+            <h5 class="mb-0">Chọn lịch thi</h5>
+          </div>
+          <div class="card-body">
+            <div class="table-responsive">
+              <table class="table table-striped" id="scheduleTable">
+                <thead>
+                  <tr>
+                    <th>Chọn</th>
+                    <th>Chứng chỉ</th>
+                    <th>Ngày thi</th>
+                    <th>Giờ thi</th>
+                    <th>Số lượng đăng ký</th>
+                    <th>Số lượng tối đa</th>
+                  </tr>
+                </thead>
+                <tbody></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- Nút submit -->
+        <div class="text-center mb-5">
+          <button type="submit" class="btn btn-primary btn-lg">Đăng ký</button>
+        </div>
+      </form>
+    </div>
+
+    <footer class="footer">
+      <p>© 2025 ACCI. All rights reserved.</p>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/js/register.js"></script>
+    <script src="/js/headerAllPage.js"></script>
+    <script>
+      // Check authentication on page load
+      $.ajax({
+        url: "/api/auth/check",
+        method: "GET",
+        xhrFields: { withCredentials: true },
+        error: function (xhr) {
+          if (xhr.status === 401 || xhr.status === 403) {
+            window.location.href =
+              "/login?redirect=/registrations/individual/form";
+          }
+        },
+      });
+    </script>
+  </body>
 </html>
