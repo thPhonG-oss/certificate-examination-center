@@ -1,0 +1,187 @@
+/* Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f7f7f7;
+    color: #333;
+}
+
+/* Topbar xanh */
+.topbar-blue {
+    background-color: #7986cb;
+    color: white;
+    font-size: 14px;
+    padding: 6px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Header trắng */
+.topbar {
+    background-color: white;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #ddd;
+}
+
+.logo {
+    height: 30px;
+}
+
+.staff-info .logout {
+    margin-left: 20px;
+    color: black;
+    text-decoration: none;
+}
+
+.staff-info .logout:hover {
+    text-decoration: underline;
+}
+
+/* Banner */
+.banner .banner-image {
+    width: 100%;
+    height: auto;
+}
+
+/* Navbar */
+.navbar {
+    background-color: white;
+    display: flex;
+    border-bottom: 1px solid #ccc;
+}
+
+.navbar a {
+    flex: 1;
+    padding: 14px;
+    text-align: center;
+    text-decoration: none;
+    color: black;
+    font-weight: 500;
+    border-right: 1px solid #eee;
+}
+
+.navbar a:last-child {
+    border-right: none;
+}
+
+/* Nội dung chính */
+.content {
+    margin: 40px auto;
+    padding: 40px;
+    border-radius: 32px 0 0 32px;
+    background-color: #0f3a64;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+}
+
+.image-side {
+    flex: 1;
+    padding-right: 40px;
+}
+
+.image-side img {
+    width: 100%;
+    border-radius: 16px;
+    object-fit: cover;
+    height: 100%;
+}
+
+.introduction {
+    flex: 1;
+}
+
+.introduction h1 {
+    font-size: 26px;
+    margin-bottom: 12px;
+}
+
+.introduction h2 {
+    margin-bottom: 16px;
+    font-size: 24px;
+    font-weight: bold;
+    color: white;
+}
+
+.introduction ul {
+    list-style: none;
+    margin-bottom: 20px;
+}
+
+.introduction ul li {
+    margin-bottom: 8px;
+    padding-left: 24px;
+    position: relative;
+}
+
+.introduction ul li::before {
+    content: "\f15c";
+    font-family: "Font Awesome 6 Free";
+    font-weight: 900;
+    position: absolute;
+    left: 0;
+    color: white;
+}
+
+.introduction p {
+    font-size: 15px;
+    line-height: 1.7;
+    text-align: justify;
+}
+
+/* Tầm nhìn - Sứ mệnh - Giá trị */
+.detail-content {
+    display: flex;
+    justify-content: space-around;
+    margin: 40px auto;
+    max-width: 1200px;
+    gap: 20px;
+}
+
+.detail-item {
+    flex: 1;
+    background-color: #1a4d7a;
+    color: white;
+    padding: 24px;
+    border-radius: 16px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.detail-item h3 {
+    font-size: 20px;
+    margin-bottom: 12px;
+}
+
+.detail-item p {
+    font-size: 15px;
+    line-height: 1.6;
+}
+
+.introduction ul li {
+    margin-bottom: 8px;
+    padding-left: 24px;
+    position: relative;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.detail-item:hover {
+    /* transform: translateX(5px); */
+    font-weight: bold;
+    font-size: 7px;
+    transform: scale(1.05);
+    transition: all 0.2s ease;
+}
