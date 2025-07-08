@@ -7,7 +7,6 @@ import com.pptk.certificate_examination_center.entity.Candidate;
 import com.pptk.certificate_examination_center.entity.RegistrationForm;
 import com.pptk.certificate_examination_center.entity.Schedule;
 import com.pptk.certificate_examination_center.mapper.CandidateMapper;
-import com.pptk.certificate_examination_center.repository.RegistrationFormRepository;
 import com.pptk.certificate_examination_center.service.CandidateService;
 import com.pptk.certificate_examination_center.service.CustomerService;
 import com.pptk.certificate_examination_center.service.RegistrationFormService;
@@ -18,7 +17,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.util.List;
 
 @Service
 public class RegistrationServiceImpl {
@@ -36,27 +34,33 @@ public class RegistrationServiceImpl {
         Long employee_id = getCurrentUserId(); // Assuming a static employee ID for now, this should be replaced with actual logic to get the logged-in employee's ID
         CustomerDto customer = individualRegisterDto.getCustomer();
         CandidateDto candidate = individualRegisterDto.getCandidate();
-        List<Schedule> schedules = individualRegisterDto.getSchedules();
+        Schedule schedule = individualRegisterDto.getSchedule();
 
         customerService.createCustomer(customer);
         Long customer_id = customerService.getCustomerIdByEmail(customer.getEmail());
 
-        registrationFormService.saveRegistrationForm(employee_id, customer_id, LocalDate.now());
+        registrationFormService.saveRegistrationForm(employee_id, customer_id, LocalDate.now(), schedule.getId());
 
         Long registration_form_id = registrationFormService.getLastInsertedId();
+        System.out.println("Registration Form ID: " + registration_form_id);
 
         Candidate candidateEntity = CandidateMapper.toEntity(candidate);
         candidateEntity.setId_registration_form(registration_form_id);
 
+        System.out.println("registration_form_id: " + candidateEntity.getId_registration_form());
+        System.out.println("Candidate Entity: " + candidateEntity.toString());
+
 //        CandidateDto savedCandidate = candidateService.createCandidate(CandidateMapper.toDto(candidateEntity));
           candidateService.createCandidate(CandidateMapper.toDto(candidateEntity));
 
-        schedules.forEach(schedule -> {
-            scheduleService.updateNumberOfCandidatesForIndividual(schedule.getId());
-            registrationFormService.updateRegisterDetails(registration_form_id, schedule.getId());
-        });
+          scheduleService.updateNumberOfCandidatesForIndividual(schedule.getId());
 
-        return registrationFormService.getFormById(registration_form_id);
+//        schedule.forEach(schedule -> {
+//            scheduleService.updateNumberOfCandidatesForIndividual(schedule.getId());
+//            registrationFormService.updateRegisterDetails(registration_form_id, schedule.getId());
+//        });
+
+        return registrationFormService.getFormById(schedule.getId());
     }
 
     public RegistrationForm saveOrganizationRegistration() {

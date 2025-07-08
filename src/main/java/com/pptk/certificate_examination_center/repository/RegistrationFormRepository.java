@@ -15,11 +15,12 @@ public interface RegistrationFormRepository extends JpaRepository<RegistrationFo
     // Additional query methods can be defined here if needed
     @Modifying
     @Transactional
-    @Query( value =  "INSERT INTO phieu_dang_ky (id_nhan_vien, id_khach_hang, ngay_dang_ky)" +
-            "VALUES (:employee_id, :customer_id, :registration_date)", nativeQuery = true)
+    @Query( value =  "INSERT INTO phieu_dang_ky (id_nhan_vien, id_khach_hang, ngay_dang_ky, id_lich_thi)" +
+            "VALUES (:employee_id, :customer_id, :registration_date, :schedule_id)", nativeQuery = true)
     public void saveRegistrationForm(@Param("employee_id") Long employeeId,
                               @Param("customer_id") Long customerId,
-                              @Param("registration_date") LocalDate registrationDate);
+                              @Param("registration_date") LocalDate registrationDate,
+                                     @Param("schedule_id") Long scheduleId);
 
     @Query(value = "SELECT MAX(id_phieu_dang_ky) FROM phieu_dang_ky", nativeQuery = true)
     public Long getLastInsertedId();

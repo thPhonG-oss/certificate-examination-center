@@ -8,7 +8,7 @@ public class CandidateMapper {
         if (candidate == null) {
             return null;
         }
-        CandidateDto dto = new CandidateDto(
+        return new CandidateDto(
                 candidate.getId_registration_form(),
                 candidate.getName(),
                 candidate.getGender(),
@@ -16,24 +16,25 @@ public class CandidateMapper {
                 candidate.getPhoneNumber(),
                 candidate.getDob(),
                 candidate.getAddress(),
-                candidate.getCitizen_id()
+                candidate.getCitizen_id(),
+                candidate.getImageUrl()
         );
-        return dto;
     }
 
     public static Candidate toEntity(CandidateDto dto) {
         if (dto == null) {
             return null;
         }
-        Candidate candidate = new Candidate();
-        candidate.setId_registration_form(dto.getRegistration_form_id());
-        candidate.setName(dto.getName());
-        candidate.setGender(dto.getGender());
-        candidate.setEmail(dto.getEmail());
-        candidate.setPhoneNumber(dto.getPhoneNumber());
-        candidate.setDob(dto.getDob());
-        candidate.setAddress(dto.getAddress());
-        candidate.setCitizen_id(dto.getCitizen_id());
-        return candidate;
+        return new Candidate(
+                dto.getName(),
+                dto.getGender(),
+                dto.getEmail(),
+                dto.getPhoneNumber(),
+                dto.getDob(),
+                dto.getAddress(),
+                dto.getCitizen_id(),
+                dto.getRegistration_form_id(),
+                dto.getImageUrl()
+        );
     }
 }

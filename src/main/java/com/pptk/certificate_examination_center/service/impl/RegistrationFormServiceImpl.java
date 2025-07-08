@@ -27,8 +27,8 @@ public class RegistrationFormServiceImpl implements RegistrationFormService {
     }
 
     @Override
-    public void saveRegistrationForm(Long employeeId, Long customerId, LocalDate registration_date) {
-            registrationFormRepository.saveRegistrationForm(employeeId, customerId, registration_date);
+    public void saveRegistrationForm(Long employeeId, Long customerId, LocalDate registration_date, Long schedule_id) {
+            registrationFormRepository.saveRegistrationForm(employeeId, customerId, registration_date, schedule_id);
     }
 
     @Override

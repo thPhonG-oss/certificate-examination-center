@@ -39,7 +39,8 @@ public class CandidateServiceImpl implements CandidateService {
                 candidateDto.getPhoneNumber(),
                 candidateDto.getEmail(),
                 candidateDto.getAddress(),
-                candidateDto.getCitizen_id()
+                candidateDto.getCitizen_id(),
+                candidateDto.getImageUrl()
         );
     }
 

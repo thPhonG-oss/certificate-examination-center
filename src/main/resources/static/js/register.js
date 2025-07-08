@@ -1,66 +1,66 @@
-document.addEventListener("DOMContentLoaded", function () {
+$(document).ready(function () {
   // Đăng xuất
-  const signOutLink = document.querySelector('a[href="/api/auth/sign-out"]');
-  if (signOutLink) {
-    signOutLink.addEventListener("click", function (e) {
-      e.preventDefault();
-
-      fetch("/api/auth/sign-out", {
-        method: "POST",
-        credentials: "include",
-      })
-        .then((response) => response.json())
-        .then((data) => {
-          if (data.status === "SUCCESS") {
-            window.location.href = "/login";
-          } else {
-            alert("Đăng xuất thất bại: " + data.message);
-          }
-        })
-        .catch((error) => {
-          alert("Lỗi đăng xuất: " + error);
-        });
-    });
-  }
-
-  // Tải danh sách lịch thi khi trang load
-  fetch("/schedulewithcertificate", {
-    method: "GET",
-    credentials: "include",
-  })
-    .then((response) => {
-      if (!response.ok) {
-        if (response.status === 401 || response.status === 403) {
-          window.location.href =
-            "/login?redirect=/registrations/individual/form";
+  $('a[href="/api/auth/sign-out"]').on("click", function (e) {
+    e.preventDefault();
+    $.ajax({
+      url: "/api/auth/sign-out",
+      method: "POST",
+      xhrFields: { withCredentials: true },
+      success: function (data) {
+        if (data.status === "SUCCESS") {
+          window.location.href = "/login";
+        } else {
+          alert("Đăng xuất thất bại: " + data.message);
         }
-        throw new Error("Lỗi tải lịch thi");
+      },
+      error: function (xhr, status, error) {
+        alert("Lỗi đăng xuất: " + error);
       }
-      return response.json();
-    })
-    .then((data) => populateScheduleTable(data))
-    .catch((error) => {
-      alert("Lỗi tải lịch thi: " + error.message);
     });
+  });
+
+  // Tải danh sách lịch thi
+  $.ajax({
+    url: "/schedulewithcertificate",
+    method: "GET",
+    xhrFields: { withCredentials: true },
+    success: function (data) {
+      populateScheduleTable(data);
+    },
+    error: function (xhr, status, error) {
+      if (xhr.status === 401 || xhr.status === 403) {
+        window.location.href = "/login?redirect=/registrations/individual/form";
+      } else {
+        alert("Lỗi tải lịch thi: " + error);
+      }
+    }
+  });
 
   function populateScheduleTable(schedules) {
-    const tbody = document.querySelector("#scheduleTable tbody");
-    tbody.innerHTML = "";
+    const $tbody = $("#scheduleTable tbody");
+    $tbody.empty();
+    $.each(schedules, function (index, schedule) {
+      const row = `
+                <tr>
+                    <td data-label="Chọn">
+                        <input type="checkbox" class="form-check-input schedule-checkbox"
+                               data-schedule='${JSON.stringify(schedule)}'>
+                    </td>
+                    <td data-label="Chứng chỉ">${schedule.certificateName}</td>
+                    <td data-label="Ngày thi">${formatDate(schedule.date)}</td>
+                    <td data-label="Giờ thi">${schedule.time}</td>
+                    <td data-label="Số lượng ĐK">${schedule.currentParticipants}</td>
+                    <td data-label="Số lượng tối đa">${schedule.maxParticipants}</td>
+                </tr>`;
+      $tbody.append(row);
+    });
 
-    schedules.forEach((schedule) => {
-      const row = document.createElement("tr");
-      row.innerHTML = `
-                <td>
-                    <input type="checkbox" class="form-check-input schedule-checkbox"
-                           data-schedule='${JSON.stringify(schedule)}'>
-                </td>
-                <td>${schedule.certificateName}</td>
-                <td>${formatDate(schedule.date)}</td>
-                <td>${schedule.time}</td>
-                <td>${schedule.currentParticipants}</td>
-                <td>${schedule.maxParticipants}</td>
-            `;
-      tbody.appendChild(row);
+    // Giới hạn chọn một lịch thi duy nhất
+    $(".schedule-checkbox").on("change", function () {
+      if ($(this).is(":checked")) {
+        // Bỏ chọn tất cả các checkbox khác
+        $(".schedule-checkbox").not(this).prop("checked", false);
+      }
     });
   }
 
@@ -69,82 +69,126 @@ document.addEventListener("DOMContentLoaded", function () {
     return date.toLocaleDateString("vi-VN");
   }
 
-  // Xử lý submit form
-  const form = document.getElementById("registrationForm");
-  if (form) {
-    form.addEventListener("submit", function (e) {
-      e.preventDefault();
-      console.log("Form submitted");
+  // Xem trước ảnh
+  $("#candidateImage").on("change", function () {
+    const file = this.files[0];
+    console.log("Selected file:", file);
+    const $previewImage = $("#imagePreview");
+    const $noImageText = $("#noImageText");
 
-      const checkboxes = document.querySelectorAll(
-        ".schedule-checkbox:checked"
-      );
-      const selectedSchedules = Array.from(checkboxes).map((cb) =>
-        JSON.parse(cb.getAttribute("data-schedule"))
-      );
-
-      if (selectedSchedules.length === 0) {
-        alert("Vui lòng chọn ít nhất một lịch thi");
+    if (file) {
+      if (!file.type.startsWith("image/")) {
+        alert("Vui lòng chọn file ảnh!");
+        this.value = "";
         return;
       }
+      const reader = new FileReader();
+      reader.onload = function (e) {
+        $previewImage.attr("src", e.target.result).removeClass("d-none");
+        $noImageText.addClass("d-none");
+      };
+      reader.readAsDataURL(file);
+    } else {
+      $previewImage.attr("src", "#").addClass("d-none");
+      $noImageText.removeClass("d-none");
+    }
+  });
 
+  // Submit form
+  $("#registrationForm").on("submit", function (e) {
+    e.preventDefault();
+    console.log("Form submitted");
+
+    const $checkboxes = $(".schedule-checkbox:checked");
+    if ($checkboxes.length === 0) {
+      alert("Vui lòng chọn một lịch thi");
+      return;
+    }
+
+    const selectedSchedule = JSON.parse($checkboxes.attr("data-schedule"));
+
+    const fileInput = $("#candidateImage")[0];
+    const formData = new FormData();
+    let imageUrl = "";
+
+    if (fileInput.files[0]) {
+      formData.append("file", fileInput.files[0]);
+      $.ajax({
+        url: "/api/image/upload",
+        method: "POST",
+        data: formData,
+        processData: false,
+        contentType: false,
+        xhrFields: { withCredentials: true },
+        success: function (response) {
+          console.log("Upload response:", response);
+          if (response.status === "SUCCESS") {
+            imageUrl = response.response;
+            submitRegistration(imageUrl);
+          } else {
+            alert("Lỗi upload ảnh: " + response.message);
+          }
+        },
+        error: function (xhr, status, error) {
+          console.error("Upload error:", xhr.responseText);
+          alert("Lỗi upload ảnh: " + (xhr.responseJSON?.message || error));
+        }
+      });
+    } else {
+      submitRegistration(imageUrl);
+    }
+
+    function submitRegistration(imageUrl) {
       const registrationData = {
         customer: {
-          name: document.getElementById("customerName").value,
+          name: $("#customerName").val(),
           organization: "",
-          email: document.getElementById("customerEmail").value,
-          phoneNumber: document.getElementById("customerPhone").value,
-          address: document.getElementById("customerAddress").value,
-          citizen_id: document.getElementById("customerCitizenId").value,
+          email: $("#customerEmail").val(),
+          phoneNumber: $("#customerPhone").val(),
+          address: $("#customerAddress").val(),
+          citizen_id: $("#customerCitizenId").val(),
           customer_type: "INDIVIDUAL",
-          dob: document.getElementById("customerDob").value,
+          dob: $("#customerDob").val(),
         },
         candidate: {
-          name: document.getElementById("candidateName").value,
-          gender: document.getElementById("candidateGender").value,
-          email: document.getElementById("candidateEmail").value,
-          phoneNumber: document.getElementById("candidatePhone").value,
-          dob: document.getElementById("candidateDob").value,
-          address: document.getElementById("candidateAddress").value,
-          citizen_id: document.getElementById("candidateCitizenId").value,
+          name: $("#candidateName").val(),
+          gender: $("#candidateGender").val(),
+          email: $("#candidateEmail").val(),
+          phoneNumber: $("#candidatePhone").val(),
+          dob: $("#candidateDob").val(),
+          address: $("#candidateAddress").val(),
+          citizen_id: $("#candidateCitizenId").val(),
+          imageUrl: imageUrl
         },
-        schedules: selectedSchedules,
+        schedule: selectedSchedule, // Gửi một đối tượng Schedule thay vì mảng
+        registrationForm: null
       };
 
       console.log("Registration data:", registrationData);
 
-      fetch("/registrations/individual/submit", {
+      $.ajax({
+        url: "/registrations/individual/submit",
         method: "POST",
-        credentials: "include",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(registrationData),
-      })
-        .then((response) => {
-          if (!response.ok) {
-            if (response.status === 401 || response.status === 403) {
-              window.location.href =
-                "/login?redirect=/registrations/individual/form";
-            }
-            return response.text().then((text) => {
-              throw new Error(text);
-            });
-          }
-          return response.json();
-        })
-        .then((data) => {
+        contentType: "application/json",
+        xhrFields: { withCredentials: true },
+        data: JSON.stringify(registrationData),
+        success: function (data) {
           console.log("Success response:", data);
           if (data.status === "SUCCESS") {
             window.location.href = "/registrations/individual/success";
           } else {
             alert("Đăng ký thất bại: " + data.message);
           }
-        })
-        .catch((error) => {
-          console.error("Error:", error);
-          alert("Lỗi đăng ký: " + error.message);
-        });
-    });
-  }
+        },
+        error: function (xhr, status, error) {
+          console.error("Submit error:", xhr.responseText);
+          if (xhr.status === 401 || xhr.status === 403) {
+            window.location.href = "/login?redirect=/registrations/individual/form";
+          } else {
+            alert("Lỗi đăng ký: " + (xhr.responseJSON?.message || error));
+          }
+        }
+      });
+    }
+  });
 });

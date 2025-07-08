@@ -36,10 +36,14 @@ public class Candidate {
     @Column(name = "id_phieu_dang_ky")
     private Long id_registration_form;
 
+    @Column(name = "hinh_anh")
+    private String imageUrl;
+
     public Candidate() {
     }
 
-    public Candidate(String name, String gender, String email, String phoneNumber, LocalDate dob, String address, String citizen_id, Long id_registration_form) {
+    public Candidate(Long id, String name, String gender, String email, String phoneNumber, LocalDate dob, String address, String citizen_id, Long id_registration_form, String imageUrl) {
+        this.id = id;
         this.name = name;
         this.gender = gender;
         this.email = email;
@@ -48,6 +52,19 @@ public class Candidate {
         this.address = address;
         this.citizen_id = citizen_id;
         this.id_registration_form = id_registration_form;
+        this.imageUrl = imageUrl;
+    }
+
+    public Candidate(String name, String gender, String email, String phoneNumber, LocalDate dob, String address, String citizen_id, Long id_registration_form, String imageUrl) {
+        this.name = name;
+        this.gender = gender;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+        this.dob = dob;
+        this.address = address;
+        this.citizen_id = citizen_id;
+        this.id_registration_form = id_registration_form;
+        this.imageUrl = imageUrl;
     }
 
     public Candidate(Long id, String name, String gender, String email, String phoneNumber, LocalDate dob, String address, String citizen_id, Long id_registration_form) {
@@ -134,6 +151,14 @@ public class Candidate {
         this.id_registration_form = id_registration_form;
     }
 
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String image) {
+        this.imageUrl = image;
+    }
+
     @Override
     public String toString() {
         return "Candidate{" +
@@ -146,6 +171,7 @@ public class Candidate {
                 ", address='" + address + '\'' +
                 ", citizen_id='" + citizen_id + '\'' +
                 ", id_registration_form=" + id_registration_form +
+                ", imageUrl='" + imageUrl + '\'' +
                 '}';
     }
 }

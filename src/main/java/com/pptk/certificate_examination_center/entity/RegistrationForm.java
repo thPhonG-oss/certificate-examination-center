@@ -22,10 +22,26 @@ public class RegistrationForm {
     @Column(name = "id_nhan_vien")
     private Long user_id;
 
+    @Column(name = "id_lich_thi")
+    private Long schedule_id;
+
     @Column(name="trang_thai_gia_han")
     private String renew_status;
 
+    @Column(name = "lan_gia_han")
+    private Integer number_of_renewals;
+
     public RegistrationForm() {
+    }
+
+    public RegistrationForm(Long id, Long customer_id, LocalDate registration_date, Long user_id, Long schedule_id, String renew_status, Integer number_of_renewals) {
+        this.id = id;
+        this.customer_id = customer_id;
+        this.registration_date = registration_date;
+        this.user_id = user_id;
+        this.schedule_id = schedule_id;
+        this.renew_status = renew_status;
+        this.number_of_renewals = number_of_renewals;
     }
 
     public RegistrationForm(Long id, Long customer_id, LocalDate registration_date, Long user_id, String renew_status) {
@@ -81,5 +97,21 @@ public class RegistrationForm {
 
     public void setRenew_status(String renew_status) {
         this.renew_status = renew_status;
+    }
+
+    public Long getSchedule_id() {
+        return schedule_id;
+    }
+
+    public void setSchedule_id(Long schedule_id) {
+        this.schedule_id = schedule_id;
+    }
+
+    public Integer getNumber_of_renewals() {
+        return number_of_renewals;
+    }
+
+    public void setNumber_of_renewals(Integer number_of_renewals) {
+        this.number_of_renewals = number_of_renewals;
     }
 }

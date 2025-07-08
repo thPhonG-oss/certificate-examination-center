@@ -13,8 +13,8 @@ import java.time.LocalDate;
 public interface CandidateRepository extends JpaRepository<Candidate, Long> {
     // Additional query methods can be defined here if needed
     @Modifying
-    @Query(value = "INSERT INTO thi_sinh (id_phieu_dang_ky, ho_ten, gioi_tinh, ngay_sinh, sdt, email, dia_chi, cccd) " +
-            "VALUES (:id_registration_form, :name, :gender, :dob, :phoneNumber, :email, :address, :citizen_id)", nativeQuery = true)
+    @Query(value = "INSERT INTO thi_sinh (id_phieu_dang_ky, ho_ten, gioi_tinh, ngay_sinh, sdt, email, dia_chi, cccd, hinh_anh) " +
+            "VALUES (:id_registration_form, :name, :gender, :dob, :phoneNumber, :email, :address, :citizen_id, :imageUrl)", nativeQuery = true)
     public void saveCandidate(
             @Param("id_registration_form") Long id_registration_form,
             @Param("name") String name,
@@ -23,6 +23,7 @@ public interface CandidateRepository extends JpaRepository<Candidate, Long> {
             @Param("phoneNumber") String phoneNumber,
             @Param("email") String email,
             @Param("address") String address,
-            @Param("citizen_id") String citizen_id
+            @Param("citizen_id") String citizen_id,
+            @Param("imageUrl") String imageUrl
             );
 }

@@ -1,4 +1,3 @@
--- 6. Insert thi_sinh
 INSERT INTO thi_sinh (id_phieu_dang_ky, ho_ten, gioi_tinh, ngay_sinh, sdt, email, dia_chi, cccd)
 VALUES (1, N'Nguyễn Thị An', 'F', '2000-01-01', '0911111111', 'an.nt@email.com', N'Hà Nội', '001302000001'),
        (2, N'Trần Văn Bình', 'M', '2000-02-02', '0922222222', 'binh.tv@email.com', N'Hồ Chí Minh', '001302000002'),

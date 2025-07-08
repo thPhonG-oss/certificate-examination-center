@@ -37,32 +37,6 @@ CREATE TABLE khach_hang (
 );
 
 
-CREATE TABLE nhan_vien (
-    id_nhan_vien INT PRIMARY KEY IDENTITY(1,1),
-    ho_ten NVARCHAR(100) NOT NULL,
-    gioi_tinh VARCHAR(1) CHECK (gioi_tinh IN ('M', 'F')) NOT NULL,
-    email VARCHAR(255) UNIQUE,
-    sdt VARCHAR(10) NOT NULL UNIQUE,
-    dia_chi NVARCHAR(255),
-    ngay_sinh DATE
-);
-
-CREATE TABLE vai_tro (
-    id_vai_tro INT PRIMARY KEY IDENTITY(1,1),
-    ten_vai_tro VARCHAR(20) NOT NULL UNIQUE
-)
-
-CREATE TABLE tai_khoan (
-    id_tai_khoan INT PRIMARY KEY IDENTITY(1,1),
-    ten_dang_nhap VARCHAR(50) NOT NULL UNIQUE,
-    mat_khau VARCHAR(255) NOT NULL,
-    id_nhan_vien INT,
-    id_vai_tro INT,
-    trang_thai VARCHAR(20) CHECK (trang_thai IN ('ACTIVE', 'INACTIVE')) NOT NULL DEFAULT 'ACTIVE',
-    FOREIGN KEY (id_nhan_vien) REFERENCES nhan_vien(id_nhan_vien),
-    FOREIGN KEY (id_vai_tro) REFERENCES vai_tro(id_vai_tro)
-);
-
 CREATE TABLE chung_chi (
     id_chung_chi INT PRIMARY KEY IDENTITY(1,1),
     ten_chung_chi NVARCHAR(100) NOT NULL,
@@ -85,18 +59,14 @@ CREATE TABLE phieu_dang_ky (
     ngay_dang_ky DATE NOT NULL,
     trang_thai VARCHAR(20) CHECK (trang_thai IN ('PENDING', 'CONFIRMED', 'CANCELED')) NOT NULL DEFAULT 'PENDING',
     id_nhan_vien INT,
+    id_lich_thi INT,
     trang_thai_gia_han VARCHAR(30) CHECK (trang_thai_gia_han IN ('FREE', 'PAID')) DEFAULT NULL,
+    lan_gia_han INT DEFAULT 0,
     FOREIGN KEY (id_nhan_vien) REFERENCES [user](id),
-    FOREIGN KEY (id_khach_hang) REFERENCES khach_hang(id_khach_hang)
-);
-
-CREATE TABLE chi_tiet_phieu_dang_ky (
-    id_phieu_dang_ky INT NOT NULL,
-    id_lich_thi INT NOT NULL,
-    PRIMARY KEY (id_phieu_dang_ky, id_lich_thi),
-    FOREIGN KEY (id_phieu_dang_ky) REFERENCES phieu_dang_ky(id_phieu_dang_ky),
+    FOREIGN KEY (id_khach_hang) REFERENCES khach_hang(id_khach_hang),
     FOREIGN KEY (id_lich_thi) REFERENCES lich_thi(id_lich_thi)
 );
+
 
 CREATE TABLE hoa_don (
     id_hoa_don INT PRIMARY KEY IDENTITY(1,1),
@@ -119,6 +89,7 @@ CREATE TABLE thi_sinh (
     email VARCHAR(255) UNIQUE,
     dia_chi NVARCHAR(255),
     cccd VARCHAR(12) UNIQUE,
+    hinh_anh NVARCHAR(255),
     FOREIGN KEY (id_phieu_dang_ky) REFERENCES phieu_dang_ky(id_phieu_dang_ky)
 );
 
@@ -134,7 +105,9 @@ CREATE TABLE ket_qua_thi (
     id_phieu_du_thi INT NOT NULL,
     diem VARCHAR(10) NOT NULL,
     trang_thai VARCHAR(20) CHECK (trang_thai IN ('PASSED', 'FAILED')) NOT NULL,
-    trang_thai_nhan BIT NOT NULL DEFAULT 0,
+    trang_thai_nhan BIT DEFAULT 0,
+    chi_tiet_ket_qua NVARCHAR(255),
+    ngay_cap DATE DEFAULT NULL,
     FOREIGN KEY (id_phieu_du_thi) REFERENCES phieu_du_thi(id_phieu_du_thi)
 );
 
@@ -143,7 +116,6 @@ CREATE TABLE phieu_gia_han (
     id_phieu_dang_ky INT NOT NULL,
     trang_thai VARCHAR(20) CHECK (trang_thai IN ('PENDING', 'APPROVED', 'REJECTED')) NOT NULL DEFAULT 'PENDING',
     ngay_yeu_cau DATE NOT NULL,
-    le_phi_gia_han DECIMAL(18, 2) NOT NULL,
     FOREIGN KEY (id_phieu_dang_ky) REFERENCES phieu_dang_ky(id_phieu_dang_ky)
 );
 

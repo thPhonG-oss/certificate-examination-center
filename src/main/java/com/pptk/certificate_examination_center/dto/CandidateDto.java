@@ -12,8 +12,12 @@ public class CandidateDto implements Serializable {
     private LocalDate dob;
     private String address;
     private String citizen_id;
+    private String imageUrl;
 
-    public CandidateDto(Long registration_form_id, String name, String gender, String email, String phoneNumber, LocalDate dob, String address, String citizen_id) {
+    public CandidateDto() {
+    }
+
+    public CandidateDto(Long registration_form_id, String name, String gender, String email, String phoneNumber, LocalDate dob, String address, String citizen_id, String imageUrl) {
         this.registration_form_id = registration_form_id;
         this.name = name;
         this.gender = gender;
@@ -22,6 +26,7 @@ public class CandidateDto implements Serializable {
         this.dob = dob;
         this.address = address;
         this.citizen_id = citizen_id;
+        this.imageUrl = imageUrl;
     }
 
     public Long getRegistration_form_id() {
@@ -54,5 +59,9 @@ public class CandidateDto implements Serializable {
 
     public String getCitizen_id() {
         return citizen_id;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
     }
 }
