@@ -8,4 +8,6 @@ import java.util.List;
 public interface InvoiceDao {
     public InvoiceInformationDto getInvoiceInformation(Integer idInvoice);
     public List<Certificate> getCertificate(Integer idInvoice);
+    public boolean existsPhieuDangKy(Integer idPhieuDangKy);
+
 }
