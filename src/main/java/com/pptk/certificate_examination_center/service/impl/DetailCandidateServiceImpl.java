@@ -14,7 +14,8 @@ public class DetailCandidateServiceImpl implements DetailCandidateService{
     DetailCandidateDao detailCandidateDao;
 
     @Override
-    public DetailCandidateDto getCandidateByRegistrationId(Integer registrationId){
-        return detailCandidateDao.selectCandidateByRegistration(registrationId);
+    public DetailCandidateDto getCandidateByRegistrationId(Integer registrationId, 
+                                                           Integer certificateId) {
+        return detailCandidateDao.selectCandidateByRegistration(registrationId, certificateId);
     }
 }

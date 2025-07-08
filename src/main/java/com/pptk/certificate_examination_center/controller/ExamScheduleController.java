@@ -19,9 +19,9 @@ public class ExamScheduleController {
     @Autowired
     private ExamScheduleService scheduleService;
 
-    @GetMapping("/{registrationId}")
-    public ResponseEntity<Object> getScheduleByRegistrationId(@PathVariable Integer registrationId){
-        Object schedule = scheduleService.getScheduleByRegistrationId(registrationId);
+    @GetMapping("/{certificateId}")
+    public ResponseEntity<Object> getScheduleByRegistrationId(@PathVariable Integer certificateId) {
+        Object schedule = scheduleService.getScheduleByRegistrationId(certificateId);
         if (schedule == null){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Không tìm thấy lịch thi");
         }
