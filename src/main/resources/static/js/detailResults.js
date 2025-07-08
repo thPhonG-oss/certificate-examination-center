@@ -7,6 +7,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   const certificateName = document.getElementById("certificateName");
   const examDate = document.getElementById("examDate");
   const score = document.getElementById("score");
+  const resultDetails = document.getElementById("resultDetails");
   const received = document.getElementById("received");
   const updateBtn = document.getElementById("update-btn");
 
@@ -25,6 +26,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     const data = await response.json();
 
+    console.log("Dữ liệu chi tiết:", data);
     // Hiển thị dữ liệu
     fullName.value = data.name || "";
     candidateId.value = "TS" + String(data.id_ket_qua).padStart(3, "0");
@@ -33,6 +35,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     certificateName.value = data.ten_chung_chi || "";
     examDate.value = data.ngay_thi || "";
     score.value = data.diem || "";
+    resultDetails.value = data.chitietketqua || "";
     received.checked = data.trang_thai_nhan === 1;
 
 
