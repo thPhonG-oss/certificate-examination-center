@@ -36,11 +36,13 @@ public class RegistrationServiceImpl {
         CandidateDto candidate = individualRegisterDto.getCandidate();
         Schedule schedule = individualRegisterDto.getSchedule();
 
+
         if(customerService.getCustomerByCitizenId(customer.getCitizen_id()) == null) {
             customerService.createCustomer(customer);
         }
         else {
-            customerService.updateCustomer(customer);
+            Long customer_id = customerService.getCustomerIdByEmail(customer.getEmail());
+            customerService.updateCustomer(customer, customer_id);
         }
         Long customer_id = customerService.getCustomerIdByEmail(customer.getEmail());
 

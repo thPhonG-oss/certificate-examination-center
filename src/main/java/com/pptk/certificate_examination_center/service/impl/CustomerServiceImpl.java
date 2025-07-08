@@ -7,7 +7,9 @@ import com.pptk.certificate_examination_center.exception.CustomerNotFoundExcepti
 import com.pptk.certificate_examination_center.mapper.CustomerMapper;
 import com.pptk.certificate_examination_center.repository.CustomerRepository;
 import com.pptk.certificate_examination_center.service.CustomerService;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -66,7 +68,7 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public CustomerDto getCustomerByRegistrationID(Integer registrationId) {
         Customer customer = customerDao.selectCustomerByRegistrationId(registrationId);
-        return CustomerMapper.toDto(customer); // ✅ chuyển đổi sang DTO
+        return CustomerMapper.toDto(customer);
     }
 
     @Override
@@ -87,8 +89,19 @@ public class CustomerServiceImpl implements CustomerService {
         return CustomerMapper.toDto(customer);
     }
 
+    @Transactional
+    @Modifying
     @Override
-    public void updateCustomer(CustomerDto customerDto) {
-        customerRepository.save(CustomerMapper.toEntity(customerDto));
+    public void updateCustomer(CustomerDto customerDto, Long customerId) {
+        customerRepository.updateCustomer(
+                customerId,
+                customerDto.getName(),
+                customerDto.getOrganization(),
+                customerDto.getPhoneNumber(),
+                customerDto.getEmail(),
+                customerDto.getAddress(),
+                customerDto.getCitizen_id(),
+                customerDto.getDob()
+        );
     }
 }
