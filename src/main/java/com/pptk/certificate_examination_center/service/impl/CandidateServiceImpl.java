@@ -1,6 +1,7 @@
 package com.pptk.certificate_examination_center.service.impl;
 
 import com.pptk.certificate_examination_center.dto.CandidateDto;
+import com.pptk.certificate_examination_center.mapper.CandidateMapper;
 import com.pptk.certificate_examination_center.repository.CandidateRepository;
 import com.pptk.certificate_examination_center.service.CandidateService;
 import jakarta.transaction.Transactional;
@@ -52,5 +53,12 @@ public class CandidateServiceImpl implements CandidateService {
     @Override
     public void deleteCandidate(Long id) {
 
+    }
+
+    @Override
+    public CandidateDto getCandidateByCitizenId(String citizenId) {
+        return CandidateMapper.toDto(
+                candidateRepository.findCandidateByCitizen_id(citizenId)
+        );
     }
 }

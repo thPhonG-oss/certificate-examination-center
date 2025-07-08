@@ -26,4 +26,6 @@ public interface CandidateRepository extends JpaRepository<Candidate, Long> {
             @Param("citizen_id") String citizen_id,
             @Param("imageUrl") String imageUrl
             );
+    @Query(value = "SELECT * FROM thi_sinh WHERE cccd = :citizen_id", nativeQuery = true)
+    public Candidate findCandidateByCitizen_id(@Param("citizen_id") String citizen_id);
 }

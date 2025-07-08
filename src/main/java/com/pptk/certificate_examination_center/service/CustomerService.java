@@ -12,4 +12,5 @@ public interface CustomerService {
     void deleteCustomer(Long id);
     CustomerDto getCustomerByRegistrationID(Integer registrationId);
     public Long getCustomerIdByEmail(String email);
+    public CustomerDto getCustomerByCitizenId(String citizenId);
 }

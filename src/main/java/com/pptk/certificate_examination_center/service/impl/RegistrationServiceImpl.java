@@ -36,13 +36,17 @@ public class RegistrationServiceImpl {
         CandidateDto candidate = individualRegisterDto.getCandidate();
         Schedule schedule = individualRegisterDto.getSchedule();
 
-        customerService.createCustomer(customer);
+        if(customerService.getCustomerByCitizenId(customer.getCitizen_id()) == null) {
+            customerService.createCustomer(customer);
+        }
         Long customer_id = customerService.getCustomerIdByEmail(customer.getEmail());
 
         registrationFormService.saveRegistrationForm(employee_id, customer_id, LocalDate.now(), schedule.getId());
 
         Long registration_form_id = registrationFormService.getLastInsertedId();
         System.out.println("Registration Form ID: " + registration_form_id);
+
+
 
         Candidate candidateEntity = CandidateMapper.toEntity(candidate);
         candidateEntity.setId_registration_form(registration_form_id);
@@ -51,8 +55,9 @@ public class RegistrationServiceImpl {
         System.out.println("Candidate Entity: " + candidateEntity.toString());
 
 //        CandidateDto savedCandidate = candidateService.createCandidate(CandidateMapper.toDto(candidateEntity));
-          candidateService.createCandidate(CandidateMapper.toDto(candidateEntity));
-
+        if (candidateService.getCandidateByCitizenId(candidate.getCitizen_id()) == null){
+            candidateService.createCandidate(CandidateMapper.toDto(candidateEntity));
+        }
           scheduleService.updateNumberOfCandidatesForIndividual(schedule.getId());
 
 //        schedule.forEach(schedule -> {

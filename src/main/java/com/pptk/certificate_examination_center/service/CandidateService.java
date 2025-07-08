@@ -10,4 +10,5 @@ public interface CandidateService {
     public void createCandidate(CandidateDto candidateDto);
     public CandidateDto updateCandidate(Long id, CandidateDto candidateDto);
     public void deleteCandidate(Long id);
+    public CandidateDto getCandidateByCitizenId(String citizenId);
 }
