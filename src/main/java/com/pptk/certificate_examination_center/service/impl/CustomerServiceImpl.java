@@ -86,4 +86,9 @@ public class CustomerServiceImpl implements CustomerService {
         }
         return CustomerMapper.toDto(customer);
     }
+
+    @Override
+    public void updateCustomer(CustomerDto customerDto) {
+        customerRepository.save(CustomerMapper.toEntity(customerDto));
+    }
 }

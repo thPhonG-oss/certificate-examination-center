@@ -39,6 +39,9 @@ public class RegistrationServiceImpl {
         if(customerService.getCustomerByCitizenId(customer.getCitizen_id()) == null) {
             customerService.createCustomer(customer);
         }
+        else {
+            customerService.updateCustomer(customer);
+        }
         Long customer_id = customerService.getCustomerIdByEmail(customer.getEmail());
 
         registrationFormService.saveRegistrationForm(employee_id, customer_id, LocalDate.now(), schedule.getId());
