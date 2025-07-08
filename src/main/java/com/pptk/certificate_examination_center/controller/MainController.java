@@ -35,7 +35,6 @@ public class MainController {
     }
 
     @GetMapping("/registrations/individual/success")
-    @PreAuthorize("hasAuthority('ROLE_USER')")
     public String success() {
         return "registerSuccess"; // This will resolve to src/main/resources/templates/success.html
     }
