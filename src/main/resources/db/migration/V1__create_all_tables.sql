@@ -85,10 +85,10 @@ CREATE TABLE thi_sinh (
     ho_ten NVARCHAR(100) NOT NULL,
     gioi_tinh VARCHAR(1) CHECK (gioi_tinh IN ('M', 'F')) NOT NULL,
     ngay_sinh DATE NOT NULL,
-    sdt VARCHAR(10) NOT NULL UNIQUE,
-    email VARCHAR(255) UNIQUE,
+    sdt VARCHAR(10) NOT NULL,
+    email VARCHAR(255),
     dia_chi NVARCHAR(255),
-    cccd VARCHAR(12) UNIQUE,
+    cccd VARCHAR(12),
     hinh_anh NVARCHAR(255),
     FOREIGN KEY (id_phieu_dang_ky) REFERENCES phieu_dang_ky(id_phieu_dang_ky)
 );
