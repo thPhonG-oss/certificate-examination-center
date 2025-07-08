@@ -35,6 +35,7 @@ public class AuthEntryPointJwt implements AuthenticationEntryPoint {
 
 
         final ObjectMapper mapper = new ObjectMapper();
+        response.sendRedirect("/login");
         mapper.writeValue(response.getOutputStream(), body);
     }
 }
