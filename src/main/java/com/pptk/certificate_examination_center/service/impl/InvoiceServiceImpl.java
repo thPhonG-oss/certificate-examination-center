@@ -43,8 +43,20 @@ public class InvoiceServiceImpl implements InvoiceService {
 
     @Override
     public Invoice setInvoice(Invoice invoice) {
+        Integer idPhieuDangKy = invoice.getRegistration_form_id().intValue();
+        // B1: Kiểm tra PDK có tồn tại không
+        if (!invoiceDao.existsPhieuDangKy(idPhieuDangKy)) {
+            throw new RuntimeException("Phiếu đăng ký không tồn tại!");
+        }
+
+        // B2: Kiểm tra đã có hóa đơn chưa
+        if (invoiceRepository.existsByPhieuDangKy_Id(idPhieuDangKy.longValue())) {
+            throw new RuntimeException("Phiếu đăng ký này đã có hóa đơn!");
+        }
+
         return invoiceRepository.save(invoice);
     }
+
 
     @Override
     public Invoice updatePaymentInvoice(Integer idInvoice, UpdatePaymentInvoiceDto payment_method) {
