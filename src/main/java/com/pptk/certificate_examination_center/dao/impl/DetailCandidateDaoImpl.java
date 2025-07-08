@@ -15,7 +15,8 @@ public class DetailCandidateDaoImpl implements DetailCandidateDao {
     private EntityManager entityManager;
 
     @Override
-    public DetailCandidateDto selectCandidateByRegistration(Integer registrationId){
+    public DetailCandidateDto selectCandidateByRegistration(Integer registrationId, 
+                                                            Integer certificateId) {
         String sql = """
                         SELECT 
                             ts.id_thi_sinh AS ma_thi_sinh,
@@ -29,18 +30,18 @@ public class DetailCandidateDaoImpl implements DetailCandidateDao {
                         JOIN 
                             thi_sinh ts ON ts.id_phieu_dang_ky = pdk.id_phieu_dang_ky
                         JOIN 
-                            chi_tiet_phieu_dang_ky ct ON ct.id_phieu_dang_ky = pdk.id_phieu_dang_ky
-                        JOIN 
-                            lich_thi lt ON lt.id_lich_thi = ct.id_lich_thi
+                            lich_thi lt ON lt.id_lich_thi = pdk.id_lich_thi
                         JOIN 
                             chung_chi cc ON cc.id_chung_chi = lt.id_chung_chi
                         WHERE 
-                            pdk.id_phieu_dang_ky = ?;
+                            pdk.id_phieu_dang_ky = ?
+                            AND cc.id_chung_chi = ?;
 
                     """;
         try{
             Object[] result = (Object[]) entityManager.createNativeQuery(sql)
                 .setParameter(1, registrationId)
+                .setParameter(2, certificateId)
                 .getSingleResult();
             
             return new DetailCandidateDto(String.valueOf(result[0]),

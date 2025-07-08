@@ -44,13 +44,22 @@ public class InvoiceDaoImpl implements InvoiceDao {
     public List<Certificate> getCertificate(Integer idInvoice){
         String sql= """
                 Select cc.*
-                from chi_tiet_phieu_dang_ky ct join lich_thi lt on lt.id_lich_thi=ct.id_lich_thi
+                from phieu_dang_ky pdk join lich_thi lt on lt.id_lich_thi= pdk.id_phieu_dang_ky
                 join chung_chi cc on cc.id_chung_chi=lt.id_chung_chi
-                where ct.id_phieu_dang_ky=?;
+                where pdk.id_phieu_dang_ky=?;
                 """;
         return (List<Certificate>) entityManager
                 .createNativeQuery(sql, Certificate.class)
                 .setParameter(1, idInvoice)
                 .getResultList();
     }
+    @Override
+    public boolean existsPhieuDangKy(Integer idPhieuDangKy) {
+        String sql = "SELECT COUNT(*) FROM phieu_dang_ky WHERE id_phieu_dang_ky = ?";
+        Number count = (Number) entityManager.createNativeQuery(sql)
+                .setParameter(1, idPhieuDangKy)
+                .getSingleResult();
+        return count.intValue() > 0;
+    }
+
 }

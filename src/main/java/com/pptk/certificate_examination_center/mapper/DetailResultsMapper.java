@@ -19,9 +19,10 @@ public class DetailResultsMapper {
         dto.setTen_chung_chi((String) row[3]);
         dto.setNgay_thi(row[4] != null ? row[4].toString() : null);
         dto.setDiem((String) row[5]);
-        dto.setTrangthai((String) row[6]);
-        dto.setTrang_thai_nhan((Boolean) row[7] ? 1 : 0);
-        dto.setId_ket_qua((Integer) row[8]);
+        dto.setChitietketqua((String) row[6]); // Assuming this is the correct mapping
+        dto.setTrangthai((String) row[7]);
+        dto.setTrang_thai_nhan((Boolean) row[8] ? 1 : 0);
+        dto.setId_ket_qua((Integer) row[9]);
 
         return dto;
     }

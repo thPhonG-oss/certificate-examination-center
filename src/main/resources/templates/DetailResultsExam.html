@@ -25,7 +25,9 @@
     <!-- White sub-header bar -->
     <header class="topbar">
       <div class="logo-info">
-        <img src="/image/logo.png" alt="ACCI logo" class="logo" />
+        <a href="/home" class="logo-link">
+          <img src="/images/logo.png" alt="ACCI logo" class="logo" />
+        </a>
       </div>
       <div class="staff-info">
         <span>Nhân viên tiếp nhận: <strong>Đạo Minh Chiến</strong></span>
@@ -38,10 +40,10 @@
     </div>
 
     <nav class="navbar">
-      <a class="active" href="#">Danh sách phiếu đăng ký</a>
-      <a href="#">Lập phiếu đăng ký</a>
-      <a href="#">Tạo lịch thi</a>
-      <a href="/results" id="nav-tra_cuu">Tra cứu kết quả</a>
+      <a href="/list-registration-forms">Danh sách phiếu đăng ký</a>
+      <a href="/schedule">Tạo lịch thi</a>
+      <a href="/invoice">Lập hóa đơn</a>
+      <a href="/results" class="active">Tra cứu kết quả thi</a>
     </nav>
 
     <main class="content">
@@ -81,6 +83,11 @@
           <div class="form-group">
             <label for="score">Điểm</label>
             <input type="text" id="score" readonly />
+          </div>
+
+          <div class="form-group">
+            <label for="resultDetails">Chi tiết kết quả</label>
+            <input  type="text" id="resultDetails" readonly></input>
           </div>
 
           <div class="form-group checkbox-group">

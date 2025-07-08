@@ -9,16 +9,17 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public class RegistrationFormDaoImpl implements RegistrationFormDao {
-
+    
     @PersistenceContext
     private EntityManager entityManager;
 
     @Transactional
     @Override
     public boolean updateRegistrationForm(UpdateRegistrationFormDto dto) {
-        // Cập nhật lịch thi trong chi_tiet_phieu_dang_ky
+        
+        // Cập nhật lịch thi trực tiếp trong phieu_dang_ky
         int rowsUpdated1 = entityManager.createNativeQuery("""
-            UPDATE chi_tiet_phieu_dang_ky
+            UPDATE phieu_dang_ky
             SET id_lich_thi = ?
             WHERE id_phieu_dang_ky = ?
         """)
@@ -39,6 +40,16 @@ public class RegistrationFormDaoImpl implements RegistrationFormDao {
         .setParameter(2, dto.getFormId())
         .executeUpdate();
 
-        return rowsUpdated1 > 0 && rowsUpdated2 > 0;
+        // Tăng số lần gia hạn lên 1 sau khi cập nhật thành công
+        int rowsUpdated3 = entityManager.createNativeQuery("""
+            UPDATE phieu_dang_ky
+            SET lan_gia_han = lan_gia_han + 1
+            WHERE id_phieu_dang_ky = ?
+        """)
+        .setParameter(1, dto.getFormId())
+        .executeUpdate();
+
+        // Trả về true nếu tất cả 3 câu lệnh UPDATE đều thành công
+        return rowsUpdated1 > 0 && rowsUpdated2 > 0 && rowsUpdated3 > 0;
     }
 }

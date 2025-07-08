@@ -7,6 +7,7 @@ public class DetailResultsDto {
     private String ten_chung_chi;
     private String ngay_thi;
     private String diem;
+    private String chi_tiet_ket_qua;
     private String trangthai;
     private Integer trang_thai_nhan;
     private Integer id_ket_qua;
@@ -14,7 +15,7 @@ public class DetailResultsDto {
     public DetailResultsDto() {}
 
     public DetailResultsDto(String name, String email, String phone, String ten_chung_chi,
-                            String ngay_thi, String diem, String trangthai,
+                            String ngay_thi, String diem,String chitietketqua, String trangthai,
                             Integer trang_thai_nhan, Integer id_kq) {
         this.name = name;
         this.email = email;
@@ -22,6 +23,7 @@ public class DetailResultsDto {
         this.ten_chung_chi = ten_chung_chi;
         this.ngay_thi = ngay_thi;
         this.diem = diem;
+        this.chi_tiet_ket_qua = chitietketqua;
         this.trangthai = trangthai;
         this.trang_thai_nhan = trang_thai_nhan;
         this.id_ket_qua = id_kq;
@@ -71,6 +73,14 @@ public class DetailResultsDto {
 
     public void setDiem(String diem) {
         this.diem = diem;
+    }
+
+    public String getChitietketqua() {
+        return chi_tiet_ket_qua;
+    }   
+
+    public void setChitietketqua(String chitietketqua) {
+        this.chi_tiet_ket_qua = chitietketqua;
     }
 
     public String getTrangthai() {

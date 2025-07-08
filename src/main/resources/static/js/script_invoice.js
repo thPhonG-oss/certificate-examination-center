@@ -182,46 +182,64 @@ async function renderHoaDon(list_hoadon) {
 }
 
 async function addHoaDon() {
-    var phieuDangKyInput = document.getElementById('id_phieu_dang_ky');
-    var tongTienInput = document.getElementById('tong_tien');
-    var giamGiaInput = document.getElementById('giam_gia');
-    var phuongThucInput = document.querySelector('input[name="phuong_thuc_tt"]:checked');
+    const phieuDangKyInput = document.getElementById('id_phieu_dang_ky');
+    const tongTienInput = document.getElementById('tong_tien');
+    const giamGiaInput = document.getElementById('giam_gia');
+    const phuongThucInput = document.querySelector('input[name="phuong_thuc_tt"]:checked');
 
-    if (phieuDangKyInput && tongTienInput && phuongThucInput && giamGiaInput) {
-        var id_phieu_dang_ky = phieuDangKyInput.value.trim();
-        var tong_tien = tongTienInput.value.trim();
-        var phuong_thuc_tt = phuongThucInput.value;
-        var giam_gia = giamGiaInput.value.trim();
-
-        if (id_phieu_dang_ky === "" || tong_tien === "" || phuong_thuc_tt === "" || giam_gia  === "") {
-            alert("Vui lòng điền đầy đủ thông tin vào tất cả các ô.");
-            return;
-        }
-
-        // Kiểm tra phiếu đăng ký đã lập hóa đơn chưa
-        const resInvoice = await fetch('http://localhost:8081/api/invoice');
-        const invoiceList = await resInvoice.json();
-        const daCoHoaDon = invoiceList.some(invoice => invoice.registration_form_id === id_phieu_dang_ky);
-        if (daCoHoaDon) {
-            alert("Phiếu đăng ký này đã được lập hóa đơn, không thể lập thêm!");
-            resetForm();
-            return;
-        }
-
-        var data = {
-            registration_form_id: id_phieu_dang_ky,
-            invoice_date: new Date().toISOString().slice(0, 10),
-            sales_amount: giam_gia,
-            total_amount: String(tong_tien),
-            status: "PAID",
-            payment_method: phuong_thuc_tt
-        };
-        createHoaDon( data, function() {
-            getHoaDon(renderHoaDon);
-            resetForm();
-        });
-    } else {
+    if (!phieuDangKyInput || !tongTienInput || !phuongThucInput || !giamGiaInput) {
         alert("Không tìm thấy đủ các trường nhập liệu!");
+        return;
+    }
+
+    const id_phieu_dang_ky = phieuDangKyInput.value.trim();
+    const tong_tien = tongTienInput.value.trim();
+    const giam_gia = giamGiaInput.value.trim();
+    const phuong_thuc_tt = phuongThucInput.value;
+
+    if (!id_phieu_dang_ky || !tong_tien || !giam_gia || !phuong_thuc_tt) {
+        alert("Vui lòng điền đầy đủ thông tin.");
+        return;
+    }
+
+    const data = {
+        registration_form_id: id_phieu_dang_ky,
+        invoice_date: new Date().toISOString().slice(0, 10),
+        sales_amount: giam_gia,
+        total_amount: tong_tien,
+        status: "PAID",
+        payment_method: phuong_thuc_tt
+    };
+
+    try {
+        const response = await fetch("http://localhost:8081/invoice/new_invoice", {
+            method: 'POST',
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(data)
+        });
+
+        const text = await response.text();
+
+        if (!response.ok) {
+            // Trường hợp lỗi từ backend
+            if (text.includes("đã có hóa đơn")) {
+                alert("Phiếu đăng ký này đã được lập hóa đơn. Không thể lập thêm!");
+            } else if (text.includes("không tồn tại")) {
+                alert("Phiếu đăng ký không tồn tại. Vui lòng kiểm tra lại!");
+            } else {
+                alert("Lỗi khi tạo hóa đơn: " + text);
+            }
+            return;
+        }
+
+        // Nếu thành công
+        alert("Tạo hóa đơn thành công!");
+        getHoaDon(renderHoaDon);
+        resetForm();
+
+    } catch (error) {
+        console.error("Lỗi gọi API:", error);
+        alert("Không thể kết nối đến server!");
     }
 }
 

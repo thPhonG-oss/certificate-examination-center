@@ -26,6 +26,8 @@ async function loadRegistrationForms() {
     const response = await fetch(apiURL);
     const data = await response.json();
 
+    console.log("Dữ liệu đăng ký:", data);
+
     const tbody = document.getElementById("registration-body");
     tbody.innerHTML = "";
 
@@ -36,16 +38,19 @@ async function loadRegistrationForms() {
       const scheduleFormatted = formatSchedule(item.examSchedule);
       const buttonDisabled = item.status === 1 ? "" : "disabled";
       const formId = item.registrationFormId;
-
       row.innerHTML = `
         <td>${formId}</td>
         <td><span class="dot ${statusClass}"></span>${item.customerName}</td>
         <td>${item.registerDate}</td>
+        <td>${item.extensionCount}</td>
         <td>${item.candidateName}</td>
         <td>${scheduleFormatted}</td>
         <td>${item.certificateName}</td>
         <td>
-          <button class="update-btn" data-registration-id="${formId}" ${buttonDisabled}>
+          <button class="update-btn"
+                  data-registration-id="${formId}"
+                  data-certificate-id="${item.certificateId}"
+                  ${buttonDisabled}>
             Cập nhật
           </button>
         </td>
@@ -60,7 +65,7 @@ async function loadRegistrationForms() {
         const registrationId = this.dataset.registrationId;
         if (!registrationId) return alert("Không có ID");
 
-        window.location.href = `/detail-registration-form?formId=${registrationId}`;
+        window.location.href = `/detail-registration-form?formId=${registrationId}&certificateId=${this.dataset.certificateId}`;
       });
     });
   } catch (error) {
