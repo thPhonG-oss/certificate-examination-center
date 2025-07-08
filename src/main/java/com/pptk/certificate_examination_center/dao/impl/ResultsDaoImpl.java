@@ -35,8 +35,7 @@ public class ResultsDaoImpl implements ResultsDao {
                 "JOIN phieu_du_thi pd ON kq.id_phieu_du_thi = pd.id_phieu_du_thi " +
                 "JOIN thi_sinh ts ON pd.id_thi_sinh = ts.id_thi_sinh " +
                 "JOIN phieu_dang_ky pdk ON ts.id_phieu_dang_ky = pdk.id_phieu_dang_ky " +
-                "JOIN chi_tiet_phieu_dang_ky ctpdk ON pdk.id_phieu_dang_ky = ctpdk.id_phieu_dang_ky " +
-                "JOIN lich_thi lt ON ctpdk.id_lich_thi = lt.id_lich_thi " +
+                "JOIN lich_thi lt ON pdk.id_lich_thi = lt.id_lich_thi " +
                 "JOIN chung_chi cc ON lt.id_chung_chi = cc.id_chung_chi";
 
         Query query = entityManager.createNativeQuery(sql);
@@ -53,8 +52,7 @@ public class ResultsDaoImpl implements ResultsDao {
                 "JOIN phieu_du_thi pd ON kq.id_phieu_du_thi = pd.id_phieu_du_thi " +
                 "JOIN thi_sinh ts ON pd.id_thi_sinh = ts.id_thi_sinh " +
                 "JOIN phieu_dang_ky pdk ON ts.id_phieu_dang_ky = pdk.id_phieu_dang_ky " +
-                "JOIN chi_tiet_phieu_dang_ky ctpdk ON pdk.id_phieu_dang_ky = ctpdk.id_phieu_dang_ky " +
-                "JOIN lich_thi lt ON ctpdk.id_lich_thi = lt.id_lich_thi " +
+                "JOIN lich_thi lt ON pdk.id_lich_thi = lt.id_lich_thi " +
                 "JOIN chung_chi cc ON lt.id_chung_chi = cc.id_chung_chi " +
                 "WHERE ts.id_thi_sinh = :idThiSinh";
 
@@ -69,13 +67,12 @@ public class ResultsDaoImpl implements ResultsDao {
     @Override
     public DetailResultsDto findDetailResultsByKetQuaId(Integer idKetQua) {
         String sql = "SELECT ts.ho_ten, ts.email, ts.sdt, cc.ten_chung_chi, lt.ngay_thi, " +
-                "kq.diem, kq.trang_thai, kq.trang_thai_nhan, kq.id_ket_qua " +
+                "kq.diem,kq.chi_tiet_ket_qua, kq.trang_thai, kq.trang_thai_nhan, kq.id_ket_qua " +
                 "FROM ket_qua_thi kq " +
                 "JOIN phieu_du_thi pd ON kq.id_phieu_du_thi = pd.id_phieu_du_thi " +
                 "JOIN thi_sinh ts ON pd.id_thi_sinh = ts.id_thi_sinh " +
                 "JOIN phieu_dang_ky pdk ON ts.id_phieu_dang_ky = pdk.id_phieu_dang_ky " +
-                "JOIN chi_tiet_phieu_dang_ky ctpdk ON pdk.id_phieu_dang_ky = ctpdk.id_phieu_dang_ky " +
-                "JOIN lich_thi lt ON ctpdk.id_lich_thi = lt.id_lich_thi " +
+                "JOIN lich_thi lt ON pdk.id_lich_thi = lt.id_lich_thi " +
                 "JOIN chung_chi cc ON lt.id_chung_chi = cc.id_chung_chi " +
                 "WHERE kq.id_ket_qua = :idKetQua";
 
