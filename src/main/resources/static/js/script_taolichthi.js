@@ -205,11 +205,6 @@ async function addLichThi() {
         alert("Đã có lịch thi trùng giờ cho chứng chỉ này!");
         return;
       }
-      if (diff < 120) {
-        // 2 tiếng = 120 phút
-        alert("Lịch thi của chứng chỉ này phải cách nhau ít nhất 2 tiếng!");
-        return;
-      }
     }
 
     var data = {
@@ -221,6 +216,7 @@ async function addLichThi() {
     };
 
     createLichThi(data, function () {
+      alert("Thêm lịch thi thành công!");
       getLichThi(renderLichThi);
       resetForm();
     });
