@@ -1,22 +1,4 @@
 document.addEventListener("DOMContentLoaded", function () {
-  // Hiển thị tên nhân viên nếu đã đăng nhập
-  // const idNhanVien = localStorage.getItem('id_nhan_vien'); // hoặc sessionStorage
-
-  // if (idNhanVien) {
-  //     fetch('http://localhost:8081/nhan_vien')
-  //         .then(res => res.json())
-  //         .then(nhanVienList => {
-  //             const nv = nhanVienList.find(nv => nv.id === idNhanVien);
-  //             if (nv) {
-  //                 document.getElementById('staffName').textContent = nv.ho_ten;
-  //             } else {
-  //                 document.getElementById('staffName').textContent = '';
-  //             }
-  //         });
-  // } else {
-  //     document.getElementById('staffName').textContent = '';
-  // }
-
   // Xử lý đăng xuất
   var logOutBtn = document.getElementById("logout");
   if (logOutBtn) {
@@ -161,14 +143,6 @@ async function renderLichThi(list_lichthi) {
                     <td>${lichthi.time ? lichthi.time.slice(0, 5) : ""}</td>
                     <td>${lichthi.maxParticipants || ""}</td>
                     <td>${lichthi.currentParticipants || 0}</td>
-                    <td class="edit-icons">
-                        <button type="button" class="btn btn-sm btn-warning" onclick="editLichThi('${
-                          lichthi.id
-                        }')"><i class="bi bi-pencil"></i></button>
-                        <button type="button" class="btn btn-sm btn-danger" onclick="deleteLichThi('${
-                          lichthi.id
-                        }', getLichThi.bind(null, renderLichThi))"><i class="bi bi-trash"></i></button>
-                    </td>
                 </tr>
             `;
       })
@@ -436,3 +410,13 @@ function searchLichThi(searchTerm, searchDay) {
 function start() {
   getLichThi(renderLichThi);
 }
+/*
+                    <td class="edit-icons">
+                        <button type="button" class="btn btn-sm btn-warning" onclick="editLichThi('${
+                          lichthi.id
+                        }')"><i class="bi bi-pencil"></i></button>
+                        <button type="button" class="btn btn-sm btn-danger" onclick="deleteLichThi('${
+                          lichthi.id
+                        }', getLichThi.bind(null, renderLichThi))"><i class="bi bi-trash"></i></button>
+                    </td>
+*/
