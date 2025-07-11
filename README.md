@@ -26,7 +26,7 @@ certificate-examination-center/
 ├── src/
 │   ├── main/
 │   │   ├── java/
-│   │   │   └── com/center/certification/
+│   │   │   └── com/certificate_examination_center/
 │   │   │       ├── config/            # Configurations (e.g., Security, Cloudinary)
 │   │   │       ├── controller/        # Spring MVC controllers
 │   │   │       ├── entity/             # Entity classes (e.g., Registration, Schedule) for mapping with table in db
@@ -46,7 +46,8 @@ certificate-examination-center/
 │   │   │   │   ├── css/              # CSS files
 │   │   │   │   ├── js/               # jQuery scripts
 │   │   │   │   └── images/           # Static assets
-│   │   │   ├── templates/            # Thymeleaf HTML templates
+│   │   │   ├── templates/         # Thymeleaf HTML templates
+|   |   |   ├── application-local.properties.example
 │   │   │   └── application.properties # Configuration (e.g., database, Cloudinary settings)
 ├── pom.xml                           # Maven dependencies
 └── README.md
