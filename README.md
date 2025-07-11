@@ -124,5 +124,5 @@ cloudinary.api.secret=<your_cloud_secretKey>
     "gender": "M",
     "dob" : "1999-10-22",
     "address": "TP.HCM"
-}
+    }
     ```
