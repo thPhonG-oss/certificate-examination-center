@@ -103,8 +103,8 @@ cloudinary.api.secret=<your_cloud_secretKey>
 3. **Run Application**:
    - You can run CertificateExamMinationApplication.java file in Intellij or run below shell interminal:
    ```shell
-   cd certificate-examination-center
-   mvn spring-boot:run
+   > cd certificate-examination-center
+   > mvn spring-boot:run
    ```
    - if you meet some error about connect to MS SQL Server, you need to create User Authentication with username and password (ex: username: as, password: yourpasswrod), and then you can see a solution to fix error TCP port in this link: https://springframework.guru/configuring-spring-boot-for-microsoft-sql-server/
 4. **Demo some key features**:
