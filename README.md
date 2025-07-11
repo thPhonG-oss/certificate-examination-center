@@ -101,13 +101,14 @@ cloudinary.api.secret=<your_cloud_secretKey>
 
 ```
 3. **Run Application**:
-   - You can run CertificateExamMinationApplication.java file in Intellij or run below shell interminal:
+   - If you use Intellij or other Java IDE, you can run this app easily by run CertificateExamMinationApplication.java file.
+   - If you use text edit or you like using commandline, you can run the commandline below:
    ```shell
    > cd certificate-examination-center
    > mvn spring-boot:run
    ```
-   - if you meet some error about connect to MS SQL Server, you need to create User Authentication with username and password (ex: username: as, password: yourpasswrod), and then you can see a solution to fix error TCP port in this link: https://springframework.guru/configuring-spring-boot-for-microsoft-sql-server/
-4. **Demo some key features**:
+   - If you meet some error about connect to MS SQL Server, you need to create User Authentication with username and password (ex: username: as, password: yourpasswrod), and then you can see a solution to fix error TCP port in this link: https://springframework.guru/configuring-spring-boot-for-microsoft-sql-server/
+5. **Demo some key features**:
   - This app is main only for user that is employee of center or company. Admin will create account and active it for each employee.
   - Before testing some key feature of this application, you need run an api sign-up.
   - You can use Postman or any API Development and Testing Tool to run this API:
