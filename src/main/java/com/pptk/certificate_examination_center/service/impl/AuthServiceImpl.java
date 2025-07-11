@@ -32,7 +32,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 @Component
-public class AuthServiceImpl implements AuthService {
+public class    AuthServiceImpl implements AuthService {
 
     @Autowired
     private UserService userService;
