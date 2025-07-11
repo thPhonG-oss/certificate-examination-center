@@ -575,16 +575,16 @@
 <script src="/js/headerAllPage.js"></script>
 <script>
   // Check authentication on page load
-  $.ajax({
-    url: "/api/auth/check",
-    method: "GET",
-    xhrFields: { withCredentials: true },
-    error: function (xhr) {
-      if (xhr.status === 401 || xhr.status === 403) {
-        window.location.href = "/login?redirect=/registrations/individual/form";
-      }
-    }
-  });
+  // $.ajax({
+  //   url: "/api/auth/check",
+  //   method: "GET",
+  //   xhrFields: { withCredentials: true },
+  //   error: function (xhr) {
+  //     if (xhr.status === 401 || xhr.status === 403) {
+  //       window.location.href = "/login?redirect=/registrations/individual/form";
+  //     }
+  //   }
+  // });
 </script>
 </body>
 </html>
