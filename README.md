@@ -101,8 +101,28 @@ cloudinary.api.secret=<your_cloud_secretKey>
 
 ```
 3. **Run Application**:
-   You can run CertificateExamMinationApplication.java file in Intellij or run below shell interminal:
+   - You can run CertificateExamMinationApplication.java file in Intellij or run below shell interminal:
    ```shell
    cd certificate-examination-center
    mvn spring-boot:run
-   ``
+   ```
+4. **Demo some key features**:
+  - This app is main only for user that is employee of center or company. Admin will create account and active it for each employee.
+  - Before testing some key feature of this application, you need run an api sign-up:
+  - You can use Postman or any API Development and Testing Tool to run this API:
+  ```bass
+  http://localhost:8081/api/auth/sign-up
+  ```
+  - with body like this or custom yourself
+    ```bash
+    {
+    "username": "user",
+    "email": "user@gmail.com",
+    "password": "123456a@",
+    "phone_number": "0325961720",
+    "full_name": "Nguyễn Nhân Viên",
+    "gender": "M",
+    "dob" : "1999-10-22",
+    "address": "TP.HCM"
+}
+    ```
