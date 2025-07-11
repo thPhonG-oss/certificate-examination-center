@@ -109,7 +109,7 @@ cloudinary.api.secret=<your_cloud_secretKey>
    - if you meet some error about connect to MS SQL Server, you need to create User Authentication with username and password (ex: username: as, password: yourpasswrod), and then you can see a solution to fix error TCP port in this link: https://springframework.guru/configuring-spring-boot-for-microsoft-sql-server/
 4. **Demo some key features**:
   - This app is main only for user that is employee of center or company. Admin will create account and active it for each employee.
-  - Before testing some key feature of this application, you need run an api sign-up:
+  - Before testing some key feature of this application, you need run an api sign-up.
   - You can use Postman or any API Development and Testing Tool to run this API:
   ```bass
   http://localhost:8081/api/auth/sign-up
